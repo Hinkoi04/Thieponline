@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding RIN & THÚY | CineLove</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --gold: #d4af37;
+            --rose-gold: #b76e79;
+            --ivory: #fffff0;
+            --champagne: #f7e7ce;
+            --dark-brown: #5d4037;
+            --light-pink: #f8bbd9;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,714 +23,1179 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background-color: #f8f1e9;
-            color: #5a3921;
-            line-height: 1.6;
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #fdf6e3 0%, #fffaf0 100%);
+            color: var(--dark-brown);
+            line-height: 1.8;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: floatParticle 20s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         .wedding-card {
             width: 100%;
-            max-width: 420px;
-            background-color: white;
-            border-radius: 20px;
+            max-width: 450px;
+            background: var(--ivory);
+            border-radius: 25px;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(139, 69, 19, 0.15);
+            box-shadow: 0 25px 60px rgba(139, 69, 19, 0.25);
             position: relative;
+            z-index: 2;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* Header section */
+        /* Header with Parallax */
         .header {
-            background: linear-gradient(135deg, #e6d1b8 0%, #d4b089 100%);
-            padding: 30px 20px 20px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 40px 20px 30px;
             text-align: center;
             position: relative;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
         }
 
         .wedding-title {
-            font-size: 2.8rem;
-            font-weight: 300;
-            letter-spacing: 3px;
-            color: #7a4a21;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .date-large {
-            font-size: 2.2rem;
-            color: #5a3921;
-            font-weight: 300;
-            margin-bottom: 5px;
-        }
-
-        .lunar-date {
-            font-size: 1.2rem;
-            color: #8b5a2b;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--ivory);
             margin-bottom: 15px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: titleGlow 3s ease-in-out infinite alternate;
         }
 
-        .couple-name {
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: #7a4a21;
-            margin: 15px 0;
-            letter-spacing: 1px;
+        @keyframes titleGlow {
+            from {
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(212, 175, 55, 0.3);
+            }
+            to {
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.6);
+            }
         }
 
-        .invitation-label {
-            display: inline-block;
-            background-color: #b88a5c;
-            color: white;
-            padding: 8px 25px;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            margin-top: 10px;
+        /* Main Photo Gallery */
+        .photo-gallery {
+            position: relative;
+            padding: 20px;
         }
 
-        /* VỊ TRÍ 1: Ảnh cặp đôi chính - CSS */
-        .couple-photo-container {
-            width: 300px;
-            height: 350px;
-            margin: 15px auto;
-            border-radius: 10%;
+        .main-photo {
+            width: 320px;
+            height: 320px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
             overflow: hidden;
-            border: 5px solid #d4b089;
-            box-shadow: 0 5px 20px rgba(139, 69, 19, 0.3);
+            border: 8px solid var(--champagne);
+            box-shadow: 0 15px 40px rgba(183, 110, 121, 0.3);
+            position: relative;
+            animation: photoFloat 6s ease-in-out infinite;
         }
 
-        .couple-photo {
+        @keyframes photoFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        .main-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .couple-photo:hover {
-            transform: scale(1.03);
+        .main-photo:hover img {
+            transform: scale(1.1);
         }
 
-        /* VỊ TRÍ 2: Ảnh nền trang trí - CSS */
-        .decoration-image {
-            margin: 10px 0;
+        .photo-frame {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            background: white;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .frame-1 { top: 20px; left: 20px; animation: frameFloat1 7s infinite; }
+        .frame-2 { top: 20px; right: 20px; animation: frameFloat2 8s infinite; }
+        .frame-3 { bottom: 20px; left: 20px; animation: frameFloat3 9s infinite; }
+        .frame-4 { bottom: 20px; right: 20px; animation: frameFloat4 6.5s infinite; }
+
+        @keyframes frameFloat1 {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        @keyframes frameFloat2 {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-10px) rotate(-5deg); }
+        }
+        @keyframes frameFloat3 {
+            0%, 100% { transform: translateY(0) rotate(3deg); }
+            50% { transform: translateY(-10px) rotate(-3deg); }
+        }
+        @keyframes frameFloat4 {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.3) rotate(15deg);
+            z-index: 10;
+        }
+
+        .couple-info {
             text-align: center;
-            opacity: 0.7;
-        }
-
-        /* VỊ TRÍ 3, 4, 5: Các ảnh khác - CSS */
-        .poem-image, .location-image, .final-image {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .poem-image img, .location-image img, .final-image img {
-            width: 90%;
-            border-radius: 8px;
-            margin: 10px auto;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .location-image img:hover {
-            transform: scale(1.02);
-        }
-
-        /* Poem section */
-        .poem-section {
-            padding: 30px 25px 25px;
-            text-align: center;
-            background-color: #fffaf3;
-            position: relative;
-        }
-
-        .poem {
-            font-size: 1.3rem;
-            font-style: italic;
-            color: #8b5a2b;
-            margin-bottom: 20px;
-            line-height: 1.8;
-        }
-
-        .dots {
-            color: #b88a5c;
-            font-size: 1.5rem;
-            letter-spacing: 5px;
-            margin: 10px 0;
-        }
-
-        /* Calendar section */
-        .calendar-section {
             padding: 20px;
-            background-color: white;
-            text-align: center;
+            margin-top: 20px;
         }
 
-        .year-month {
-            font-size: 1.5rem;
-            color: #7a4a21;
-            margin-bottom: 15px;
-            font-weight: 500;
+        .couple-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: var(--rose-gold);
+            margin: 15px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            animation: nameGlow 2s ease-in-out infinite alternate;
         }
 
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            margin-bottom: 25px;
+        @keyframes nameGlow {
+            from { text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+            to { text-shadow: 1px 1px 2px rgba(0,0,0,0.1), 0 0 15px rgba(183, 110, 121, 0.4); }
         }
 
-        .calendar-day {
-            font-size: 0.85rem;
-            color: #b88a5c;
-            font-weight: 500;
-            padding: 5px 0;
+        /* Timeline Section */
+        .timeline-section {
+            padding: 40px 20px;
+            background: linear-gradient(to bottom, var(--ivory), #fffaf0);
         }
 
-        .calendar-date {
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
+        .timeline {
+            position: relative;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--gold), var(--rose-gold), var(--gold));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            text-align: right;
+            padding-right: 60px;
+        }
+
+        .timeline-item:nth-child(even) {
+            text-align: left;
+            padding-left: 60px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            color: #5a3921;
+            background: var(--gold);
+            border: 3px solid white;
+            box-shadow: 0 0 10px var(--gold);
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        .calendar-date.wedding-day {
-            background-color: #b88a5c;
-            color: white;
-            font-weight: bold;
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -9px;
         }
 
-        .calendar-date.other-month {
-            color: #d4b089;
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -9px;
         }
 
-        /* Love section */
-        .love-section {
-            padding: 30px 25px;
-            background-color: #fffaf3;
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--dark-brown);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .timeline-image {
+            width: 100%;
+            height: 150px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .timeline-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .timeline-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Love Story Section */
+        .love-story {
+            padding: 40px 20px;
+            background: linear-gradient(45deg, var(--light-pink) 0%, var(--champagne) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-flower {
+            position: absolute;
+            font-size: 3rem;
+            color: var(--rose-gold);
+            opacity: 0.1;
+            animation: flowerFloat 20s infinite linear;
+        }
+
+        @keyframes flowerFloat {
+            0% { transform: translateY(100px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .story-content {
+            position: relative;
+            z-index: 1;
             text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .fall-in-love {
-            font-size: 1.8rem;
-            color: #9c5d2c;
-            font-weight: 300;
+        .story-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--rose-gold);
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .story-images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .story-img {
+            height: 120px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .story-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .story-img:hover {
+            transform: scale(1.1) rotate(5deg);
+            z-index: 2;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Invitation Card */
+        .invitation-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            border: 2px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .invitation-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .invitation-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .invitation-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--dark-brown);
+            text-align: center;
             margin-bottom: 25px;
+            font-weight: 700;
             letter-spacing: 2px;
         }
 
-        .love-word {
-            font-size: 4.5rem;
-            color: #b88a5c;
-            font-weight: 300;
-            line-height: 1;
-            margin: 20px 0;
-            letter-spacing: 5px;
-        }
-
-        .love-poem {
-            font-size: 1.2rem;
-            color: #8b5a2b;
-            font-style: italic;
-            line-height: 1.8;
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
             margin: 25px 0;
         }
 
-        .quote {
-            font-size: 1.1rem;
-            color: #9c5d2c;
-            font-style: italic;
-            margin: 30px 0;
-            padding: 0 10px;
-            line-height: 1.7;
-        }
-
-        /* Wedding details */
-        .details-section {
-            padding: 30px 25px;
-            background-color: white;
-        }
-
-        .details-title {
-            font-size: 1.8rem;
-            color: #7a4a21;
+        .detail-item {
             text-align: center;
-            margin-bottom: 25px;
-            font-weight: 400;
-            letter-spacing: 2px;
-        }
-
-        .time-date {
-            background-color: #f8f1e9;
+            padding: 20px;
+            background: var(--ivory);
             border-radius: 15px;
-            padding: 25px 20px;
-            margin-bottom: 20px;
-            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
         }
 
-        .time {
-            font-size: 1.8rem;
-            color: #b88a5c;
+        .detail-item:hover {
+            background: linear-gradient(135deg, var(--champagne), var(--ivory));
+            transform: translateY(-5px);
+        }
+
+        .detail-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
             margin-bottom: 10px;
         }
 
-        .date-details {
-            font-size: 1.4rem;
-            color: #5a3921;
-            margin-bottom: 8px;
+        .detail-text {
+            font-size: 1.1rem;
+            color: var(--dark-brown);
+            line-height: 1.6;
         }
 
-        .location {
-            font-size: 1.3rem;
-            color: #7a4a21;
-            margin-top: 15px;
-        }
-
-        /* Hope message */
-        .hope-message {
-            padding: 30px 25px;
-            background-color: #fffaf3;
+        /* Interactive Elements */
+        .interactive-section {
+            padding: 40px 20px;
             text-align: center;
-            font-size: 1.3rem;
-            color: #8b5a2b;
-            line-height: 1.8;
+        }
+
+        .wish-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border: 2px dashed var(--rose-gold);
+        }
+
+        .wish-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 2px solid var(--champagne);
+            border-radius: 15px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            resize: vertical;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .wish-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+
+        .send-wish-btn {
+            background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+        }
+
+        .send-wish-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(183, 110, 121, 0.4);
+            background: linear-gradient(135deg, var(--rose-gold), var(--gold));
         }
 
         /* Footer */
         .footer {
-            padding: 25px 20px;
-            background-color: #f8f1e9;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--dark-brown) 0%, #3e2723 100%);
+            color: var(--champagne);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+        }
+
+        .social-links {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
         }
 
-        .send-wishes {
-            background-color: #b88a5c;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .send-wishes:hover {
-            background-color: #9c734c;
-        }
-
-        .heart-button {
-            background-color: #e6a4a4;
-            color: white;
-            border: none;
+        .social-icon {
             width: 50px;
             height: 50px;
+            background: rgba(212, 175, 55, 0.1);
             border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
             font-size: 1.5rem;
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: transform 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .heart-button:hover {
-            transform: scale(1.1);
+        .social-icon:hover {
+            background: var(--gold);
+            color: var(--dark-brown);
+            transform: translateY(-5px) rotate(10deg);
         }
 
-        .made-by {
-            text-align: center;
-            padding: 15px;
-            background-color: #fffaf3;
-            color: #b88a5c;
-            font-size: 1rem;
-        }
-
-        .made-by span {
-            color: #9c5d2c;
-            font-weight: 500;
-        }
-
-        /* Decorative elements */
-        .love-letter {
-            font-size: 1.8rem;
-            color: #b88a5c;
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .love-letter span {
-            margin: 0 5px;
-            display: inline-block;
-            transform: translateY(0);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .love-letter span:nth-child(2) { animation-delay: 0.2s; }
-        .love-letter span:nth-child(3) { animation-delay: 0.4s; }
-        .love-letter span:nth-child(4) { animation-delay: 0.6s; }
-        .love-letter span:nth-child(5) { animation-delay: 0.8s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .floral-border {
-            height: 20px;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10,10 Q15,5 20,10 T30,10 T40,10 T50,10 T60,10 T70,10 T80,10 T90,10 T100,10' stroke='%23b88a5c' fill='transparent' stroke-width='1'/%3E%3C/svg%3E");
-            background-repeat: repeat-x;
-            opacity: 0.6;
-            margin: 10px 0;
-        }
-
-        /* Music player */
+        /* Music Player Enhanced */
         .music-player {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.8);
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--rose-gold));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 10;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(183, 110, 121, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .music-player:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 15px 40px rgba(183, 110, 121, 0.6);
         }
 
         .music-icon {
-            color: #b88a5c;
-            font-size: 1.2rem;
+            color: white;
+            font-size: 1.5rem;
+            animation: musicPulse 2s infinite;
         }
 
         .music-icon.playing {
-            animation: rotate 5s linear infinite;
+            animation: rotate 5s linear infinite, musicPulse 2s infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
+        /* Responsive */
+        @media (max-width: 768px) {
             .wedding-card {
-                border-radius: 15px;
+                max-width: 95%;
+                border-radius: 20px;
             }
-            
+
+            .main-photo {
+                width: 250px;
+                height: 250px;
+            }
+
+            .story-images {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                padding-left: 60px;
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: 60px;
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 21px;
+                right: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
             .wedding-title {
+                font-size: 2.5rem;
+            }
+
+            .couple-name {
                 font-size: 2.2rem;
             }
-            
-            .date-large {
-                font-size: 1.8rem;
+
+            .story-images {
+                grid-template-columns: 1fr;
             }
-            
-            .couple-name {
-                font-size: 1.5rem;
+
+            .main-photo {
+                width: 200px;
+                height: 200px;
             }
-            
-            .love-word {
-                font-size: 3.5rem;
-            }
-            
-            .calendar-date {
-                height: 30px;
-                font-size: 0.9rem;
-            }
-            
-            .couple-photo-container {
-                width: 150px;
-                height: 150px;
+
+            .photo-frame {
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <i class="fas fa-music music-icon" id="musicIcon"></i>
+    </div>
+
     <div class="wedding-card">
-        <!-- Music Player -->
-        <div class="music-player" id="musicPlayer">
-            <i class="fas fa-music music-icon" id="musicIcon"></i>
-        </div>
-        
         <!-- Header -->
         <div class="header">
-            <h1 class="wedding-title">WEDDING</h1>
-            <div class="date-large">20/03/2026</div>
-            <div class="lunar-date">Nhằm ngày (02/02/2026)</div>
-            
-            <!-- VỊ TRÍ 1: Ảnh cặp đôi chính -->
-            <div class="couple-photo-container">
-                <!-- THAY ĐỔI LINK ẢNH TẠI ĐÂY -->
+            <div class="header-overlay"></div>
+            <div class="header-content">
+                <h1 class="wedding-title">WEDDING</h1>
+                <div class="date-large" style="color: var(--ivory); font-size: 2rem; margin-bottom: 10px;">
+                    20/03/2026
+                </div>
+                <div class="lunar-date" style="color: var(--champagne); font-size: 1.2rem;">
+                    (02/02/2026 Âm lịch)
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo Gallery -->
+        <div class="photo-gallery">
+            <div class="main-photo">
                 <img src="https://img.cinelove.me/uploads/3eec4509-4df7-491a-9d7f-62d3acc79d9e/e0a3fb6a-d035-4dac-ba61-2b02544e8971.jpg?resize=1000x" 
-                     alt="Hoàng Rin & Thanh Thúy" class="couple-photo">
-            </div>
-            
-            <div class="couple-name">HOÀNG RIN ❤️ THANH THÚY</div>
-            <div class="invitation-label">WEDDING INVITATION</div>
-        </div>
-        
-        <!-- VỊ TRÍ 2: Ảnh nền trang trí -->
-        <div class="decoration-image">
-            <!-- THAY ĐỔI LINK ẢNH TẠI ĐÂY -->
-            <img src="https://img.cinelove.me/uploads/3eec4509-4df7-491a-9d7f-62d3acc79d9e/e0a3fb6a-d035-4dac-ba61-2b02544e8971.jpg?resize=1000x" 
-                 alt="Trang trí hoa" style="width: 100%; opacity: 0.1;">
-        </div>
-        
-        <!-- Poem 1 -->
-        <div class="poem-section">
-            <div class="poem">
-                Hôm nay anh học toán hình,<br>
-                Tròn vuông chẳng có, toàn hình bóng em
-            </div>
-            <div class="dots">. . .</div>
-            <div class="date-large" style="font-size: 1.8rem; margin-top: 10px;">2026.3</div>
-            <div style="font-size: 3rem; color: #b88a5c; margin: 10px 0;">20</div>
-            <div style="font-size: 1.5rem; color: #8b5a2b; margin-bottom: 20px;">Friday</div>
-            
-            <!-- VỊ TRÍ 3: Ảnh bên cạnh bài thơ -->
-            <div class="poem-image">
-                <!-- THAY ĐỔI LINK ẢNH TẠI ĐÂY -->
-                <img src="https://img.cinelove.me/uploads/3eec4509-4df7-491a-9d7f-62d3acc79d9e/e0a3fb6a-d035-4dac-ba61-2b02544e8971.jpg?resize=1000x" 
-                     alt="Hình ảnh tình yêu">
-            </div>
-        </div>
-        
-        <!-- Love Word -->
-        <div class="love-letter">
-            <span>Y</span><span>Ê</span><span>U</span>
-        </div>
-        
-        <!-- Fall in Love -->
-        <div class="love-section">
-            <div class="fall-in-love">Fall in love with you</div>
-            <div class="floral-border"></div>
-            <div class="love-poem">
-                Thương anh mấy núi cũng trèo,<br>
-                Mấy sông cũng lội, mấy đèo cũng qua.<br>
-                Thương anh không quản chi xa,<br>
-                Đá vàng cũng quyết, phong ba cũng liều.
-            </div>
-            <div class="floral-border"></div>
-            <div class="fall-in-love" style="margin-top: 30px;">FALL IN LOVE WITH YOU</div>
-        </div>
-        
-        <!-- Wedding & Love -->
-        <div class="poem-section" style="padding-top: 20px;">
-            <div class="wedding-title" style="font-size: 2.2rem; margin-bottom: 10px;">WEDDING & LOVE</div>
-            <div class="quote">
-                "Môi hôn ngọt ngào, như hoa nở,<br>
-                Trái tim rộn ràng, nhịp yêu vương."
-            </div>
-            <div class="love-word">20/3</div>
-            <div class="love-letter" style="font-size: 1.5rem; margin: 10px 0;">
-                <span>L</span><span>o</span><span>v</span><span>e</span>
-            </div>
-            <div style="color: #b88a5c; margin-top: 15px;">b gan</div>
-        </div>
-        
-        <!-- Wedding Details -->
-        <div class="details-section">
-            <div class="details-title">WEDDING INVITATION</div>
-            <div class="time-date">
-                <div class="time">10h30p</div>
-                <div class="date-details">Thứ 6, ngày 20 tháng 3 năm 2026</div>
-                <div class="lunar-date">(nhằm ngày 2/2/2026 âm lịch)</div>
-                <div class="location">Tại Tư Gia Nhà Trai</div>
+                     alt="Hoàng Rin & Thanh Thúy">
                 
-                <!-- VỊ TRÍ 4: Ảnh địa điểm tổ chức -->
-                <div class="location-image" style="margin-top: 20px;">
-                    <!-- THAY ĐỔI LINK ẢNH TẠI ĐÂY -->
-                    <img src="https://img.cinelove.me/uploads/3eec4509-4df7-491a-9d7f-62d3acc79d9e/e0a3fb6a-d035-4dac-ba61-2b02544e8971.jpg?resize=1000x" 
-                         alt="Địa điểm tổ chức">
+                <!-- Decorative Photo Frames -->
+                <div class="photo-frame frame-1">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 1">
+                </div>
+                <div class="photo-frame frame-2">
+                    <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 2">
+                </div>
+                <div class="photo-frame frame-3">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 3">
+                </div>
+                <div class="photo-frame frame-4">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 4">
                 </div>
             </div>
-            <div class="details-title">WEDDING TIME</div>
-            
-            <!-- Calendar -->
-            <div class="calendar-section">
-                <div class="year-month">3.2026</div>
-                <div class="calendar">
-                    <div class="calendar-day">MON</div>
-                    <div class="calendar-day">TUE</div>
-                    <div class="calendar-day">WED</div>
-                    <div class="calendar-day">THU</div>
-                    <div class="calendar-day">FRI</div>
-                    <div class="calendar-day">SAT</div>
-                    <div class="calendar-day">SUN</div>
-                    
-                    <!-- March 2026 calendar dates -->
-                    <div class="calendar-date other-month">1</div>
-                    <div class="calendar-date other-month">2</div>
-                    <div class="calendar-date other-month">3</div>
-                    <div class="calendar-date other-month">4</div>
-                    <div class="calendar-date other-month">5</div>
-                    <div class="calendar-date other-month">6</div>
-                    <div class="calendar-date">7</div>
-                    <div class="calendar-date">8</div>
-                    <div class="calendar-date">9</div>
-                    <div class="calendar-date">10</div>
-                    <div class="calendar-date">11</div>
-                    <div class="calendar-date">12</div>
-                    <div class="calendar-date">13</div>
-                    <div class="calendar-date">14</div>
-                    <div class="calendar-date">15</div>
-                    <div class="calendar-date">16</div>
-                    <div class="calendar-date">17</div>
-                    <div class="calendar-date">18</div>
-                    <div class="calendar-date">19</div>
-                    <div class="calendar-date wedding-day">20</div>
-                    <div class="calendar-date">21</div>
-                    <div class="calendar-date">22</div>
-                    <div class="calendar-date">23</div>
-                    <div class="calendar-date">24</div>
-                    <div class="calendar-date">25</div>
-                    <div class="calendar-date">26</div>
-                    <div class="calendar-date">27</div>
-                    <div class="calendar-date">28</div>
-                    <div class="calendar-date">29</div>
-                    <div class="calendar-date">30</div>
-                    <div class="calendar-date">31</div>
+
+            <div class="couple-info">
+                <h2 class="couple-name">Hoàng Rin ❤️ Thanh Thúy</h2>
+                <div class="invitation-label" style="background: linear-gradient(135deg, var(--gold), var(--rose-gold)); color: white; padding: 12px 40px; border-radius: 30px; font-size: 1.3rem; letter-spacing: 2px; display: inline-block;">
+                    WEDDING INVITATION
                 </div>
-                <div style="color: #9c5d2c; font-size: 1.2rem; margin-top: 10px;">2026</div>
             </div>
         </div>
-        
-        <!-- Hope Message -->
-        <div class="hope-message">
-            Rất hi vọng cậu sẽ có mặt<br>
-            trong ngày trọng đại này của chúng mình nha<br><br>
-            <div style="font-size: 1.8rem; color: #b88a5c; margin-top: 15px;">THƯƠNG</div>
+
+        <!-- Timeline -->
+        <div class="timeline-section">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Lễ Thành Hôn</h3>
+                        <p style="color: var(--dark-brown); margin-bottom: 15px;">
+                            ⏰ 10:30 Sáng<br>
+                            📅 Thứ Sáu, 20/03/2026<br>
+                            🏠 Tư Gia Nhà Trai
+                        </p>
+                        <div class="timeline-image">
+                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Venue">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Tiệc Cưới</h3>
+                        <p style="color: var(--dark-brown); margin-bottom: 15px;">
+                            ⏰ 18:30 Tối<br>
+                            📅 Thứ Sáu, 20/03/2026<br>
+                            🏨 Nhà Hàng Royal Palace
+                        </p>
+                        <div class="timeline-image">
+                            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Reception">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Yêu</h3>
+                        <p style="color: var(--dark-brown); font-style: italic; font-size: 1.2rem;">
+                            "Môi hôn ngọt ngào, như hoa nở,<br>
+                            Trái tim rộn ràng, nhịp yêu vương."
+                        </p>
+                        <div class="timeline-image">
+                            <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Love">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <!-- VỊ TRÍ 5: Ảnh cuối trang -->
-        <div class="final-image">
-            <!-- THAY ĐỔI LINK ẢNH TẠI ĐÂY -->
-            <img src="https://img.cinelove.me/uploads/3eec4509-4df7-491a-9d7f-62d3acc79d9e/e0a3fb6a-d035-4dac-ba61-2b02544e8971.jpg?resize=1000x" 
-                 alt="Kết thúc đẹp">
+
+        <!-- Love Story -->
+        <div class="love-story">
+            <!-- Floating Flowers -->
+            <div class="story-flower" style="top: 10%; left: 5%;">🌸</div>
+            <div class="story-flower" style="top: 20%; right: 10%;">🌺</div>
+            <div class="story-flower" style="bottom: 30%; left: 15%;">🌹</div>
+            <div class="story-flower" style="bottom: 10%; right: 20%;">💐</div>
+
+            <div class="story-content">
+                <h2 class="story-title">Câu Chuyện Tình Yêu</h2>
+                
+                <p style="color: var(--dark-brown); font-size: 1.3rem; margin-bottom: 30px; line-height: 2;">
+                    Hôm nay anh học toán hình,<br>
+                    Tròn vuông chẳng có, toàn hình bóng em...
+                </p>
+
+                <div class="story-images">
+                    <div class="story-img">
+                        <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Love Story 1">
+                    </div>
+                    <div class="story-img">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-1.2.1&auto=format&fit=crop&w-400&q=80" alt="Love Story 2">
+                    </div>
+                    <div class="story-img">
+                        <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Love Story 3">
+                    </div>
+                </div>
+
+                <p style="color: var(--dark-brown); font-size: 1.3rem; margin-top: 30px; font-style: italic;">
+                    Thương anh mấy núi cũng trèo,<br>
+                    Mấy sông cũng lội, mấy đèo cũng qua.<br>
+                    Thương anh không quản chi xa,<br>
+                    Đá vàng cũng quyết, phong ba cũng liều.
+                </p>
+            </div>
         </div>
-        
+
+        <!-- Invitation Card -->
+        <div class="invitation-card">
+            <div class="invitation-content">
+                <h2 class="invitation-title">Thông Tin Chi Tiết</h2>
+                
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-icon">📅</div>
+                        <div class="detail-text">
+                            <strong>Ngày Cưới</strong><br>
+                            20/03/2026<br>
+                            (02/02/2026 ÂL)
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-icon">⏰</div>
+                        <div class="detail-text">
+                            <strong>Giờ Tổ Chức</strong><br>
+                            10:30 - Lễ Thành Hôn<br>
+                            18:30 - Tiệc Cưới
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-icon">📍</div>
+                        <div class="detail-text">
+                            <strong>Địa Điểm</strong><br>
+                            Tư Gia Nhà Trai<br>
+                            Nhà Hàng Royal Palace
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-icon">👰‍♀️🤵‍♂️</div>
+                        <div class="detail-text">
+                            <strong>Cặp Đôi</strong><br>
+                            Hoàng Rin<br>
+                            &<br>
+                            Thanh Thúy
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <div style="font-size: 1.8rem; color: var(--rose-gold); margin-bottom: 15px;">
+                        Rất hi vọng bạn sẽ có mặt
+                    </div>
+                    <p style="color: var(--dark-brown); font-size: 1.2rem;">
+                        trong ngày trọng đại này của chúng mình nha!
+                    </p>
+                    <div style="font-size: 2rem; color: var(--gold); margin-top: 20px; font-family: 'Dancing Script', cursive;">
+                        Thương nhiều!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Section -->
+        <div class="interactive-section">
+            <div class="wish-container">
+                <h2 style="color: var(--dark-brown); margin-bottom: 25px; font-family: 'Playfair Display', serif;">
+                    Gửi Lời Chúc Đến Đôi Trẻ
+                </h2>
+                <textarea class="wish-input" placeholder="Viết lời chúc của bạn ở đây..."></textarea>
+                <button class="send-wish-btn">
+                    <i class="fas fa-paper-plane"></i> Gửi Lời Chúc
+                </button>
+            </div>
+        </div>
+
         <!-- Footer -->
         <div class="footer">
-            <button class="send-wishes">Gửi lời chúc...</button>
-            <button class="heart-button">
-                <i class="fas fa-heart"></i>
-            </button>
-        </div>
-        
-        <div class="made-by">
-            Made with <span>Cinelove</span>
+            <div style="margin-bottom: 30px;">
+                <div style="font-size: 1.5rem; color: var(--gold); margin-bottom: 15px;">
+                    Chia Sẻ Khoảnh Khắc
+                </div>
+                <div class="social-links">
+                    <div class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <div class="social-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div style="color: var(--champagne); font-size: 1rem; opacity: 0.8;">
+                Made with <i class="fas fa-heart" style="color: var(--rose-gold); margin: 0 5px;"></i> by CineLove
+            </div>
         </div>
     </div>
-    
-    <!-- Audio element for background music -->
+
+    <!-- Audio -->
     <audio id="backgroundMusic" loop autoplay>
-        <source src="assets/nhac.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
+        <source src="https://assets.cinelove.me/mp3/d525d3a7-334b-4bef-847f-23a0c5abbac6.mp3" type="audio/mpeg">
     </audio>
-    
+
     <script>
-    const musicPlayer = document.getElementById('musicPlayer');
-    const musicIcon = document.getElementById('musicIcon');
-    const audio = document.getElementById('backgroundMusic');
-    let isPlaying = false;
+        // Create Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                
+                // Random size
+                const size = Math.random() * 4 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.6 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
 
-    // --- XỬ LÝ NHẠC TỰ ĐỘNG ---
-    function playMusic() {
-        if (!isPlaying) {
-            audio.play().then(() => {
-                isPlaying = true;
-                musicIcon.classList.add('playing');
-                removeListeners();
-            }).catch(error => {
-                console.log("Chờ tương tác để phát nhạc...");
+        // Timeline Animation
+        function animateTimeline() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.2
             });
+            
+            timelineItems.forEach(item => observer.observe(item));
         }
-    }
 
-    function triggerPlay() { playMusic(); }
-    function removeListeners() {
-        document.removeEventListener('click', triggerPlay);
-        document.removeEventListener('touchstart', triggerPlay);
-        document.removeEventListener('scroll', triggerPlay);
-    }
+        // Music Player with Autoplay
+        const musicPlayer = document.getElementById('musicPlayer');
+        const musicIcon = document.getElementById('musicIcon');
+        const audio = document.getElementById('backgroundMusic');
+        let isPlaying = false;
 
-    document.addEventListener('click', triggerPlay);
-    document.addEventListener('touchstart', triggerPlay);
-    document.addEventListener('scroll', triggerPlay);
-
-    musicPlayer.addEventListener('click', function(e) {
-        e.stopPropagation();
-        if (isPlaying) {
-            audio.pause();
-            musicIcon.classList.remove('playing');
-            isPlaying = false;
-        } else {
-            audio.play();
-            musicIcon.classList.add('playing');
-            isPlaying = true;
+        // Enhanced autoplay with multiple triggers
+        function playMusic() {
+            if (!isPlaying) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicIcon.classList.add('playing');
+                    removeListeners();
+                }).catch(error => {
+                    console.log("Waiting for interaction to play music...");
+                });
+            }
         }
-    });
 
-    // --- HIỆU ỨNG TRÁI TIM RƠI DÀY ĐẶC ---
-    function createFallingHeart() {
-        const heart = document.createElement('div');
-        heart.innerHTML = '<i class="fas fa-heart"></i>';
-        
-        // Cấu hình CSS cho trái tim
-        heart.style.position = 'fixed';
-        heart.style.top = '-20px'; 
-        heart.style.left = Math.random() * 100 + 'vw'; 
-        
-        // Ngẫu nhiên màu sắc (các tông hồng và đỏ nhạt)
-        const colors = ['#e6a4a4', '#ffb6c1', '#f08080', '#ffc0cb', '#d8b089'];
-        heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-        
-        heart.style.opacity = Math.random() * 0.8 + 0.2; 
-        heart.style.fontSize = Math.random() * 18 + 8 + 'px'; 
-        heart.style.zIndex = '999';
-        heart.style.pointerEvents = 'none';
-        
-        // Tốc độ rơi ngẫu nhiên để tạo sự tự nhiên
-        const duration = Math.random() * 4 + 3; 
-        heart.style.transition = `transform ${duration}s linear, opacity ${duration}s ease-out`;
-        
-        document.body.appendChild(heart);
-
-        // Kích hoạt hiệu ứng rơi
-        setTimeout(() => {
-            const sideMovement = Math.random() * 150 - 75; // Lắc lư sang hai bên
-            heart.style.transform = `translateY(110vh) translateX(${sideMovement}px) rotate(${Math.random() * 720}deg)`;
-            heart.style.opacity = '0';
-        }, 50);
-
-        // Xóa tim sau khi rơi xong
-        setTimeout(() => { heart.remove(); }, duration * 1000);
-    }
-
-    // TĂNG MẬT ĐỘ: Cứ mỗi 150ms tạo một trái tim mới
-    setInterval(createFallingHeart, 150);
-
-    // NÚT THẢ TIM THỦ CÔNG: Nhấn vào là tung ra cả "cơn mưa" tim
-    document.querySelector('.heart-button').addEventListener('click', function() {
-        for (let i = 0; i < 20; i++) {
-            setTimeout(createFallingHeart, i * 50);
+        function triggerPlay() { playMusic(); }
+        function removeListeners() {
+            document.removeEventListener('click', triggerPlay);
+            document.removeEventListener('touchstart', triggerPlay);
+            document.removeEventListener('scroll', triggerPlay);
+            document.removeEventListener('mousemove', triggerPlay);
+            document.removeEventListener('keydown', triggerPlay);
         }
-    });
 
-    window.addEventListener('load', playMusic);
-</script>
+        // Multiple interaction triggers
+        document.addEventListener('click', triggerPlay);
+        document.addEventListener('touchstart', triggerPlay);
+        document.addEventListener('scroll', triggerPlay);
+        document.addEventListener('mousemove', triggerPlay);
+        document.addEventListener('keydown', triggerPlay);
+
+        // Music player click handler
+        musicPlayer.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (isPlaying) {
+                audio.pause();
+                musicIcon.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                audio.play();
+                musicIcon.classList.add('playing');
+                isPlaying = true;
+            }
+        });
+
+        // Enhanced falling hearts effect
+        function createFallingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '<i class="fas fa-heart"></i>';
+            
+            heart.style.position = 'fixed';
+            heart.style.top = '-50px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            const colors = ['#e6a4a4', '#ffb6c1', '#f08080', '#ffc0cb', '#d8b089', '#ff9999'];
+            heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+            
+            heart.style.opacity = Math.random() * 0.8 + 0.2;
+            heart.style.fontSize = Math.random() * 25 + 12 + 'px';
+            heart.style.zIndex = '999';
+            heart.style.pointerEvents = 'none';
+            heart.style.textShadow = '0 2px 10px rgba(0,0,0,0.2)';
+            
+            const duration = Math.random() * 4 + 3;
+            heart.style.transition = `all ${duration}s cubic-bezier(0.4, 0, 0.2, 1)`;
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                const sideMovement = Math.random() * 200 - 100;
+                heart.style.transform = `translateY(120vh) translateX(${sideMovement}px) rotate(${Math.random() * 720}deg) scale(${Math.random() * 0.5 + 0.5})`;
+                heart.style.opacity = '0';
+            }, 50);
+
+            setTimeout(() => { heart.remove(); }, duration * 1000);
+        }
+
+        // Create falling hearts continuously
+        setInterval(createFallingHeart, 200);
+
+        // Interactive heart button
+        document.querySelector('.send-wish-btn').addEventListener('click', function() {
+            const wishInput = document.querySelector('.wish-input');
+            if (wishInput.value.trim()) {
+                // Create celebration hearts
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(createFallingHeart, i * 100);
+                }
+                
+                // Show confirmation
+                alert('Cảm ơn bạn đã gửi lời chúc đến Hoàng Rin & Thanh Thúy! ❤️');
+                wishInput.value = '';
+                
+                // Add confetti effect
+                createConfetti();
+            } else {
+                alert('Vui lòng nhập lời chúc của bạn!');
+            }
+        });
+
+        // Confetti effect
+        function createConfetti() {
+            const colors = ['#e6a4a4', '#ffb6c1', '#f08080', '#d4af37', '#b76e79'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.innerHTML = ['✨', '🎉', '🎊', '💖', '🌸'][Math.floor(Math.random() * 5)];
+                    confetti.style.position = 'fixed';
+                    confetti.style.top = '50%';
+                    confetti.style.left = '50%';
+                    confetti.style.fontSize = Math.random() * 20 + 15 + 'px';
+                    confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.zIndex = '1000';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.transform = 'translate(-50%, -50%)';
+                    
+                    document.body.appendChild(confetti);
+                    
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = 2 + Math.random() * 3;
+                    const gravity = 0.05;
+                    let vx = Math.cos(angle) * velocity;
+                    let vy = Math.sin(angle) * velocity;
+                    let x = 50;
+                    let y = 50;
+                    
+                    function animate() {
+                        x += vx;
+                        y += vy;
+                        vy += gravity;
+                        
+                        confetti.style.left = x + '%';
+                        confetti.style.top = y + '%';
+                        confetti.style.opacity = 1 - (y / 100);
+                        
+                        if (y < 100) {
+                            requestAnimationFrame(animate);
+                        } else {
+                            confetti.remove();
+                        }
+                    }
+                    
+                    animate();
+                }, i * 50);
+            }
+        }
+
+        // Image hover zoom effect
+        document.querySelectorAll('.story-img').forEach(img => {
+            img.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.2) rotate(3deg)';
+            });
+            img.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // Initialize everything
+        window.addEventListener('load', function() {
+            createParticles();
+            animateTimeline();
+            playMusic(); // Try to play music on load
+            
+            // Add smooth scroll to timeline
+            document.querySelectorAll('.timeline-item').forEach((item, index) => {
+                item.style.transitionDelay = (index * 0.2) + 's';
+            });
+            
+            // Add page load animation
+            document.querySelector('.wedding-card').style.animation = 'cardAppear 1s ease-out';
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes cardAppear {
+                    from {
+                        opacity: 0;
+                        transform: translateY(50px) scale(0.9);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0) scale(1);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
+        // Social icons interaction
+        document.querySelectorAll('.social-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                this.style.animation = 'socialBounce 0.5s ease';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 500);
+            });
+        });
+
+        // Add bounce animation for social icons
+        const bounceStyle = document.createElement('style');
+        bounceStyle.textContent = `
+            @keyframes socialBounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(bounceStyle);
+    </script>
 </body>
 </html>
