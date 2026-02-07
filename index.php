@@ -1196,6 +1196,58 @@
             }
         `;
         document.head.appendChild(bounceStyle);
+        // Music Player với cơ chế kích hoạt thông minh
+const audio = document.getElementById('backgroundMusic');
+const musicIcon = document.getElementById('musicIcon');
+const musicPlayer = document.getElementById('musicPlayer');
+let isPlaying = false;
+
+// Hàm bắt đầu phát nhạc
+async function playMusic() {
+    if (!isPlaying) {
+        try {
+            await audio.play();
+            isPlaying = true;
+            if (musicIcon) musicIcon.classList.add('playing');
+            console.log("Music started!");
+            removeListeners(); // Dừng nghe sau khi đã phát thành công
+        } catch (error) {
+            // Trình duyệt vẫn chặn, đợi tương tác tiếp theo
+            console.log("Autoplay bị chặn, đợi tương tác người dùng...");
+        }
+    }
+}
+
+// Các sự kiện để "đánh lừa" trình duyệt cho phép phát nhạc
+function triggerPlay() {
+    playMusic();
+}
+
+function removeListeners() {
+    const events = ['click', 'touchstart', 'scroll', 'mousemove', 'keydown'];
+    events.forEach(evt => document.removeEventListener(evt, triggerPlay));
+}
+
+// Lắng nghe tương tác
+document.addEventListener('click', triggerPlay);
+document.addEventListener('touchstart', triggerPlay);
+document.addEventListener('scroll', triggerPlay);
+document.addEventListener('mousemove', triggerPlay);
+document.addEventListener('keydown', triggerPlay);
+
+// Xử lý nút bấm Bật/Tắt thủ công
+if (musicPlayer) {
+    musicPlayer.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (isPlaying) {
+            audio.pause();
+            musicIcon.classList.remove('playing');
+            isPlaying = false;
+        } else {
+            playMusic();
+        }
+    });
+}
     </script>
 </body>
 </html>
