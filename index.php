@@ -235,7 +235,7 @@
         </div>
     </div>
 
-    <audio id="backgroundMusic" loop preload="metadata">
+    <audio id="backgroundMusic" loop preload="auto">
         <source src="assets/nhac.mp3" type="audio/mpeg">
     </audio>
 
