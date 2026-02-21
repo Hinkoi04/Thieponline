@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding RIN & THÚY | CineLove</title>
     
+    <link rel="preload" as="image" href="https://img.cinelove.me/uploads/3eec4509-4df7-491a-9d7f-62d3acc79d9e/e0a3fb6a-d035-4dac-ba61-2b02544e8971.jpg?resize=1000x">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
     <link rel="icon" type="image/png" href="https://img.cinelove.me/uploads/3eec4509-4df7-491a-9d7f-62d3acc79d9e/e0a3fb6a-d035-4dac-ba61-2b02544e8971.jpg?resize=1000x">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="particles" id="particles"></div>
@@ -234,152 +240,155 @@
     </audio>
 
     <script>
-        // 1. Khai báo biến
-        const audio = document.getElementById('backgroundMusic');
-        const musicIcon = document.getElementById('musicIcon');
-        const musicPlayer = document.getElementById('musicPlayer');
-        let isPlaying = false;
+    // 1. Cấu hình Audio
+    const audio = document.getElementById('backgroundMusic');
+    const musicIcon = document.getElementById('musicIcon');
+    const musicPlayer = document.getElementById('musicPlayer');
+    let isPlaying = false;
 
-        // 2. Hàm phát nhạc
-        function playMusic() {
-            if (!isPlaying) {
-                audio.play().then(() => {
-                    isPlaying = true;
-                    if (musicIcon) musicIcon.classList.add('playing');
-                    removeMusicListeners();
-                }).catch(error => {
-                    console.log("Đang đợi tương tác để mở nhạc...");
-                });
-            }
-        }
-
-        function triggerMusic() { playMusic(); }
-
-        function removeMusicListeners() {
-            ['click', 'touchstart', 'scroll', 'mousemove', 'keydown'].forEach(evt => {
-                document.removeEventListener(evt, triggerMusic);
+    function playMusic() {
+        if (!isPlaying && audio) {
+            audio.play().then(() => {
+                isPlaying = true;
+                if (musicIcon) musicIcon.classList.add('playing');
+                removeMusicListeners();
+            }).catch(error => {
+                // Trình duyệt chặn, đợi tương tác người dùng
             });
         }
+    }
 
-        // 3. Hàm lấy tên khách mời
-        function getGuestName() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let guestName = urlParams.get('to');
-            if (guestName) {
-                guestName = guestName.replace(/\+/g, ' '); 
-                const guestElement = document.getElementById('guest-name');
-                if (guestElement) {
-                    guestElement.innerText = guestName;
+    function triggerMusic() { playMusic(); }
+
+    function removeMusicListeners() {
+        ['click', 'touchstart', 'scroll', 'mousemove', 'keydown'].forEach(evt => {
+            document.removeEventListener(evt, triggerMusic);
+        });
+    }
+
+    // 2. Lấy tên khách mời từ URL
+    function getGuestName() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let guestName = urlParams.get('to');
+        if (guestName) {
+            guestName = guestName.replace(/\+/g, ' '); 
+            const guestElement = document.getElementById('guest-name');
+            if (guestElement) {
+                guestElement.innerText = guestName;
+            }
+        }
+    }
+
+    // 3. Hiệu ứng hạt lơ lửng (Đã tối ưu CPU)
+    function createParticles() {
+        const container = document.getElementById('particles');
+        if (!container) return;
+        
+        // Mobile: 15 hạt, Desktop: 30 hạt để tối ưu hiệu năng render
+        const particleCount = window.innerWidth < 768 ? 15 : 30; 
+        
+        for (let i = 0; i < particleCount; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDelay = Math.random() * 20 + 's';
+            const size = Math.random() * 4 + 1;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.opacity = Math.random() * 0.6 + 0.1;
+            container.appendChild(p);
+        }
+    }
+
+    // 4. Hiệu ứng trái tim rơi (Đã tối ưu DOM)
+    function createFallingHeart() {
+        const heart = document.createElement('div');
+        heart.innerHTML = '<i class="fas fa-heart"></i>'; 
+        const colors = ['#e6a4a4', '#ffb6c1', '#f08080', '#ffc0cb', '#d8b089', '#ff9999'];
+        
+        heart.style.cssText = `
+            position: fixed;
+            top: -50px;
+            left: ${Math.random() * 100}vw;
+            color: ${colors[Math.floor(Math.random() * colors.length)]};
+            opacity: ${Math.random() * 0.8 + 0.2};
+            font-size: ${Math.random() * 25 + 12}px;
+            z-index: 999;
+            pointer-events: none;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform ${Math.random() * 4 + 3}s linear, opacity 2s;
+        `;
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.style.transform = `translateY(110vh) translateX(${Math.random() * 200 - 100}px) rotate(${Math.random() * 720}deg)`;
+            heart.style.opacity = '0';
+        }, 100);
+
+        setTimeout(() => { heart.remove(); }, 6000);
+    }
+
+    // 5. Hiệu ứng cuộn (Intersection Observer)
+    function initAnimations() {
+        const items = document.querySelectorAll('.timeline-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
-            }
+            });
+        }, { threshold: 0.2 });
+        items.forEach(item => observer.observe(item));
+
+        document.querySelectorAll('.story-img').forEach(img => {
+            img.onmouseenter = () => img.style.transform = 'scale(1.1) rotate(2deg)';
+            img.onmouseleave = () => img.style.transform = 'scale(1) rotate(0deg)';
+        });
+    }
+
+    // 6. KHỞI CHẠY (Tối ưu Main Thread)
+    window.addEventListener('load', () => {
+        // Những hàm nhẹ, ưu tiên hiển thị text -> chạy ngay
+        getGuestName();
+        initAnimations();
+
+        const weddingCard = document.querySelector('.wedding-card');
+        if (weddingCard) {
+            weddingCard.style.animation = 'cardAppear 0.8s ease-out forwards';
         }
 
-        // 4. Hàm tạo hiệu ứng hạt lơ lửng
-        function createParticles() {
-            const container = document.getElementById('particles');
-            if (!container) return;
-            for (let i = 0; i < 50; i++) {
-                const p = document.createElement('div');
-                p.classList.add('particle');
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDelay = Math.random() * 20 + 's';
-                const size = Math.random() * 4 + 1;
-                p.style.width = size + 'px';
-                p.style.height = size + 'px';
-                p.style.opacity = Math.random() * 0.6 + 0.1;
-                container.appendChild(p);
-            }
-        }
+        // Lắng nghe tương tác với passive: true giúp cuộn web không bị khựng
+        ['click', 'touchstart', 'scroll', 'mousemove', 'keydown'].forEach(evt => {
+            document.addEventListener(evt, triggerMusic, { passive: true });
+        });
 
-        // 5. Hàm tạo trái tim rơi
-        function createFallingHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '<i class="fas fa-heart"></i>'; 
-            const colors = ['#e6a4a4', '#ffb6c1', '#f08080', '#ffc0cb', '#d8b089', '#ff9999'];
-            
-            heart.style.cssText = `
-                position: fixed;
-                top: -50px;
-                left: ${Math.random() * 100}vw;
-                color: ${colors[Math.floor(Math.random() * colors.length)]};
-                opacity: ${Math.random() * 0.8 + 0.2};
-                font-size: ${Math.random() * 25 + 12}px;
-                z-index: 999;
-                pointer-events: none;
-                text-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                transition: transform ${Math.random() * 4 + 3}s linear, opacity 2s;
-            `;
-            document.body.appendChild(heart);
-
-            setTimeout(() => {
-                heart.style.transform = `translateY(110vh) translateX(${Math.random() * 200 - 100}px) rotate(${Math.random() * 720}deg)`;
-                heart.style.opacity = '0';
-            }, 100);
-
-            setTimeout(() => { heart.remove(); }, 6000);
-        }
-
-        // 6. Hàm khởi tạo hiệu ứng cuộn (Intersection Observer)
-        function initAnimations() {
-            const items = document.querySelectorAll('.timeline-item');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.2 });
-            items.forEach(item => observer.observe(item));
-
-            document.querySelectorAll('.story-img').forEach(img => {
-                img.onmouseenter = () => img.style.transform = 'scale(1.1) rotate(2deg)';
-                img.onmouseleave = () => img.style.transform = 'scale(1) rotate(0deg)';
+        if (musicPlayer) {
+            musicPlayer.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isPlaying) {
+                    audio.pause();
+                    if (musicIcon) musicIcon.classList.remove('playing');
+                    isPlaying = false;
+                } else {
+                    playMusic();
+                }
             });
         }
 
-        // --- KHỞI CHẠY TẤT CẢ KHI TẢI TRANG XONG ---
-        window.addEventListener('load', () => {
-            getGuestName();
+        // Delay 1.5s các tác vụ nặng (tạo DOM ảo, phát nhạc) để nhường tài nguyên cho trình duyệt render khung hình đầu tiên
+        setTimeout(() => {
             createParticles();
-            initAnimations();
-
-            // Lắng nghe tương tác bật nhạc
-            ['click', 'touchstart', 'scroll', 'mousemove', 'keydown'].forEach(evt => {
-                document.addEventListener(evt, triggerMusic);
-            });
-
-            // Nút điều khiển nhạc thủ công
-            if (musicPlayer) {
-                musicPlayer.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    if (isPlaying) {
-                        audio.pause();
-                        if (musicIcon) musicIcon.classList.remove('playing');
-                        isPlaying = false;
-                    } else {
-                        playMusic();
-                    }
-                });
-            }
-
-            // Tối ưu: Chỉ rơi tim khi tab đang được mở để chống giật máy
+            
             setInterval(() => {
+                // Chỉ render tim khi user đang xem tab đó (tiết kiệm pin & RAM)
                 if (!document.hidden) {
                     createFallingHeart();
                 }
-            }, 300);
-
-            // Tối ưu: Chờ 1 giây rồi mới thử phát nhạc
-            setTimeout(() => {
-                playMusic();
-            }, 1000);
-
-            // Thêm animation xuất hiện card chính
-            const weddingCard = document.querySelector('.wedding-card');
-            if (weddingCard) {
-                weddingCard.style.animation = 'cardAppear 1.2s ease-out forwards';
-            }
-        });
-    </script>
+            }, 450); // Giãn cách 450ms
+            
+            playMusic();
+        }, 1500);
+    });
+</script>
 </body>
 </html>
