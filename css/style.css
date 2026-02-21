@@ -138,9 +138,9 @@
 
         .main-photo {
             width: 320px;
-            height: 320px;
+            height: 450px;
             margin: 0 auto 30px;
-            border-radius: 50%;
+            border-radius: 5%;
             overflow: hidden;
             border: 8px solid var(--champagne);
             box-shadow: 0 15px 40px rgba(183, 110, 121, 0.3);
@@ -673,7 +673,7 @@
             }
 
             .couple-name {
-                font-size: 2.2rem;
+                font-size: 1.4rem;
             }
 
             .story-images {

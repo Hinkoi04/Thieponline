@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding RIN & THÚY | CineLove</title>
+    <title>Wedding RIN & THÚY</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="https://img.cinelove.me/uploads/3eec4509-4df7-491a-9d7f-62d3acc79d9e/e0a3fb6a-d035-4dac-ba61-2b02544e8971.jpg?resize=1000x">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -38,20 +39,7 @@
             <div class="main-photo">
                 <img src="https://img.cinelove.me/uploads/3eec4509-4df7-491a-9d7f-62d3acc79d9e/e0a3fb6a-d035-4dac-ba61-2b02544e8971.jpg?resize=1000x" 
                      alt="Hoàng Rin & Thanh Thúy">
-                
-                <!-- Decorative Photo Frames -->
-                <div class="photo-frame frame-1">
-                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 1">
-                </div>
-                <div class="photo-frame frame-2">
-                    <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 2">
-                </div>
-                <div class="photo-frame frame-3">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 3">
-                </div>
-                <div class="photo-frame frame-4">
-                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Memory 4">
-                </div>
+
             </div>
 
             <div class="couple-info">
@@ -183,8 +171,7 @@
                         <div class="detail-icon">📍</div>
                         <div class="detail-text">
                             <strong>Địa Điểm</strong><br>
-                            Tư Gia Nhà Trai<br>
-                            Nhà Hàng Royal Palace
+                            Tư Gia Nhà Trai
                         </div>
                     </div>
 
@@ -246,10 +233,6 @@
                         <i class="fas fa-camera"></i>
                     </div>
                 </div>
-            </div>
-
-            <div style="color: var(--champagne); font-size: 1rem; opacity: 0.8;">
-                Made with <i class="fas fa-heart" style="color: var(--rose-gold); margin: 0 5px;"></i> by CineLove
             </div>
         </div>
     </div>
@@ -418,7 +401,9 @@ window.addEventListener('load', getGuestName);
         setInterval(createFallingHeart, 300); // Cứ 0.3 giây rơi 1 tim
         
         // Thử phát nhạc ngay (Thường bị trình duyệt chặn, nhưng vẫn nên gọi)
+       setTimeout(() => {
         playMusic();
+    }, 1000);
 
         // Thêm animation xuất hiện card chính
         const weddingCard = document.querySelector('.wedding-card');
