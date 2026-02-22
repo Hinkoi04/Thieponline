@@ -502,7 +502,7 @@
                     <p class="big-date">20 . 03 . 2026</p>
                 </div>
                 <div class="hero-image">
-                    <img src="images/3.jpg"
+                    <img src="images/anh3.jpg"
                         alt="Ảnh cưới chính">
                 </div>
             </section>
@@ -577,11 +577,11 @@
                 <div class="gallery-grid">
                     <img src="images/2.jpg"
                         alt="Ảnh 1">
-                    <img src="images/4.jpg"
+                    <img src="images/anh4.jpg"
                         alt="Ảnh 2">
-                    <img src="images/4.jpg"
+                    <img src="images/2.jpg"
                         alt="Ảnh 2">
-                    <img src="images/3.jpg"
+                    <img src="images/anh3.jpg"
                         alt="Ảnh 3" class="full-width">
                 </div>
             </section>
