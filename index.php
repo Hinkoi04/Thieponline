@@ -736,7 +736,7 @@
                     <p class="big-date">20 . 03 . 2026</p>
                 </div>
                 <div id="guestInvitation" class="invitation-guest" style="display: none;">
-                    <span>Kính mời</span>
+                    <span>Kính mời:</span>
                     <span id="guestName" class="guest-name"></span>
                 </div>
                 <div class="hero-image">
