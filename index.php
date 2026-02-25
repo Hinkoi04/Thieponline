@@ -260,7 +260,7 @@
         @media (min-width: 768px) {
             .mobile-wrapper { max-width: 700px; margin: 40px auto; border-radius: 15px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); height: calc(100vh - 80px); }
             section { padding: 50px 40px; }
-            .couple-name { font-size: 4rem; }
+            .couple-name { font-size: 3rem; }
             .hero-image img { height: 100%; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .full-width { grid-column: span 3; height: 400px !important; }
