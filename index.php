@@ -885,25 +885,45 @@
             initScrollAnimation();
             heartInterval = setInterval(createHeart, 400);
 
-            // Tự động cuộn từ từ đến nội dung
-            smoothScrollToContent();
+            // Cuộn chậm từ từ để đọc nội dung sau 1 giây
+            setTimeout(() => {
+                smoothScrollToBottom();
+            }, 1000);
 
         }, 1000);
 
         playMusic();
     }
 
-    // Hàm cuộn mượt mà đến nội dung
-    function smoothScrollToContent() {
-        const mainContent = document.querySelector('.main-content');
-        if (mainContent) {
-            mainContent.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+    // Hàm cuộn chậm từ đầu xuống đáy để đọc nội dung
+    function smoothScrollToBottom() {
+        const scrollHeight = document.body.scrollHeight;
+        const windowHeight = window.innerHeight;
+        const startY = window.scrollY;
+        const distance = scrollHeight - startY - windowHeight + 150; // +150 để cuộn qua phần cuối một chút
+        const duration = 20000; // 12 giây - càng lớn càng chậm (có thể điều chỉnh)
+        let startTime = null;
+
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const progress = Math.min(timeElapsed / duration, 1);
+            
+            // Easing function: ease-in-out để cuộn mượt hơn
+            // Công thức ease-in-out: t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
+            const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+            
+            window.scrollTo(0, startY + distance * ease(progress));
+            
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
+            }
         }
+
+        requestAnimationFrame(animation);
     }
 
+    // Hàm toggle nhạc
     function toggleMusic() {
         if (isMusicPlaying) {
             bgMusic.pause();
@@ -919,6 +939,7 @@
         isMusicPlaying = !isMusicPlaying;
     }
 
+    // Hàm phát nhạc
     function playMusic() {
         bgMusic.play().then(() => {
             isMusicPlaying = true;
@@ -928,6 +949,7 @@
         });
     }
 
+    // Hàm khởi tạo animation khi cuộn
     function initScrollAnimation() {
         const scrollElements = document.querySelectorAll('.animate-on-scroll');
 
@@ -944,6 +966,7 @@
         scrollElements.forEach(el => observer.observe(el));
     }
 
+    // Hàm tạo trái tim rơi
     function createHeart() {
         const heart = document.createElement('div');
         heart.classList.add('heart');
@@ -957,7 +980,42 @@
             heart.remove();
         }, 8000);
     }
-    </script>
+
+    // Xử lý sự kiện khi trang load
+    window.addEventListener('load', function() {
+        document.body.style.opacity = '1';
+        
+        // Thêm sự kiện cho nút nhạc
+        musicBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleMusic();
+        });
+
+        // Tự động phát nhạc khi có tương tác
+        ['click', 'touchstart', 'scroll'].forEach(evt => {
+            document.addEventListener(evt, function autoPlay() {
+                playMusic();
+                ['click', 'touchstart', 'scroll'].forEach(e => {
+                    document.removeEventListener(e, autoPlay);
+                });
+            }, { once: true });
+        });
+    });
+
+    // Dừng tạo tim khi tab không được focus (tiết kiệm tài nguyên)
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            if (heartInterval) {
+                clearInterval(heartInterval);
+                heartInterval = null;
+            }
+        } else {
+            if (!heartInterval && mobileWrapper.classList.contains('scrollable')) {
+                heartInterval = setInterval(createHeart, 400);
+            }
+        }
+    });
+</script>
 </body>
 
 </html>
