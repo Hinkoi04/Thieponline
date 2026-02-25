@@ -5,14 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <title>Thiệp Cưới Hoàng Rin & Thanh Thúy</title>
-
     <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <link rel="stylesheet" href="css/style.css">
-
     <style>
     * {
         box-sizing: border-box;
@@ -270,11 +267,9 @@
         border-radius: 150px 150px 10px 10px;
     }
 
-    /* Parents Grid với hệ thống lưới 12 cột */
     .parents-grid {
         display: grid;
         grid-template-columns: 5fr 2fr 5fr;
-        /* 5 cột - 2 cột - 5 cột */
         gap: 5px;
         width: 100%;
         align-items: start;
@@ -317,7 +312,6 @@
     @media (max-width: 768px) {
         .parents-grid {
             grid-template-columns: 5fr 1.5fr 5fr;
-            /* Điều chỉnh cho mobile */
             gap: 3px;
         }
 
@@ -624,7 +618,6 @@
         }
     }
 
-    /* CSS cho phần Kính Mời - Thiệp Cưới */
     .invitation-guest {
         font-family: 'Playfair Display', serif;
         font-size: 1.3rem;
@@ -652,7 +645,6 @@
         white-space: nowrap;
     }
 
-    /* Responsive cho mobile */
     @media (max-width: 480px) {
         .invitation-guest {
             font-size: 1.1rem;
@@ -674,7 +666,6 @@
         }
     }
 
-    /* Animation nhẹ cho phần kính mời */
     .invitation-guest {
         animation: fadeIn 1s ease-in-out;
     }
@@ -697,16 +688,10 @@
     <audio id="bgMusic" loop>
         <source src="assets/nhac1.mp3" type="audio/mpeg">
     </audio>
-
     <div id="heart-container"></div>
-
     <div class="mobile-wrapper">
         <div class="music-btn spinning" id="musicBtn" onclick="toggleMusic()">
             <i class="fas fa-music"></i>
-        </div>
-        <!-- Thêm HTML cho nút điều khiển cuộn - đặt sau nút nhạc -->
-        <div class="music-btn" id="scrollControlBtn" style="bottom: 80px; background-color: var(--gold-text);">
-            <i class="fas fa-play" id="scrollIcon"></i>
         </div>
         <div class="envelope" id="envelope">
             <div class="env-top">
@@ -720,9 +705,7 @@
                 <span>Mở</span>
             </div>
         </div>
-
         <div class="main-content">
-
             <section class="section-hero animate-on-scroll">
                 <p class="sub-title">THƯ MỜI CƯỚI</p>
                 <h1 class="couple-name">Hoàng Rin & Thanh Thúy</h1>
@@ -738,7 +721,6 @@
                     <img src="images/chinh.jpg" alt="Ảnh cưới chính">
                 </div>
             </section>
-
             <section class="section-parents text-center animate-on-scroll">
                 <div class="parents-grid">
                     <div>
@@ -763,7 +745,6 @@
                 </div>
                 <img src="images/anh1.jpg" alt="Ảnh phụ" class="content-img">
             </section>
-
             <section class="section-event text-center animate-on-scroll">
                 <h2 class="section-title">Lễ Thành Hôn</h2>
                 <div class="date-box">
@@ -775,7 +756,6 @@
                     </div>
                 </div>
                 <p class="lunar-date">(Tức Ngày 02 Tháng 02 Năm Bính Ngọ)</p>
-
                 <div class="location-box mt-3">
                     <p>BUỔI TIỆC ĐƯỢC TỔ CHỨC TẠI</p>
                     <h3 class="red-text">TƯ GIA NHÀ TRAI</h3>
@@ -783,7 +763,6 @@
                     <a href="https://maps.google.com/?q=15.114808343987669, 108.89738915220063" target="_blank"
                         class="btn-map">Xem Chỉ Đường</a>
                 </div>
-
                 <div class="calendar-view mt-3">
                     <h3 class="red-text">THÁNG 03 - 2026</h3>
                     <div class="days-grid">
@@ -799,7 +778,6 @@
                     </div>
                 </div>
             </section>
-
             <section class="section-gallery animate-on-scroll">
                 <h2 class="section-title text-center">Album Hình Cưới</h2>
                 <div class="gallery-grid">
@@ -809,19 +787,17 @@
                     <img src="images/anh3.jpg" alt="Ảnh 4">
                 </div>
             </section>
-
             <section class="section-thankyou text-center animate-on-scroll">
                 <h1 class="couple-name">Thank you</h1>
                 <p>Rất hân hạnh được đón tiếp!</p>
             </section>
-
         </div>
     </div>
-
-<script>
+    <script>
     (function() {
         const guestInvitation = document.getElementById('guestInvitation');
         const guestNameSpan = document.getElementById('guestName');
+
         function getGuestFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             let guestName = urlParams.get('to');
@@ -855,70 +831,16 @@
     const bgMusic = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicBtn');
     const musicIcon = musicBtn.querySelector('i');
-    const scrollControlBtn = document.getElementById('scrollControlBtn');
-    const scrollIcon = document.getElementById('scrollIcon');
 
     let isMusicPlaying = false;
     let heartInterval;
     let scrollAnimationFrame = null;
     let isUserInteracted = false;
-    let isAutoScrollEnabled = true;
 
     function stopScroll() {
         if (scrollAnimationFrame) {
             cancelAnimationFrame(scrollAnimationFrame);
             scrollAnimationFrame = null;
-        }
-        if (scrollIcon) {
-            scrollIcon.className = 'fas fa-play';
-        }
-    }
-
-    function startScroll() {
-        if (!isAutoScrollEnabled) return;
-        stopScroll();
-        isUserInteracted = false;
-        
-        const scrollHeight = document.body.scrollHeight;
-        const windowHeight = window.innerHeight;
-        const startY = window.scrollY;
-        const distance = scrollHeight - startY - windowHeight + 150;
-        const duration = 30000;
-        let startTime = null;
-
-        function animation(currentTime) {
-            if (scrollAnimationFrame === null) return;
-            if (isUserInteracted || !isAutoScrollEnabled) {
-                stopScroll();
-                return;
-            }
-            if (startTime === null) startTime = currentTime;
-            const timeElapsed = currentTime - startTime;
-            const progress = Math.min(timeElapsed / duration, 1);
-            const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-            window.scrollTo(0, startY + distance * ease(progress));
-            
-            if (timeElapsed < duration && !isUserInteracted && isAutoScrollEnabled) {
-                scrollAnimationFrame = requestAnimationFrame(animation);
-            } else {
-                scrollAnimationFrame = null;
-                if (isAutoScrollEnabled) {
-                    scrollIcon.className = 'fas fa-play';
-                }
-            }
-        }
-        scrollAnimationFrame = requestAnimationFrame(animation);
-        if (scrollIcon) {
-            scrollIcon.className = 'fas fa-pause';
-        }
-    }
-
-    function toggleAutoScroll() {
-        isAutoScrollEnabled = !isAutoScrollEnabled;
-        if (isAutoScrollEnabled) {
-            startScroll();
-        } else {
-            stopScroll();
         }
     }
 
@@ -929,22 +851,43 @@
             envelope.style.visibility = 'hidden';
             initScrollAnimation();
             heartInterval = setInterval(createHeart, 400);
-            
             setTimeout(() => {
-                if (isAutoScrollEnabled) {
-                    startScroll();
+                if (!isUserInteracted) {
+                    smoothScrollToBottom();
                 }
             }, 1000);
-            
         }, 1000);
         playMusic();
     }
 
+    function smoothScrollToBottom() {
+        stopScroll();
+        const scrollHeight = document.body.scrollHeight;
+        const windowHeight = window.innerHeight;
+        const startY = window.scrollY;
+        const distance = scrollHeight - startY - windowHeight + 150;
+        const duration = 30000;
+        let startTime = null;
+
+        function animation(currentTime) {
+            if (scrollAnimationFrame === null || isUserInteracted) return;
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const progress = Math.min(timeElapsed / duration, 1);
+            const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+            window.scrollTo(0, startY + distance * ease(progress));
+            if (timeElapsed < duration && !isUserInteracted) {
+                scrollAnimationFrame = requestAnimationFrame(animation);
+            } else {
+                scrollAnimationFrame = null;
+            }
+        }
+        scrollAnimationFrame = requestAnimationFrame(animation);
+    }
+
     function handleUserInteraction() {
         isUserInteracted = true;
-        if (isAutoScrollEnabled) {
-            stopScroll();
-        }
+        stopScroll();
     }
 
     function toggleMusic() {
@@ -977,7 +920,9 @@
                     entry.target.classList.add('is-visible');
                 }
             });
-        }, { threshold: 0.15 });
+        }, {
+            threshold: 0.15
+        });
         scrollElements.forEach(el => observer.observe(el));
     }
 
@@ -996,26 +941,19 @@
 
     window.addEventListener('load', function() {
         document.body.style.opacity = '1';
-        
         musicBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             toggleMusic();
         });
-
-        if (scrollControlBtn) {
-            scrollControlBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                toggleAutoScroll();
-            });
-        }
-
         ['click', 'touchstart', 'scroll'].forEach(evt => {
             document.addEventListener(evt, function autoPlay() {
                 playMusic();
                 ['click', 'touchstart', 'scroll'].forEach(e => {
                     document.removeEventListener(e, autoPlay);
                 });
-            }, { once: true });
+            }, {
+                once: true
+            });
         });
     });
 
@@ -1033,47 +971,38 @@
     });
 
     window.addEventListener('scroll', function() {
-        if (isAutoScrollEnabled) {
-            handleUserInteraction();
-        }
+        handleUserInteraction();
     });
 
     window.addEventListener('touchstart', function() {
-        if (isAutoScrollEnabled) {
-            handleUserInteraction();
-        }
+        handleUserInteraction();
     });
 
     window.addEventListener('touchmove', function() {
-        if (isAutoScrollEnabled) {
-            handleUserInteraction();
-        }
+        handleUserInteraction();
     });
 
     window.addEventListener('wheel', function() {
-        if (isAutoScrollEnabled) {
-            handleUserInteraction();
-        }
+        handleUserInteraction();
     });
 
     window.addEventListener('keydown', function(e) {
-        if (isAutoScrollEnabled && (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'PageUp' || e.key === 'PageDown' || e.key === 'Home' || e.key === 'End' || e.key === ' ')) {
+        if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'PageUp' || e.key === 'PageDown' || e
+            .key === 'Home' || e.key === 'End' || e.key === ' ') {
             handleUserInteraction();
         }
     });
 
     window.addEventListener('mousedown', function() {
-        if (isAutoScrollEnabled) {
-            handleUserInteraction();
-        }
+        handleUserInteraction();
     });
 
     window.addEventListener('mousemove', function(e) {
-        if (isAutoScrollEnabled && e.buttons === 1) {
+        if (e.buttons === 1) {
             handleUserInteraction();
         }
     });
-</script>
+    </script>
 </body>
 
 </html>
