@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <title>Thiệp Cưới Hoàng Rin & Thanh Thúy</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -159,7 +159,41 @@
         }
 
         .sub-title { font-size: 0.9rem; letter-spacing: 2px; color: gray; text-align: center; }
-        .couple-name { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--red-bg); text-align: center; margin: 10px 0; }
+        
+        /* SỬA LẠI: Hiển thị tên cô dâu chú rể trên cùng 1 hàng và KHÔNG có dấu ... khi phóng to */
+        .couple-name { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: clamp(1.8rem, 6vw, 3rem); /* Kích thước linh hoạt theo màn hình */
+            color: var(--red-bg); 
+            text-align: center; 
+            margin: 10px 0;
+            white-space: nowrap; /* Không xuống dòng */
+            width: 100%; /* Đảm bảo đủ width */
+            display: block;
+            line-height: 1.3;
+            padding: 0 5px;
+            /* Loại bỏ hoàn toàn overflow và text-overflow để không có dấu ... */
+            overflow: visible;
+            text-overflow: clip;
+            word-break: keep-all; /* Giữ nguyên từ */
+        }
+        
+        /* Media Query cho mobile */
+        @media (max-width: 480px) {
+            .couple-name {
+                font-size: clamp(1.6rem, 5vw, 2.2rem); /* Tự động co giãn */
+                white-space: nowrap;
+                letter-spacing: -0.5px; /* Giãn chữ một chút nếu cần */
+            }
+        }
+        
+        /* Media Query cho màn hình rất nhỏ */
+        @media (max-width: 360px) {
+            .couple-name {
+                font-size: clamp(1.4rem, 4.5vw, 1.8rem); /* Nhỏ hơn nếu màn hình quá nhỏ */
+            }
+        }
+        
         .couple-name-small { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--gold-text); }
         .time-box { text-align: center; margin-bottom: 30px; }
         
@@ -256,11 +290,14 @@
         .gallery-grid img:hover { transform: scale(1.02); }
         .full-width { grid-column: span 2; height: 300px !important; }
 
-        /* Media Queries */
+        /* Media Queries cho Tablet trở lên */
         @media (min-width: 768px) {
             .mobile-wrapper { max-width: 700px; margin: 40px auto; border-radius: 15px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); height: calc(100vh - 80px); }
             section { padding: 50px 40px; }
-            .couple-name { font-size: 3rem; }
+            .couple-name { 
+                font-size: 3rem; 
+                white-space: nowrap; /* Giữ nguyên 1 hàng ngay cả trên tablet */
+            }
             .hero-image img { height: 100%; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .full-width { grid-column: span 3; height: 400px !important; }
@@ -433,121 +470,121 @@
     
     <script>
         // ==========================================
-// 1. KHAI BÁO CÁC BIẾN & ELEMENT
-// ==========================================
-const envelope = document.getElementById('envelope');
-const mobileWrapper = document.querySelector('.mobile-wrapper');
-const bgMusic = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
-const musicIcon = musicBtn.querySelector('i');
+        // 1. KHAI BÁO CÁC BIẾN & ELEMENT
+        // ==========================================
+        const envelope = document.getElementById('envelope');
+        const mobileWrapper = document.querySelector('.mobile-wrapper');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicIcon = musicBtn.querySelector('i');
 
-let isMusicPlaying = false;
-let heartInterval; // Biến lưu vòng lặp tạo trái tim
+        let isMusicPlaying = false;
+        let heartInterval; // Biến lưu vòng lặp tạo trái tim
 
-// ==========================================
-// 2. HÀM XỬ LÝ MỞ BÌ THƯ
-// ==========================================
-function openInvitation() {
-    // Thêm class để CSS kích hoạt hiệu ứng trượt bì thư lên/xuống
-    envelope.classList.add('is-open');
-    
-    // Đợi 1 giây cho bì thư xé ra rồi mới hiển thị nội dung & chạy hiệu ứng
-    setTimeout(() => {
-        // Cho phép cuộn trang
-        mobileWrapper.classList.add('scrollable');
-        // Ẩn hẳn bì thư để không chặn click chuột của người dùng
-        envelope.style.visibility = 'hidden';
+        // ==========================================
+        // 2. HÀM XỬ LÝ MỞ BÌ THƯ
+        // ==========================================
+        function openInvitation() {
+            // Thêm class để CSS kích hoạt hiệu ứng trượt bì thư lên/xuống
+            envelope.classList.add('is-open');
+            
+            // Đợi 1 giây cho bì thư xé ra rồi mới hiển thị nội dung & chạy hiệu ứng
+            setTimeout(() => {
+                // Cho phép cuộn trang
+                mobileWrapper.classList.add('scrollable');
+                // Ẩn hẳn bì thư để không chặn click chuột của người dùng
+                envelope.style.visibility = 'hidden';
 
-        // Khởi động các hiệu ứng
-        initScrollAnimation();
-        
-        // Cứ 0.4s sẽ tạo ra 1 trái tim rơi
-        heartInterval = setInterval(createHeart, 400); 
-
-    }, 1000);
-
-    // Tự động phát nhạc khi người dùng tương tác (mở thiệp)
-    playMusic();
-}
-
-// ==========================================
-// 3. HÀM XỬ LÝ ÂM THANH
-// ==========================================
-function toggleMusic() {
-    if (isMusicPlaying) {
-        bgMusic.pause();
-        musicBtn.classList.remove('spinning'); // Dừng xoay
-        musicIcon.classList.remove('fa-music');
-        musicIcon.classList.add('fa-volume-mute'); // Đổi icon tắt tiếng
-    } else {
-        bgMusic.play();
-        musicBtn.classList.add('spinning'); // Xoay đĩa nhạc
-        musicIcon.classList.remove('fa-volume-mute');
-        musicIcon.classList.add('fa-music'); // Đổi icon nốt nhạc
-    }
-    isMusicPlaying = !isMusicPlaying;
-}
-
-function playMusic() {
-    bgMusic.play().then(() => {
-        isMusicPlaying = true;
-        musicBtn.classList.add('spinning');
-    }).catch((error) => {
-        console.log("Trình duyệt chặn autoplay. Người dùng cần bấm trực tiếp vào nút loa.");
-    });
-}
-
-// ==========================================
-// 4. HÀM HIỆU ỨNG LƯỚT XUỐNG (SCROLL REVEAL)
-// ==========================================
-function initScrollAnimation() {
-    const scrollElements = document.querySelectorAll('.animate-on-scroll');
-    
-    // Sử dụng Intersection Observer để theo dõi phần tử khi cuộn trang
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            // Khi phần tử lọt vào tầm nhìn của màn hình
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible'); // Thêm class để hiện ra
+                // Khởi động các hiệu ứng
+                initScrollAnimation();
                 
-                // Bỏ comment dòng dưới nếu bạn muốn cuộn lên cuộn xuống nó không lặp lại hiệu ứng nữa
-                // observer.unobserve(entry.target); 
+                // Cứ 0.4s sẽ tạo ra 1 trái tim rơi
+                heartInterval = setInterval(createHeart, 400); 
+
+            }, 1000);
+
+            // Tự động phát nhạc khi người dùng tương tác (mở thiệp)
+            playMusic();
+        }
+
+        // ==========================================
+        // 3. HÀM XỬ LÝ ÂM THANH
+        // ==========================================
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                musicBtn.classList.remove('spinning'); // Dừng xoay
+                musicIcon.classList.remove('fa-music');
+                musicIcon.classList.add('fa-volume-mute'); // Đổi icon tắt tiếng
+            } else {
+                bgMusic.play();
+                musicBtn.classList.add('spinning'); // Xoay đĩa nhạc
+                musicIcon.classList.remove('fa-volume-mute');
+                musicIcon.classList.add('fa-music'); // Đổi icon nốt nhạc
             }
-        });
-    }, { 
-        threshold: 0.15 // 15% diện tích phần tử xuất hiện là bắt đầu chạy hiệu ứng
-    }); 
+            isMusicPlaying = !isMusicPlaying;
+        }
 
-    scrollElements.forEach(el => observer.observe(el));
-}
+        function playMusic() {
+            bgMusic.play().then(() => {
+                isMusicPlaying = true;
+                musicBtn.classList.add('spinning');
+            }).catch((error) => {
+                console.log("Trình duyệt chặn autoplay. Người dùng cần bấm trực tiếp vào nút loa.");
+            });
+        }
 
-// ==========================================
-// 5. HÀM HIỆU ỨNG MƯA TRÁI TIM
-// ==========================================
-function createHeart() {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    
-    // Ký tự trái tim
-    heart.innerHTML = '❤';
+        // ==========================================
+        // 4. HÀM HIỆU ỨNG LƯỚT XUỐNG (SCROLL REVEAL)
+        // ==========================================
+        function initScrollAnimation() {
+            const scrollElements = document.querySelectorAll('.animate-on-scroll');
+            
+            // Sử dụng Intersection Observer để theo dõi phần tử khi cuộn trang
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // Khi phần tử lọt vào tầm nhìn của màn hình
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible'); // Thêm class để hiện ra
+                        
+                        // Bỏ comment dòng dưới nếu bạn muốn cuộn lên cuộn xuống nó không lặp lại hiệu ứng nữa
+                        // observer.unobserve(entry.target); 
+                    }
+                });
+            }, { 
+                threshold: 0.15 // 15% diện tích phần tử xuất hiện là bắt đầu chạy hiệu ứng
+            }); 
 
-    // Random vị trí xuất hiện theo chiều ngang (0 đến 100% chiều rộng màn hình)
-    heart.style.left = Math.random() * 100 + 'vw';
-    
-    // Random thời gian rơi (Rơi từ 4 giây đến 8 giây cho tự nhiên)
-    heart.style.animationDuration = Math.random() * 4 + 4 + 's';
-    
-    // Random kích thước trái tim (từ 0.8rem đến 1.8rem)
-    heart.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
+            scrollElements.forEach(el => observer.observe(el));
+        }
 
-    // Đưa trái tim vào màn hình
-    document.getElementById('heart-container').appendChild(heart);
+        // ==========================================
+        // 5. HÀM HIỆU ỨNG MƯA TRÁI TIM
+        // ==========================================
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            // Ký tự trái tim
+            heart.innerHTML = '❤';
 
-    // XÓA trái tim sau 8 giây (khi nó rơi khỏi màn hình) để web không bị nặng/lag memory leak
-    setTimeout(() => {
-        heart.remove();
-    }, 8000);
-}
+            // Random vị trí xuất hiện theo chiều ngang (0 đến 100% chiều rộng màn hình)
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            // Random thời gian rơi (Rơi từ 4 giây đến 8 giây cho tự nhiên)
+            heart.style.animationDuration = Math.random() * 4 + 4 + 's';
+            
+            // Random kích thước trái tim (từ 0.8rem đến 1.8rem)
+            heart.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
+
+            // Đưa trái tim vào màn hình
+            document.getElementById('heart-container').appendChild(heart);
+
+            // XÓA trái tim sau 8 giây (khi nó rơi khỏi màn hình) để web không bị nặng/lag memory leak
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
     </script>
 </body>
 </html>
