@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <title>Thiệp Cưới Hoàng Rin & Thanh Thúy</title>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="css/style.css">
+
     <style>
     * {
         box-sizing: border-box;
@@ -267,9 +270,11 @@
         border-radius: 150px 150px 10px 10px;
     }
 
+    /* Parents Grid với hệ thống lưới 12 cột */
     .parents-grid {
         display: grid;
         grid-template-columns: 5fr 2fr 5fr;
+        /* 5 cột - 2 cột - 5 cột */
         gap: 5px;
         width: 100%;
         align-items: start;
@@ -312,6 +317,7 @@
     @media (max-width: 768px) {
         .parents-grid {
             grid-template-columns: 5fr 1.5fr 5fr;
+            /* Điều chỉnh cho mobile */
             gap: 3px;
         }
 
@@ -618,6 +624,7 @@
         }
     }
 
+    /* CSS cho phần Kính Mời - Thiệp Cưới */
     .invitation-guest {
         font-family: 'Playfair Display', serif;
         font-size: 1.3rem;
@@ -645,6 +652,7 @@
         white-space: nowrap;
     }
 
+    /* Responsive cho mobile */
     @media (max-width: 480px) {
         .invitation-guest {
             font-size: 1.1rem;
@@ -666,6 +674,7 @@
         }
     }
 
+    /* Animation nhẹ cho phần kính mời */
     .invitation-guest {
         animation: fadeIn 1s ease-in-out;
     }
@@ -688,11 +697,14 @@
     <audio id="bgMusic" loop>
         <source src="assets/nhac1.mp3" type="audio/mpeg">
     </audio>
+
     <div id="heart-container"></div>
+
     <div class="mobile-wrapper">
         <div class="music-btn spinning" id="musicBtn" onclick="toggleMusic()">
             <i class="fas fa-music"></i>
         </div>
+
         <div class="envelope" id="envelope">
             <div class="env-top">
                 <div class="env-text">
@@ -705,7 +717,9 @@
                 <span>Mở</span>
             </div>
         </div>
+
         <div class="main-content">
+
             <section class="section-hero animate-on-scroll">
                 <p class="sub-title">THƯ MỜI CƯỚI</p>
                 <h1 class="couple-name">Hoàng Rin & Thanh Thúy</h1>
@@ -721,6 +735,7 @@
                     <img src="images/chinh.jpg" alt="Ảnh cưới chính">
                 </div>
             </section>
+
             <section class="section-parents text-center animate-on-scroll">
                 <div class="parents-grid">
                     <div>
@@ -745,6 +760,7 @@
                 </div>
                 <img src="images/anh1.jpg" alt="Ảnh phụ" class="content-img">
             </section>
+
             <section class="section-event text-center animate-on-scroll">
                 <h2 class="section-title">Lễ Thành Hôn</h2>
                 <div class="date-box">
@@ -756,6 +772,7 @@
                     </div>
                 </div>
                 <p class="lunar-date">(Tức Ngày 02 Tháng 02 Năm Bính Ngọ)</p>
+
                 <div class="location-box mt-3">
                     <p>BUỔI TIỆC ĐƯỢC TỔ CHỨC TẠI</p>
                     <h3 class="red-text">TƯ GIA NHÀ TRAI</h3>
@@ -763,6 +780,7 @@
                     <a href="https://maps.google.com/?q=15.114808343987669, 108.89738915220063" target="_blank"
                         class="btn-map">Xem Chỉ Đường</a>
                 </div>
+
                 <div class="calendar-view mt-3">
                     <h3 class="red-text">THÁNG 03 - 2026</h3>
                     <div class="days-grid">
@@ -778,6 +796,7 @@
                     </div>
                 </div>
             </section>
+
             <section class="section-gallery animate-on-scroll">
                 <h2 class="section-title text-center">Album Hình Cưới</h2>
                 <div class="gallery-grid">
@@ -787,38 +806,59 @@
                     <img src="images/anh3.jpg" alt="Ảnh 4">
                 </div>
             </section>
+
             <section class="section-thankyou text-center animate-on-scroll">
                 <h1 class="couple-name">Thank you</h1>
                 <p>Rất hân hạnh được đón tiếp!</p>
             </section>
+
         </div>
     </div>
+
     <script>
+    // === SCRIPT XỬ LÝ TÊN KHÁCH MỜI TỪ URL ===
     (function() {
+        // Lấy các element cần thiết
         const guestInvitation = document.getElementById('guestInvitation');
         const guestNameSpan = document.getElementById('guestName');
 
+        // Hàm lấy tên khách từ URL
         function getGuestFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             let guestName = urlParams.get('to');
+
             if (guestName && guestName.trim() !== '') {
+                // Thay dấu + thành khoảng trắng
                 guestName = guestName.replace(/\+/g, ' ');
+
+                // Giải mã URL (ví dụ: %20 thành khoảng trắng)
                 try {
                     guestName = decodeURIComponent(guestName);
-                } catch (e) {}
+                } catch (e) {
+                    console.warn('Lỗi decode tên khách:', e);
+                }
+
+                // Xóa khoảng trắng thừa
                 guestName = guestName.trim();
+
+                // Hiển thị tên khách
                 if (guestNameSpan) {
                     guestNameSpan.innerText = guestName;
                 }
+
+                // Hiển thị khung kính mời
                 if (guestInvitation) {
                     guestInvitation.style.display = 'table';
                 }
             } else {
+                // Nếu không có tên khách, ẩn khung kính mời
                 if (guestInvitation) {
                     guestInvitation.style.display = 'none';
                 }
             }
         }
+
+        // Chạy khi trang đã sẵn sàng
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', getGuestFromUrl);
         } else {
@@ -826,6 +866,7 @@
         }
     })();
 
+    // === CÁC SCRIPT CHÍNH ===
     const envelope = document.getElementById('envelope');
     const mobileWrapper = document.querySelector('.mobile-wrapper');
     const bgMusic = document.getElementById('bgMusic');
@@ -834,62 +875,55 @@
 
     let isMusicPlaying = false;
     let heartInterval;
-    let scrollAnimationFrame = null;
-    let isUserInteracted = false;
-
-    function stopScroll() {
-        if (scrollAnimationFrame) {
-            cancelAnimationFrame(scrollAnimationFrame);
-            scrollAnimationFrame = null;
-        }
-    }
 
     function openInvitation() {
         envelope.classList.add('is-open');
+
         setTimeout(() => {
             mobileWrapper.classList.add('scrollable');
             envelope.style.visibility = 'hidden';
             initScrollAnimation();
             heartInterval = setInterval(createHeart, 400);
+
+            // Cuộn chậm từ từ để đọc nội dung sau 1 giây
             setTimeout(() => {
-                if (!isUserInteracted) {
-                    smoothScrollToBottom();
-                }
+                smoothScrollToBottom();
             }, 1000);
+
         }, 1000);
+
         playMusic();
     }
 
+    // Hàm cuộn chậm từ đầu xuống đáy để đọc nội dung
     function smoothScrollToBottom() {
-        stopScroll();
         const scrollHeight = document.body.scrollHeight;
         const windowHeight = window.innerHeight;
         const startY = window.scrollY;
-        const distance = scrollHeight - startY - windowHeight + 150;
-        const duration = 30000;
+        const distance = scrollHeight - startY - windowHeight + 150; // +150 để cuộn qua phần cuối một chút
+        const duration = 30000; // 12 giây - càng lớn càng chậm (có thể điều chỉnh)
         let startTime = null;
 
         function animation(currentTime) {
-            if (scrollAnimationFrame === null || isUserInteracted) return;
             if (startTime === null) startTime = currentTime;
             const timeElapsed = currentTime - startTime;
             const progress = Math.min(timeElapsed / duration, 1);
+            
+            // Easing function: ease-in-out để cuộn mượt hơn
+            // Công thức ease-in-out: t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
             const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+            
             window.scrollTo(0, startY + distance * ease(progress));
-            if (timeElapsed < duration && !isUserInteracted) {
-                scrollAnimationFrame = requestAnimationFrame(animation);
-            } else {
-                scrollAnimationFrame = null;
+            
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
             }
         }
-        scrollAnimationFrame = requestAnimationFrame(animation);
+
+        requestAnimationFrame(animation);
     }
 
-    function handleUserInteraction() {
-        isUserInteracted = true;
-        stopScroll();
-    }
-
+    // Hàm toggle nhạc
     function toggleMusic() {
         if (isMusicPlaying) {
             bgMusic.pause();
@@ -905,15 +939,20 @@
         isMusicPlaying = !isMusicPlaying;
     }
 
+    // Hàm phát nhạc
     function playMusic() {
         bgMusic.play().then(() => {
             isMusicPlaying = true;
             musicBtn.classList.add('spinning');
-        }).catch(() => {});
+        }).catch((error) => {
+            console.log("Trình duyệt chặn autoplay");
+        });
     }
 
+    // Hàm khởi tạo animation khi cuộn
     function initScrollAnimation() {
         const scrollElements = document.querySelectorAll('.animate-on-scroll');
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -923,9 +962,11 @@
         }, {
             threshold: 0.15
         });
+
         scrollElements.forEach(el => observer.observe(el));
     }
 
+    // Hàm tạo trái tim rơi
     function createHeart() {
         const heart = document.createElement('div');
         heart.classList.add('heart');
@@ -934,29 +975,34 @@
         heart.style.animationDuration = Math.random() * 4 + 4 + 's';
         heart.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
         document.getElementById('heart-container').appendChild(heart);
+
         setTimeout(() => {
             heart.remove();
         }, 8000);
     }
 
+    // Xử lý sự kiện khi trang load
     window.addEventListener('load', function() {
         document.body.style.opacity = '1';
+        
+        // Thêm sự kiện cho nút nhạc
         musicBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             toggleMusic();
         });
+
+        // Tự động phát nhạc khi có tương tác
         ['click', 'touchstart', 'scroll'].forEach(evt => {
             document.addEventListener(evt, function autoPlay() {
                 playMusic();
                 ['click', 'touchstart', 'scroll'].forEach(e => {
                     document.removeEventListener(e, autoPlay);
                 });
-            }, {
-                once: true
-            });
+            }, { once: true });
         });
     });
 
+    // Dừng tạo tim khi tab không được focus (tiết kiệm tài nguyên)
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
             if (heartInterval) {
@@ -969,40 +1015,7 @@
             }
         }
     });
-
-    window.addEventListener('scroll', function() {
-        handleUserInteraction();
-    });
-
-    window.addEventListener('touchstart', function() {
-        handleUserInteraction();
-    });
-
-    window.addEventListener('touchmove', function() {
-        handleUserInteraction();
-    });
-
-    window.addEventListener('wheel', function() {
-        handleUserInteraction();
-    });
-
-    window.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'PageUp' || e.key === 'PageDown' || e
-            .key === 'Home' || e.key === 'End' || e.key === ' ') {
-            handleUserInteraction();
-        }
-    });
-
-    window.addEventListener('mousedown', function() {
-        handleUserInteraction();
-    });
-
-    window.addEventListener('mousemove', function(e) {
-        if (e.buttons === 1) {
-            handleUserInteraction();
-        }
-    });
-    </script>
+</script>
 </body>
 
 </html>
