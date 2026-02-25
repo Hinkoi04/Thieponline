@@ -704,7 +704,10 @@
         <div class="music-btn spinning" id="musicBtn" onclick="toggleMusic()">
             <i class="fas fa-music"></i>
         </div>
-
+        <!-- Thêm HTML cho nút điều khiển cuộn - đặt sau nút nhạc -->
+        <div class="music-btn" id="scrollControlBtn" style="bottom: 80px; background-color: var(--gold-text);">
+            <i class="fas fa-play" id="scrollIcon"></i>
+        </div>
         <div class="envelope" id="envelope">
             <div class="env-top">
                 <div class="env-text">
@@ -852,40 +855,28 @@
     const bgMusic = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicBtn');
     const musicIcon = musicBtn.querySelector('i');
+    const scrollControlBtn = document.getElementById('scrollControlBtn');
+    const scrollIcon = document.getElementById('scrollIcon');
 
     let isMusicPlaying = false;
     let heartInterval;
     let scrollAnimationFrame = null;
     let isUserInteracted = false;
+    let isAutoScrollEnabled = true;
 
     function stopScroll() {
         if (scrollAnimationFrame) {
             cancelAnimationFrame(scrollAnimationFrame);
             scrollAnimationFrame = null;
         }
+        if (scrollIcon) {
+            scrollIcon.className = 'fas fa-play';
+        }
     }
 
-    function openInvitation() {
-        envelope.classList.add('is-open');
-        setTimeout(() => {
-            mobileWrapper.classList.add('scrollable');
-            envelope.style.visibility = 'hidden';
-            initScrollAnimation();
-            heartInterval = setInterval(createHeart, 400);
-            
-            // Luôn tự động cuộn sau 1 giây, bất kể isUserInteracted
-            setTimeout(() => {
-                smoothScrollToBottom();
-            }, 1000);
-            
-        }, 1000);
-        playMusic();
-    }
-
-    function smoothScrollToBottom() {
+    function startScroll() {
+        if (!isAutoScrollEnabled) return;
         stopScroll();
-        
-        // Reset isUserInteracted khi bắt đầu cuộn tự động
         isUserInteracted = false;
         
         const scrollHeight = document.body.scrollHeight;
@@ -897,31 +888,63 @@
 
         function animation(currentTime) {
             if (scrollAnimationFrame === null) return;
-            
-            // Kiểm tra nếu người dùng đã tương tác thì dừng cuộn
-            if (isUserInteracted) {
+            if (isUserInteracted || !isAutoScrollEnabled) {
                 stopScroll();
                 return;
             }
-            
             if (startTime === null) startTime = currentTime;
             const timeElapsed = currentTime - startTime;
             const progress = Math.min(timeElapsed / duration, 1);
             const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
             window.scrollTo(0, startY + distance * ease(progress));
             
-            if (timeElapsed < duration && !isUserInteracted) {
+            if (timeElapsed < duration && !isUserInteracted && isAutoScrollEnabled) {
                 scrollAnimationFrame = requestAnimationFrame(animation);
             } else {
                 scrollAnimationFrame = null;
+                if (isAutoScrollEnabled) {
+                    scrollIcon.className = 'fas fa-play';
+                }
             }
         }
         scrollAnimationFrame = requestAnimationFrame(animation);
+        if (scrollIcon) {
+            scrollIcon.className = 'fas fa-pause';
+        }
+    }
+
+    function toggleAutoScroll() {
+        isAutoScrollEnabled = !isAutoScrollEnabled;
+        if (isAutoScrollEnabled) {
+            startScroll();
+        } else {
+            stopScroll();
+        }
+    }
+
+    function openInvitation() {
+        envelope.classList.add('is-open');
+        setTimeout(() => {
+            mobileWrapper.classList.add('scrollable');
+            envelope.style.visibility = 'hidden';
+            initScrollAnimation();
+            heartInterval = setInterval(createHeart, 400);
+            
+            setTimeout(() => {
+                if (isAutoScrollEnabled) {
+                    startScroll();
+                }
+            }, 1000);
+            
+        }, 1000);
+        playMusic();
     }
 
     function handleUserInteraction() {
         isUserInteracted = true;
-        stopScroll();
+        if (isAutoScrollEnabled) {
+            stopScroll();
+        }
     }
 
     function toggleMusic() {
@@ -973,10 +996,19 @@
 
     window.addEventListener('load', function() {
         document.body.style.opacity = '1';
+        
         musicBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             toggleMusic();
         });
+
+        if (scrollControlBtn) {
+            scrollControlBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleAutoScroll();
+            });
+        }
+
         ['click', 'touchstart', 'scroll'].forEach(evt => {
             document.addEventListener(evt, function autoPlay() {
                 playMusic();
@@ -1001,33 +1033,43 @@
     });
 
     window.addEventListener('scroll', function() {
-        handleUserInteraction();
+        if (isAutoScrollEnabled) {
+            handleUserInteraction();
+        }
     });
 
     window.addEventListener('touchstart', function() {
-        handleUserInteraction();
+        if (isAutoScrollEnabled) {
+            handleUserInteraction();
+        }
     });
 
     window.addEventListener('touchmove', function() {
-        handleUserInteraction();
+        if (isAutoScrollEnabled) {
+            handleUserInteraction();
+        }
     });
 
     window.addEventListener('wheel', function() {
-        handleUserInteraction();
+        if (isAutoScrollEnabled) {
+            handleUserInteraction();
+        }
     });
 
     window.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'PageUp' || e.key === 'PageDown' || e.key === 'Home' || e.key === 'End' || e.key === ' ') {
+        if (isAutoScrollEnabled && (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'PageUp' || e.key === 'PageDown' || e.key === 'Home' || e.key === 'End' || e.key === ' ')) {
             handleUserInteraction();
         }
     });
 
     window.addEventListener('mousedown', function() {
-        handleUserInteraction();
+        if (isAutoScrollEnabled) {
+            handleUserInteraction();
+        }
     });
 
     window.addEventListener('mousemove', function(e) {
-        if (e.buttons === 1) {
+        if (isAutoScrollEnabled && e.buttons === 1) {
             handleUserInteraction();
         }
     });
