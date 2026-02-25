@@ -235,12 +235,12 @@
         .calendar-icon .day { font-size: 2rem; font-weight: bold; color: var(--red-bg); line-height: 1; margin: 5px 0; }
 
         .calendar-view { max-width: 400px; 
-    margin: 20px auto 0; 
-    padding: 25px 20px; /* Tạo khoảng trống bên trong khung */
-    border: 2px solid var(--red-bg); /* Viền khung màu đỏ rượu */
-    border-radius: 15px; /* Bo tròn các góc */
-    background-color: #ffffff; /* Nền trắng giúp lịch nổi bật hơn */
-    box-shadow: 0 5px 15px rgba(154, 13, 20, 0.1); }
+        margin: 20px auto 0; 
+        padding: 25px 20px; /* Tạo khoảng trống bên trong khung */
+        border: 2px solid var(--red-bg); /* Viền khung màu đỏ rượu */
+        border-radius: 15px; /* Bo tròn các góc */
+        background-color: #ffffff; /* Nền trắng giúp lịch nổi bật hơn */
+        box-shadow: 0 5px 15px rgba(154, 13, 20, 0.1); }
         .days-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -351,7 +351,7 @@
                     <p class="big-date">20 . 03 . 2026</p>
                 </div>
                 <div class="hero-image">
-                    <img src="images/anh3.jpg" alt="Ảnh cưới chính">
+                    <img src="images/chinh.jpg" alt="Ảnh cưới chính">
                 </div>
             </section>
 
@@ -361,21 +361,21 @@
                         <h3 class="red-text">Nhà trai</h3>
                         <p>Ông: Đỗ Văn Kin</p>
                         <p>Bà: Lê Thị Mỹ</p>
-                        <p><em>An Phú</em></p>
+                        <p><em>Xã An Phú, Tỉnh Quảng Ngãi</em></p>
                     </div>
                     <div class="divider">囍</div>
                     <div>
                         <h3 class="red-text">Nhà gái</h3>
-                        <p>Ông: Nguyễn Văn Linh</p>
-                        <p>Bà: Nguyễn Thùy Trang</p>
-                        <p><em>Sa Huỳnh</em></p>
+                        <p>Ông: Lê Tân Núi</p>
+                        <p>Bà: Võ Thị Thanh Thủy</p>
+                        <p><em>Sa Huỳnh, Tỉnh Quảng Ngãi</em></p>
                     </div>
                 </div>
                 <div class="invite-text mt-3">
                     <p>Trân Trọng Báo Tin Lễ Thành Hôn Của</p>
-                    <h2 class="couple-name-small">Hoàng Rin</h2>
+                    <h2 class="couple-name-small">Đỗ Hoàng Rin</h2>
                     <p>&</p>
-                    <h2 class="couple-name-small">Thanh Thúy</h2>
+                    <h2 class="couple-name-small">Lê Võ Thanh Thúy</h2>
                 </div>
                 <img src="images/anh1.jpg" alt="Ảnh phụ" class="content-img">
             </section>
@@ -383,7 +383,7 @@
             <section class="section-event text-center animate-on-scroll">
                 <h2 class="section-title">Lễ Thành Hôn</h2>
                 <div class="date-box">
-                    <p>Vào Lúc<br><strong>17 giờ 00</strong></p>
+                    <p>Vào Lúc<br><strong>10 giờ 30</strong></p>
                     <div class="calendar-icon">
                         <span class="month">Tháng 03</span>
                         <span class="day">20</span>
