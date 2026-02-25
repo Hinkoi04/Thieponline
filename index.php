@@ -241,7 +241,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 2px;
             font-size: 1.8rem;
         }
 
