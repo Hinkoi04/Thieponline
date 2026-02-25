@@ -35,7 +35,6 @@
         .mt-3 { margin-top: 1.5rem; }
         .red-text { color: var(--red-bg); font-weight: bold; }
 
-        /* Khung thiệp */
         .mobile-wrapper {
             width: 100%;
             max-width: 100%;
@@ -52,7 +51,6 @@
             overflow: visible;
         }
 
-        /* Bì thư */
         .envelope {
             position: fixed;
             top: 0;
@@ -89,7 +87,6 @@
         .env-text p { letter-spacing: 2px; font-size: 0.9rem; }
         .env-text h2 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; margin-top: 10px; }
 
-        /* Nút Chữ Hỷ / Mở */
         .seal {
             position: absolute;
             top: 50%;
@@ -122,7 +119,6 @@
         .envelope.is-open .env-bottom { transform: translateY(100%); }
         .envelope.is-open .seal { opacity: 0; pointer-events: none; animation: none; }
 
-        /* Nút Nhạc */
         .music-btn {
             position: fixed;
             bottom: 20px;
@@ -144,7 +140,6 @@
         .spinning { animation: spin 3s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* Nội dung chính */
         .main-content {
             padding-bottom: 50px;
             opacity: 0;
@@ -160,7 +155,6 @@
 
         .sub-title { font-size: 0.9rem; letter-spacing: 2px; color: gray; text-align: center; }
         
-        /* Hiển thị tên cô dâu chú rể */
         .couple-name { 
             font-family: 'Dancing Script', cursive; 
             font-size: clamp(1.8rem, 6vw, 3rem);
@@ -173,8 +167,6 @@
             line-height: 1.3;
             padding: 0 5px;
             overflow: visible;
-            text-overflow: clip;
-            word-break: keep-all;
         }
         
         @media (max-width: 480px) {
@@ -216,32 +208,30 @@
             border-radius: 150px 150px 10px 10px;
         }
 
-        /* SỬA LẠI: Parents Grid cho mobile - chữ hỷ nhỏ lại, tên không xuống dòng */
         .parents-grid {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             font-size: 1rem;
-            gap: 5px; /* Giảm gap trên mobile */
+            gap: 5px;
             width: 100%;
         }
 
         .parents-grid > div {
-            flex: 1; /* Mỗi bên chiếm không gian bằng nhau */
-            min-width: 0; /* Cho phép co nhỏ nếu cần */
-            white-space: nowrap; /* Không xuống dòng */
+            flex: 1;
+            min-width: 0;
+            white-space: nowrap;
         }
 
         .parents-grid > div p {
-            white-space: nowrap; /* Giữ tên trên 1 dòng */
-            overflow: hidden;
-            text-overflow: ellipsis; /* Thêm ... nếu quá dài nhưng hiếm khi xảy ra */
-            font-size: 0.95rem; /* Giảm nhẹ kích thước chữ */
+            white-space: nowrap;
+            overflow: visible;
+            font-size: 0.95rem;
         }
 
         .parents-grid > div p em {
             white-space: nowrap;
-            font-size: 0.85rem; /* Địa chỉ nhỏ hơn một chút */
+            font-size: 0.85rem;
             display: block;
         }
 
@@ -252,30 +242,29 @@
             align-items: center;
             justify-content: center;
             padding: 0 2px;
-            font-size: 1.8rem; /* Giảm kích thước chữ hỷ */
+            font-size: 1.8rem;
         }
 
-        /* Media Query riêng cho mobile */
         @media (max-width: 480px) {
             .parents-grid {
-                gap: 3px; /* Khoảng cách rất nhỏ */
+                gap: 3px;
             }
             
             .parents-grid > div p {
-                font-size: 0.85rem; /* Nhỏ hơn trên mobile */
+                font-size: 0.85rem;
             }
             
             .parents-grid > div p em {
-                font-size: 0.75rem; /* Địa chỉ rất nhỏ trên mobile */
+                font-size: 0.75rem;
             }
             
             .divider {
-                font-size: 1.4rem; /* Chữ hỷ nhỏ lại đáng kể */
+                font-size: 1.4rem;
                 padding: 0;
             }
             
             .parents-grid h3 {
-                font-size: 1rem; /* Tiêu đề "Nhà trai/gái" nhỏ lại */
+                font-size: 1rem;
                 white-space: nowrap;
             }
         }
@@ -290,7 +279,7 @@
             }
             
             .divider {
-                font-size: 1.2rem; /* Chữ hỷ nhỏ hơn nữa cho màn hình rất nhỏ */
+                font-size: 1.2rem;
             }
             
             .parents-grid h3 {
@@ -354,7 +343,6 @@
         .gallery-grid img:hover { transform: scale(1.02); }
         .full-width { grid-column: span 2; height: 300px !important; }
 
-        /* Media Queries cho Tablet trở lên */
         @media (min-width: 768px) {
             .mobile-wrapper { max-width: 700px; margin: 40px auto; border-radius: 15px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); height: calc(100vh - 80px); }
             section { padding: 50px 40px; }
@@ -366,7 +354,6 @@
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .full-width { grid-column: span 3; height: 400px !important; }
             
-            /* Trả lại kích thước bình thường cho tablet */
             .parents-grid {
                 gap: 20px;
             }
@@ -394,7 +381,6 @@
             .days-grid { font-size: 1.1rem; gap: 10px; }
         }
 
-        /* Scroll Animation */
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(60px);
@@ -406,7 +392,6 @@
             transform: translateY(0);
         }
 
-        /* Heart Animation */
         #heart-container {
             position: fixed;
             top: 0;
@@ -549,9 +534,6 @@
     </div>
     
     <script>
-        // ==========================================
-        // 1. KHAI BÁO CÁC BIẾN & ELEMENT
-        // ==========================================
         const envelope = document.getElementById('envelope');
         const mobileWrapper = document.querySelector('.mobile-wrapper');
         const bgMusic = document.getElementById('bgMusic');
@@ -561,9 +543,6 @@
         let isMusicPlaying = false;
         let heartInterval;
 
-        // ==========================================
-        // 2. HÀM XỬ LÝ MỞ BÌ THƯ
-        // ==========================================
         function openInvitation() {
             envelope.classList.add('is-open');
             
@@ -577,9 +556,6 @@
             playMusic();
         }
 
-        // ==========================================
-        // 3. HÀM XỬ LÝ ÂM THANH
-        // ==========================================
         function toggleMusic() {
             if (isMusicPlaying) {
                 bgMusic.pause();
@@ -600,13 +576,10 @@
                 isMusicPlaying = true;
                 musicBtn.classList.add('spinning');
             }).catch((error) => {
-                console.log("Trình duyệt chặn autoplay. Người dùng cần bấm trực tiếp vào nút loa.");
+                console.log("Trình duyệt chặn autoplay");
             });
         }
 
-        // ==========================================
-        // 4. HÀM HIỆU ỨNG LƯỚT XUỐNG (SCROLL REVEAL)
-        // ==========================================
         function initScrollAnimation() {
             const scrollElements = document.querySelectorAll('.animate-on-scroll');
             
@@ -623,9 +596,6 @@
             scrollElements.forEach(el => observer.observe(el));
         }
 
-        // ==========================================
-        // 5. HÀM HIỆU ỨNG MƯA TRÁI TIM
-        // ==========================================
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
