@@ -218,12 +218,12 @@
         }
 
         .parents-grid > div:first-child {
-            text-align: right;
+            text-align: center;
             padding-right: 10px;
         }
 
         .parents-grid > div:last-child {
-            text-align: left;
+            text-align: center;
             padding-left: 10px;
         }
 
