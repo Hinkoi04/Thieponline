@@ -160,37 +160,34 @@
 
         .sub-title { font-size: 0.9rem; letter-spacing: 2px; color: gray; text-align: center; }
         
-        /* SỬA LẠI: Hiển thị tên cô dâu chú rể trên cùng 1 hàng và KHÔNG có dấu ... khi phóng to */
+        /* Hiển thị tên cô dâu chú rể */
         .couple-name { 
             font-family: 'Dancing Script', cursive; 
-            font-size: clamp(1.8rem, 6vw, 3rem); /* Kích thước linh hoạt theo màn hình */
+            font-size: clamp(1.8rem, 6vw, 3rem);
             color: var(--red-bg); 
             text-align: center; 
             margin: 10px 0;
-            white-space: nowrap; /* Không xuống dòng */
-            width: 100%; /* Đảm bảo đủ width */
+            white-space: nowrap;
+            width: 100%;
             display: block;
             line-height: 1.3;
             padding: 0 5px;
-            /* Loại bỏ hoàn toàn overflow và text-overflow để không có dấu ... */
             overflow: visible;
             text-overflow: clip;
-            word-break: keep-all; /* Giữ nguyên từ */
+            word-break: keep-all;
         }
         
-        /* Media Query cho mobile */
         @media (max-width: 480px) {
             .couple-name {
-                font-size: clamp(1.6rem, 5vw, 2.2rem); /* Tự động co giãn */
+                font-size: clamp(1.6rem, 5vw, 2.2rem);
                 white-space: nowrap;
-                letter-spacing: -0.5px; /* Giãn chữ một chút nếu cần */
+                letter-spacing: -0.5px;
             }
         }
         
-        /* Media Query cho màn hình rất nhỏ */
         @media (max-width: 360px) {
             .couple-name {
-                font-size: clamp(1.4rem, 4.5vw, 1.8rem); /* Nhỏ hơn nếu màn hình quá nhỏ */
+                font-size: clamp(1.4rem, 4.5vw, 1.8rem);
             }
         }
         
@@ -219,20 +216,86 @@
             border-radius: 150px 150px 10px 10px;
         }
 
+        /* SỬA LẠI: Parents Grid cho mobile - chữ hỷ nhỏ lại, tên không xuống dòng */
         .parents-grid {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             font-size: 1rem;
-            gap: 10px;
+            gap: 5px; /* Giảm gap trên mobile */
+            width: 100%;
+        }
+
+        .parents-grid > div {
+            flex: 1; /* Mỗi bên chiếm không gian bằng nhau */
+            min-width: 0; /* Cho phép co nhỏ nếu cần */
+            white-space: nowrap; /* Không xuống dòng */
+        }
+
+        .parents-grid > div p {
+            white-space: nowrap; /* Giữ tên trên 1 dòng */
+            overflow: hidden;
+            text-overflow: ellipsis; /* Thêm ... nếu quá dài nhưng hiếm khi xảy ra */
+            font-size: 0.95rem; /* Giảm nhẹ kích thước chữ */
+        }
+
+        .parents-grid > div p em {
+            white-space: nowrap;
+            font-size: 0.85rem; /* Địa chỉ nhỏ hơn một chút */
+            display: block;
         }
 
         .divider {
             color: var(--red-bg);
-            font-size: 2rem;
             opacity: 0.5;
             display: flex;
             align-items: center;
+            justify-content: center;
+            padding: 0 2px;
+            font-size: 1.8rem; /* Giảm kích thước chữ hỷ */
+        }
+
+        /* Media Query riêng cho mobile */
+        @media (max-width: 480px) {
+            .parents-grid {
+                gap: 3px; /* Khoảng cách rất nhỏ */
+            }
+            
+            .parents-grid > div p {
+                font-size: 0.85rem; /* Nhỏ hơn trên mobile */
+            }
+            
+            .parents-grid > div p em {
+                font-size: 0.75rem; /* Địa chỉ rất nhỏ trên mobile */
+            }
+            
+            .divider {
+                font-size: 1.4rem; /* Chữ hỷ nhỏ lại đáng kể */
+                padding: 0;
+            }
+            
+            .parents-grid h3 {
+                font-size: 1rem; /* Tiêu đề "Nhà trai/gái" nhỏ lại */
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .parents-grid > div p {
+                font-size: 0.75rem;
+            }
+            
+            .parents-grid > div p em {
+                font-size: 0.65rem;
+            }
+            
+            .divider {
+                font-size: 1.2rem; /* Chữ hỷ nhỏ hơn nữa cho màn hình rất nhỏ */
+            }
+            
+            .parents-grid h3 {
+                font-size: 0.9rem;
+            }
         }
 
         .section-title {
@@ -270,11 +333,12 @@
 
         .calendar-view { max-width: 400px; 
         margin: 20px auto 0; 
-        padding: 25px 20px; /* Tạo khoảng trống bên trong khung */
-        border: 2px solid var(--red-bg); /* Viền khung màu đỏ rượu */
-        border-radius: 15px; /* Bo tròn các góc */
-        background-color: #ffffff; /* Nền trắng giúp lịch nổi bật hơn */
+        padding: 25px 20px;
+        border: 2px solid var(--red-bg);
+        border-radius: 15px;
+        background-color: #ffffff;
         box-shadow: 0 5px 15px rgba(154, 13, 20, 0.1); }
+        
         .days-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -296,11 +360,27 @@
             section { padding: 50px 40px; }
             .couple-name { 
                 font-size: 3rem; 
-                white-space: nowrap; /* Giữ nguyên 1 hàng ngay cả trên tablet */
+                white-space: nowrap;
             }
             .hero-image img { height: 100%; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .full-width { grid-column: span 3; height: 400px !important; }
+            
+            /* Trả lại kích thước bình thường cho tablet */
+            .parents-grid {
+                gap: 20px;
+            }
+            .parents-grid > div p {
+                font-size: 1rem;
+                white-space: normal;
+            }
+            .parents-grid > div p em {
+                font-size: 0.95rem;
+                white-space: normal;
+            }
+            .divider {
+                font-size: 2rem;
+            }
         }
 
         @media (min-width: 1024px) {
@@ -479,31 +559,21 @@
         const musicIcon = musicBtn.querySelector('i');
 
         let isMusicPlaying = false;
-        let heartInterval; // Biến lưu vòng lặp tạo trái tim
+        let heartInterval;
 
         // ==========================================
         // 2. HÀM XỬ LÝ MỞ BÌ THƯ
         // ==========================================
         function openInvitation() {
-            // Thêm class để CSS kích hoạt hiệu ứng trượt bì thư lên/xuống
             envelope.classList.add('is-open');
             
-            // Đợi 1 giây cho bì thư xé ra rồi mới hiển thị nội dung & chạy hiệu ứng
             setTimeout(() => {
-                // Cho phép cuộn trang
                 mobileWrapper.classList.add('scrollable');
-                // Ẩn hẳn bì thư để không chặn click chuột của người dùng
                 envelope.style.visibility = 'hidden';
-
-                // Khởi động các hiệu ứng
                 initScrollAnimation();
-                
-                // Cứ 0.4s sẽ tạo ra 1 trái tim rơi
                 heartInterval = setInterval(createHeart, 400); 
-
             }, 1000);
 
-            // Tự động phát nhạc khi người dùng tương tác (mở thiệp)
             playMusic();
         }
 
@@ -513,14 +583,14 @@
         function toggleMusic() {
             if (isMusicPlaying) {
                 bgMusic.pause();
-                musicBtn.classList.remove('spinning'); // Dừng xoay
+                musicBtn.classList.remove('spinning');
                 musicIcon.classList.remove('fa-music');
-                musicIcon.classList.add('fa-volume-mute'); // Đổi icon tắt tiếng
+                musicIcon.classList.add('fa-volume-mute');
             } else {
                 bgMusic.play();
-                musicBtn.classList.add('spinning'); // Xoay đĩa nhạc
+                musicBtn.classList.add('spinning');
                 musicIcon.classList.remove('fa-volume-mute');
-                musicIcon.classList.add('fa-music'); // Đổi icon nốt nhạc
+                musicIcon.classList.add('fa-music');
             }
             isMusicPlaying = !isMusicPlaying;
         }
@@ -540,19 +610,14 @@
         function initScrollAnimation() {
             const scrollElements = document.querySelectorAll('.animate-on-scroll');
             
-            // Sử dụng Intersection Observer để theo dõi phần tử khi cuộn trang
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    // Khi phần tử lọt vào tầm nhìn của màn hình
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible'); // Thêm class để hiện ra
-                        
-                        // Bỏ comment dòng dưới nếu bạn muốn cuộn lên cuộn xuống nó không lặp lại hiệu ứng nữa
-                        // observer.unobserve(entry.target); 
+                        entry.target.classList.add('is-visible');
                     }
                 });
             }, { 
-                threshold: 0.15 // 15% diện tích phần tử xuất hiện là bắt đầu chạy hiệu ứng
+                threshold: 0.15
             }); 
 
             scrollElements.forEach(el => observer.observe(el));
@@ -564,23 +629,12 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            
-            // Ký tự trái tim
             heart.innerHTML = '❤';
-
-            // Random vị trí xuất hiện theo chiều ngang (0 đến 100% chiều rộng màn hình)
             heart.style.left = Math.random() * 100 + 'vw';
-            
-            // Random thời gian rơi (Rơi từ 4 giây đến 8 giây cho tự nhiên)
             heart.style.animationDuration = Math.random() * 4 + 4 + 's';
-            
-            // Random kích thước trái tim (từ 0.8rem đến 1.8rem)
             heart.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
-
-            // Đưa trái tim vào màn hình
             document.getElementById('heart-container').appendChild(heart);
 
-            // XÓA trái tim sau 8 giây (khi nó rơi khỏi màn hình) để web không bị nặng/lag memory leak
             setTimeout(() => {
                 heart.remove();
             }, 8000);
