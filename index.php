@@ -872,17 +872,22 @@
             envelope.style.visibility = 'hidden';
             initScrollAnimation();
             heartInterval = setInterval(createHeart, 400);
+            
+            // Luôn tự động cuộn sau 1 giây, bất kể isUserInteracted
             setTimeout(() => {
-                if (!isUserInteracted) {
-                    smoothScrollToBottom();
-                }
+                smoothScrollToBottom();
             }, 1000);
+            
         }, 1000);
         playMusic();
     }
 
     function smoothScrollToBottom() {
         stopScroll();
+        
+        // Reset isUserInteracted khi bắt đầu cuộn tự động
+        isUserInteracted = false;
+        
         const scrollHeight = document.body.scrollHeight;
         const windowHeight = window.innerHeight;
         const startY = window.scrollY;
@@ -891,12 +896,20 @@
         let startTime = null;
 
         function animation(currentTime) {
-            if (scrollAnimationFrame === null || isUserInteracted) return;
+            if (scrollAnimationFrame === null) return;
+            
+            // Kiểm tra nếu người dùng đã tương tác thì dừng cuộn
+            if (isUserInteracted) {
+                stopScroll();
+                return;
+            }
+            
             if (startTime === null) startTime = currentTime;
             const timeElapsed = currentTime - startTime;
             const progress = Math.min(timeElapsed / duration, 1);
             const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
             window.scrollTo(0, startY + distance * ease(progress));
+            
             if (timeElapsed < duration && !isUserInteracted) {
                 scrollAnimationFrame = requestAnimationFrame(animation);
             } else {
