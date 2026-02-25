@@ -629,26 +629,18 @@
         font-family: 'Playfair Display', serif;
         font-size: 1.3rem;
         color: var(--red-bg, #9a0d14);
-        margin: 0 0 20px 0;
+        margin: 0 auto 20px auto;
         font-style: italic;
         background: rgba(224, 185, 118, 0.1);
         padding: 10px 20px;
         border-radius: 50px;
-        display: inline-block;
+        display: table;
         border: 1px dashed var(--gold-text, #e0b976);
         text-align: center;
     }
 
     .section-hero {
         text-align: center;
-        /* Đảm bảo phần tử cha căn giữa */
-    }
-
-    .invitation-guest {
-        margin: 0 auto 20px auto;
-        /* margin trái phải auto để căn giữa */
-        display: table;
-        /* hoặc display: block */
     }
 
     .guest-name {
@@ -856,7 +848,7 @@
 
                 // Hiển thị khung kính mời
                 if (guestInvitation) {
-                    guestInvitation.style.display = 'inline-block';
+                    guestInvitation.style.display = 'table';
                 }
             } else {
                 // Nếu không có tên khách, ẩn khung kính mời
@@ -892,9 +884,24 @@
             envelope.style.visibility = 'hidden';
             initScrollAnimation();
             heartInterval = setInterval(createHeart, 400);
+
+            // Tự động cuộn từ từ đến nội dung
+            smoothScrollToContent();
+
         }, 1000);
 
         playMusic();
+    }
+
+    // Hàm cuộn mượt mà đến nội dung
+    function smoothScrollToContent() {
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+            mainContent.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     }
 
     function toggleMusic() {
