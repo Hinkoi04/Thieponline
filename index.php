@@ -815,50 +815,31 @@
         </div>
     </div>
 
-    <script>
-    // === SCRIPT XỬ LÝ TÊN KHÁCH MỜI TỪ URL ===
+<script>
     (function() {
-        // Lấy các element cần thiết
         const guestInvitation = document.getElementById('guestInvitation');
         const guestNameSpan = document.getElementById('guestName');
-
-        // Hàm lấy tên khách từ URL
         function getGuestFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             let guestName = urlParams.get('to');
-
             if (guestName && guestName.trim() !== '') {
-                // Thay dấu + thành khoảng trắng
                 guestName = guestName.replace(/\+/g, ' ');
-
-                // Giải mã URL (ví dụ: %20 thành khoảng trắng)
                 try {
                     guestName = decodeURIComponent(guestName);
-                } catch (e) {
-                    console.warn('Lỗi decode tên khách:', e);
-                }
-
-                // Xóa khoảng trắng thừa
+                } catch (e) {}
                 guestName = guestName.trim();
-
-                // Hiển thị tên khách
                 if (guestNameSpan) {
                     guestNameSpan.innerText = guestName;
                 }
-
-                // Hiển thị khung kính mời
                 if (guestInvitation) {
                     guestInvitation.style.display = 'table';
                 }
             } else {
-                // Nếu không có tên khách, ẩn khung kính mời
                 if (guestInvitation) {
                     guestInvitation.style.display = 'none';
                 }
             }
         }
-
-        // Chạy khi trang đã sẵn sàng
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', getGuestFromUrl);
         } else {
@@ -866,7 +847,6 @@
         }
     })();
 
-    // === CÁC SCRIPT CHÍNH ===
     const envelope = document.getElementById('envelope');
     const mobileWrapper = document.querySelector('.mobile-wrapper');
     const bgMusic = document.getElementById('bgMusic');
@@ -875,55 +855,62 @@
 
     let isMusicPlaying = false;
     let heartInterval;
+    let scrollAnimationFrame = null;
+    let isUserInteracted = false;
+
+    function stopScroll() {
+        if (scrollAnimationFrame) {
+            cancelAnimationFrame(scrollAnimationFrame);
+            scrollAnimationFrame = null;
+        }
+    }
 
     function openInvitation() {
         envelope.classList.add('is-open');
-
         setTimeout(() => {
             mobileWrapper.classList.add('scrollable');
             envelope.style.visibility = 'hidden';
             initScrollAnimation();
             heartInterval = setInterval(createHeart, 400);
-
-            // Cuộn chậm từ từ để đọc nội dung sau 1 giây
             setTimeout(() => {
-                smoothScrollToBottom();
+                if (!isUserInteracted) {
+                    smoothScrollToBottom();
+                }
             }, 1000);
-
         }, 1000);
-
         playMusic();
     }
 
-    // Hàm cuộn chậm từ đầu xuống đáy để đọc nội dung
     function smoothScrollToBottom() {
+        stopScroll();
         const scrollHeight = document.body.scrollHeight;
         const windowHeight = window.innerHeight;
         const startY = window.scrollY;
-        const distance = scrollHeight - startY - windowHeight + 150; // +150 để cuộn qua phần cuối một chút
-        const duration = 30000; // 12 giây - càng lớn càng chậm (có thể điều chỉnh)
+        const distance = scrollHeight - startY - windowHeight + 150;
+        const duration = 30000;
         let startTime = null;
 
         function animation(currentTime) {
+            if (scrollAnimationFrame === null || isUserInteracted) return;
             if (startTime === null) startTime = currentTime;
             const timeElapsed = currentTime - startTime;
             const progress = Math.min(timeElapsed / duration, 1);
-            
-            // Easing function: ease-in-out để cuộn mượt hơn
-            // Công thức ease-in-out: t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
             const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-            
             window.scrollTo(0, startY + distance * ease(progress));
-            
-            if (timeElapsed < duration) {
-                requestAnimationFrame(animation);
+            if (timeElapsed < duration && !isUserInteracted) {
+                scrollAnimationFrame = requestAnimationFrame(animation);
+            } else {
+                scrollAnimationFrame = null;
             }
         }
-
-        requestAnimationFrame(animation);
+        scrollAnimationFrame = requestAnimationFrame(animation);
     }
 
-    // Hàm toggle nhạc
+    function handleUserInteraction() {
+        isUserInteracted = true;
+        stopScroll();
+    }
+
     function toggleMusic() {
         if (isMusicPlaying) {
             bgMusic.pause();
@@ -939,34 +926,25 @@
         isMusicPlaying = !isMusicPlaying;
     }
 
-    // Hàm phát nhạc
     function playMusic() {
         bgMusic.play().then(() => {
             isMusicPlaying = true;
             musicBtn.classList.add('spinning');
-        }).catch((error) => {
-            console.log("Trình duyệt chặn autoplay");
-        });
+        }).catch(() => {});
     }
 
-    // Hàm khởi tạo animation khi cuộn
     function initScrollAnimation() {
         const scrollElements = document.querySelectorAll('.animate-on-scroll');
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
                 }
             });
-        }, {
-            threshold: 0.15
-        });
-
+        }, { threshold: 0.15 });
         scrollElements.forEach(el => observer.observe(el));
     }
 
-    // Hàm tạo trái tim rơi
     function createHeart() {
         const heart = document.createElement('div');
         heart.classList.add('heart');
@@ -975,23 +953,17 @@
         heart.style.animationDuration = Math.random() * 4 + 4 + 's';
         heart.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
         document.getElementById('heart-container').appendChild(heart);
-
         setTimeout(() => {
             heart.remove();
         }, 8000);
     }
 
-    // Xử lý sự kiện khi trang load
     window.addEventListener('load', function() {
         document.body.style.opacity = '1';
-        
-        // Thêm sự kiện cho nút nhạc
         musicBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             toggleMusic();
         });
-
-        // Tự động phát nhạc khi có tương tác
         ['click', 'touchstart', 'scroll'].forEach(evt => {
             document.addEventListener(evt, function autoPlay() {
                 playMusic();
@@ -1002,7 +974,6 @@
         });
     });
 
-    // Dừng tạo tim khi tab không được focus (tiết kiệm tài nguyên)
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
             if (heartInterval) {
@@ -1013,6 +984,38 @@
             if (!heartInterval && mobileWrapper.classList.contains('scrollable')) {
                 heartInterval = setInterval(createHeart, 400);
             }
+        }
+    });
+
+    window.addEventListener('scroll', function() {
+        handleUserInteraction();
+    });
+
+    window.addEventListener('touchstart', function() {
+        handleUserInteraction();
+    });
+
+    window.addEventListener('touchmove', function() {
+        handleUserInteraction();
+    });
+
+    window.addEventListener('wheel', function() {
+        handleUserInteraction();
+    });
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'PageUp' || e.key === 'PageDown' || e.key === 'Home' || e.key === 'End' || e.key === ' ') {
+            handleUserInteraction();
+        }
+    });
+
+    window.addEventListener('mousedown', function() {
+        handleUserInteraction();
+    });
+
+    window.addEventListener('mousemove', function(e) {
+        if (e.buttons === 1) {
+            handleUserInteraction();
         }
     });
 </script>
