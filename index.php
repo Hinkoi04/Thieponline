@@ -208,31 +208,37 @@
             border-radius: 150px 150px 10px 10px;
         }
 
+        /* Parents Grid với hệ thống lưới 12 cột */
         .parents-grid {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            font-size: 1rem;
+            display: grid;
+            grid-template-columns: 5fr 2fr 5fr; /* 5 cột - 2 cột - 5 cột */
             gap: 5px;
             width: 100%;
+            align-items: start;
         }
 
-        .parents-grid > div {
-            flex: 1;
-            min-width: 0;
-            white-space: nowrap;
+        .parents-grid > div:first-child {
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .parents-grid > div:last-child {
+            text-align: left;
+            padding-left: 10px;
         }
 
         .parents-grid > div p {
             white-space: nowrap;
             overflow: visible;
             font-size: 0.95rem;
+            margin: 5px 0;
         }
 
         .parents-grid > div p em {
             white-space: nowrap;
             font-size: 0.85rem;
             display: block;
+            font-style: italic;
         }
 
         .divider {
@@ -241,12 +247,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
+            grid-column: 2;
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
             .parents-grid {
+                grid-template-columns: 5fr 1.5fr 5fr; /* Điều chỉnh cho mobile */
                 gap: 3px;
+            }
+            
+            .parents-grid > div:first-child {
+                padding-right: 5px;
+            }
+
+            .parents-grid > div:last-child {
+                padding-left: 5px;
             }
             
             .parents-grid > div p {
@@ -258,23 +274,50 @@
             }
             
             .divider {
-                font-size: 1.4rem;
-                padding: 0;
+                font-size: 1.6rem;
             }
             
             .parents-grid h3 {
                 font-size: 1rem;
                 white-space: nowrap;
+                margin-bottom: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .parents-grid {
+                grid-template-columns: 5fr 1.2fr 5fr;
+                gap: 2px;
+            }
+            
+            .parents-grid > div p {
+                font-size: 0.8rem;
+            }
+            
+            .parents-grid > div p em {
+                font-size: 0.7rem;
+            }
+            
+            .divider {
+                font-size: 1.4rem;
+            }
+            
+            .parents-grid h3 {
+                font-size: 0.95rem;
             }
         }
 
         @media (max-width: 360px) {
+            .parents-grid {
+                grid-template-columns: 5fr 1fr 5fr;
+            }
+            
             .parents-grid > div p {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
             
             .parents-grid > div p em {
-                font-size: 0.65rem;
+                font-size: 0.6rem;
             }
             
             .divider {
@@ -282,7 +325,7 @@
             }
             
             .parents-grid h3 {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
         }
 
@@ -342,7 +385,7 @@
         .gallery-grid img:hover { transform: scale(1.02); }
         .full-width { grid-column: span 2; height: 300px !important; }
 
-        @media (min-width: 768px) {
+        @media (min-width: 769px) {
             .mobile-wrapper { max-width: 700px; margin: 40px auto; border-radius: 15px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); height: calc(100vh - 80px); }
             section { padding: 50px 40px; }
             .couple-name { 
@@ -354,15 +397,15 @@
             .full-width { grid-column: span 3; height: 400px !important; }
             
             .parents-grid {
-                gap: 20px;
+                gap: 15px;
             }
             .parents-grid > div p {
                 font-size: 1rem;
-                white-space: normal;
+                white-space: nowrap;
             }
             .parents-grid > div p em {
-                font-size: 0.95rem;
-                white-space: normal;
+                font-size: 0.9rem;
+                white-space: nowrap;
             }
             .divider {
                 font-size: 2rem;
@@ -371,7 +414,7 @@
 
         @media (min-width: 1024px) {
             .mobile-wrapper { max-width: 850px; margin: 60px auto; height: calc(100vh - 120px); }
-            .parents-grid { gap: 40px; }
+            .parents-grid { gap: 20px; }
             .hero-image img { height: 100%; }
             .gallery-grid { gap: 20px; }
             .gallery-grid img { height: 250px; }
@@ -462,14 +505,14 @@
                         <h3 class="red-text">Nhà trai</h3>
                         <p>Ông: Đỗ Văn Kin</p>
                         <p>Bà: Lê Thị Mỹ</p>
-                        <p><em>Xã An Phú, Quảng Ngãi</em></p>
+                        <p><em>Xã An Phú, Tỉnh Quảng Ngãi</em></p>
                     </div>
                     <div class="divider">囍</div>
                     <div>
                         <h3 class="red-text">Nhà gái</h3>
                         <p>Ông: Lê Tân Núi</p>
-                        <p>Bà:Võ Thị Thanh Thủy</p>
-                        <p><em>Sa Huỳnh, Quảng Ngãi</em></p>
+                        <p>Bà: Võ Thị Thanh Thủy</p>
+                        <p><em>Sa Huỳnh, Tỉnh Quảng Ngãi</em></p>
                     </div>
                 </div>
                 <div class="invite-text mt-3">
