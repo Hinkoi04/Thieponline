@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <title>Thiệp Cưới Hoàng Rin & Thanh Thúy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
@@ -129,9 +131,11 @@
         0% {
             box-shadow: 0 0 0 0 rgba(224, 185, 118, 0.7);
         }
+
         70% {
             box-shadow: 0 0 0 15px rgba(224, 185, 118, 0);
         }
+
         100% {
             box-shadow: 0 0 0 0 rgba(224, 185, 118, 0);
         }
@@ -310,21 +314,27 @@
             grid-template-columns: 5fr 1.5fr 5fr;
             gap: 3px;
         }
+
         .parents-grid>div:first-child {
             padding-right: 5px;
         }
+
         .parents-grid>div:last-child {
             padding-left: 5px;
         }
+
         .parents-grid>div p {
             font-size: 0.85rem;
         }
+
         .parents-grid>div p em {
             font-size: 0.75rem;
         }
+
         .divider {
             font-size: 1.6rem;
         }
+
         .parents-grid h3 {
             font-size: 1rem;
             white-space: nowrap;
@@ -337,15 +347,19 @@
             grid-template-columns: 5fr 1.2fr 5fr;
             gap: 2px;
         }
+
         .parents-grid>div p {
             font-size: 0.8rem;
         }
+
         .parents-grid>div p em {
             font-size: 0.7rem;
         }
+
         .divider {
             font-size: 1.4rem;
         }
+
         .parents-grid h3 {
             font-size: 0.95rem;
         }
@@ -355,15 +369,19 @@
         .parents-grid {
             grid-template-columns: 5fr 1fr 5fr;
         }
+
         .parents-grid>div p {
             font-size: 0.7rem;
         }
+
         .parents-grid>div p em {
             font-size: 0.6rem;
         }
+
         .divider {
             font-size: 1.2rem;
         }
+
         .parents-grid h3 {
             font-size: 0.85rem;
         }
@@ -478,35 +496,44 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             height: calc(100vh - 80px);
         }
+
         section {
             padding: 50px 40px;
         }
+
         .couple-name {
             font-size: 3rem;
             white-space: nowrap;
         }
+
         .hero-image img {
             height: 100%;
         }
+
         .gallery-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
         }
+
         .full-width {
             grid-column: span 3;
             height: 400px !important;
         }
+
         .parents-grid {
             gap: 15px;
         }
+
         .parents-grid>div p {
             font-size: 1rem;
             white-space: nowrap;
         }
+
         .parents-grid>div p em {
             font-size: 0.9rem;
             white-space: nowrap;
         }
+
         .divider {
             font-size: 2rem;
         }
@@ -518,24 +545,31 @@
             margin: 60px auto;
             height: calc(100vh - 120px);
         }
+
         .parents-grid {
             gap: 20px;
         }
+
         .hero-image img {
             height: 100%;
         }
+
         .gallery-grid {
             gap: 20px;
         }
+
         .gallery-grid img {
             height: 250px;
         }
+
         .full-width {
             height: 500px !important;
         }
+
         .calendar-view {
             max-width: 500px;
         }
+
         .days-grid {
             font-size: 1.1rem;
             gap: 10px;
@@ -577,6 +611,7 @@
             transform: translateY(-10vh) rotate(0deg);
             opacity: 0.8;
         }
+
         100% {
             transform: translateY(110vh) rotate(360deg);
             opacity: 0;
@@ -615,6 +650,7 @@
             font-size: 1.1rem;
             padding: 8px 15px;
         }
+
         .guest-name {
             font-size: 1.6rem;
         }
@@ -624,6 +660,7 @@
         .invitation-guest {
             font-size: 1rem;
         }
+
         .guest-name {
             font-size: 1.4rem;
         }
@@ -638,6 +675,7 @@
             opacity: 0;
             transform: translateY(-10px);
         }
+
         100% {
             opacity: 1;
             transform: translateY(0);
@@ -722,16 +760,19 @@
                     <p>BUỔI TIỆC ĐƯỢC TỔ CHỨC TẠI</p>
                     <h3 class="red-text">TƯ GIA NHÀ TRAI</h3>
                     <p>Xã An Phú, Tỉnh Quảng Ngãi</p>
-                    <a href="https://maps.google.com/?q=15.114808343987669, 108.89738915220063" target="_blank" class="btn-map">Xem Chỉ Đường</a>
+                    <a href="https://maps.google.com/?q=15.114808343987669, 108.89738915220063" target="_blank"
+                        class="btn-map">Xem Chỉ Đường</a>
                 </div>
                 <div class="calendar-view mt-3">
                     <h3 class="red-text">THÁNG 03 - 2026</h3>
                     <div class="days-grid">
-                        <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span class="red-text">T6</span><span>T7</span><span>CN</span>
+                        <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span
+                            class="red-text">T6</span><span>T7</span><span>CN</span>
                         <span></span><span></span><span></span><span></span><span></span><span></span><span>1</span>
                         <span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
                         <span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
-                        <span>16</span><span>17</span><span>18</span><span>19</span><span class="highlight">20</span><span>21</span><span>22</span>
+                        <span>16</span><span>17</span><span>18</span><span>19</span><span
+                            class="highlight">20</span><span>21</span><span>22</span>
                         <span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span>
                         <span>30</span><span>31</span><span></span><span></span><span></span><span></span><span></span>
                     </div>
@@ -756,6 +797,7 @@
     (function() {
         const guestInvitation = document.getElementById('guestInvitation');
         const guestNameSpan = document.getElementById('guestName');
+
         function getGuestFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             let guestName = urlParams.get('to');
@@ -793,6 +835,7 @@
     let isMusicPlaying = false;
     let heartInterval;
     let scrollAnimationFrame = null;
+    let isUserInteracted = false;
 
     function stopScroll() {
         if (scrollAnimationFrame) {
@@ -809,7 +852,9 @@
             initScrollAnimation();
             heartInterval = setInterval(createHeart, 400);
             setTimeout(() => {
-                smoothScrollToBottom();
+                if (!isUserInteracted) {
+                    smoothScrollToBottom();
+                }
             }, 1000);
         }, 1000);
         playMusic();
@@ -825,19 +870,24 @@
         let startTime = null;
 
         function animation(currentTime) {
-            if (scrollAnimationFrame === null) return;
+            if (scrollAnimationFrame === null || isUserInteracted) return;
             if (startTime === null) startTime = currentTime;
             const timeElapsed = currentTime - startTime;
             const progress = Math.min(timeElapsed / duration, 1);
             const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
             window.scrollTo(0, startY + distance * ease(progress));
-            if (timeElapsed < duration) {
+            if (timeElapsed < duration && !isUserInteracted) {
                 scrollAnimationFrame = requestAnimationFrame(animation);
             } else {
                 scrollAnimationFrame = null;
             }
         }
         scrollAnimationFrame = requestAnimationFrame(animation);
+    }
+
+    function handleUserInteraction() {
+        isUserInteracted = true;
+        stopScroll();
     }
 
     function toggleMusic() {
@@ -870,7 +920,9 @@
                     entry.target.classList.add('is-visible');
                 }
             });
-        }, { threshold: 0.15 });
+        }, {
+            threshold: 0.15
+        });
         scrollElements.forEach(el => observer.observe(el));
     }
 
@@ -899,7 +951,9 @@
                 ['click', 'touchstart', 'scroll'].forEach(e => {
                     document.removeEventListener(e, autoPlay);
                 });
-            }, { once: true });
+            }, {
+                once: true
+            });
         });
     });
 
@@ -917,22 +971,38 @@
     });
 
     window.addEventListener('scroll', function() {
-        stopScroll();
+        handleUserInteraction();
     });
 
     window.addEventListener('touchstart', function() {
-        stopScroll();
+        handleUserInteraction();
+    });
+
+    window.addEventListener('touchmove', function() {
+        handleUserInteraction();
     });
 
     window.addEventListener('wheel', function() {
-        stopScroll();
+        handleUserInteraction();
     });
 
     window.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'PageUp' || e.key === 'PageDown' || e.key === 'Home' || e.key === 'End') {
-            stopScroll();
+        if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'PageUp' || e.key === 'PageDown' || e
+            .key === 'Home' || e.key === 'End' || e.key === ' ') {
+            handleUserInteraction();
+        }
+    });
+
+    window.addEventListener('mousedown', function() {
+        handleUserInteraction();
+    });
+
+    window.addEventListener('mousemove', function(e) {
+        if (e.buttons === 1) {
+            handleUserInteraction();
         }
     });
     </script>
 </body>
+
 </html>
