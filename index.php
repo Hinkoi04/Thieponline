@@ -252,7 +252,7 @@
         .highlight { background-color: var(--red-bg); color: white; border-radius: 50%; font-weight: bold; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
 
         .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .gallery-grid img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; transition: transform 0.3s; }
+        .gallery-grid img { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; transition: transform 0.3s; }
         .gallery-grid img:hover { transform: scale(1.02); }
         .full-width { grid-column: span 2; height: 300px !important; }
 
@@ -261,15 +261,15 @@
             .mobile-wrapper { max-width: 700px; margin: 40px auto; border-radius: 15px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); height: calc(100vh - 80px); }
             section { padding: 50px 40px; }
             .couple-name { font-size: 4rem; }
-            .hero-image img { height: 500px; }
-            .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
+            .hero-image img { height: 100%; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .full-width { grid-column: span 3; height: 400px !important; }
         }
 
         @media (min-width: 1024px) {
             .mobile-wrapper { max-width: 850px; margin: 60px auto; height: calc(100vh - 120px); }
             .parents-grid { gap: 40px; }
-            .hero-image img { height: 600px; }
+            .hero-image img { height: 100%; }
             .gallery-grid { gap: 20px; }
             .gallery-grid img { height: 250px; }
             .full-width { height: 500px !important; }
@@ -417,9 +417,9 @@
                 <h2 class="section-title text-center">Album Hình Cưới</h2>
                 <div class="gallery-grid">
                     <img src="images/2.jpg" alt="Ảnh 1">
-                    <img src="images/anh4.jpg" alt="Ảnh 2">
+                    <img src="images/abum1.jpg" alt="Ảnh 2">
                     <img src="images/2.jpg" alt="Ảnh 3">
-                    <img src="images/anh3.jpg" alt="Ảnh 4" class="full-width">
+                    <img src="images/anh3.jpg" alt="Ảnh 4" >
                 </div>
             </section>
 
