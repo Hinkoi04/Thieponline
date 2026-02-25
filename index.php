@@ -724,7 +724,7 @@
                 <p class="sub-title">THƯ MỜI CƯỚI</p>
                 <h1 class="couple-name">Hoàng Rin & Thanh Thúy</h1>
                 <div class="time-box">
-                    <p>Thứ 6 - 10:00</p>
+                    <p>Thứ 6 - 10:30</p>
                     <p class="big-date">20 . 03 . 2026</p>
                 </div>
                 <div id="guestInvitation" class="invitation-guest" style="display: none;">
@@ -764,7 +764,7 @@
             <section class="section-event text-center animate-on-scroll">
                 <h2 class="section-title">Lễ Thành Hôn</h2>
                 <div class="date-box">
-                    <p>Vào Lúc<br><strong>10 giờ 30</strong></p>
+                    <p>Vào Lúc<br><strong>11 giờ 00</strong></p>
                     <div class="calendar-icon">
                         <span class="month">Tháng 03</span>
                         <span class="day">20</span>
@@ -901,7 +901,7 @@
         const windowHeight = window.innerHeight;
         const startY = window.scrollY;
         const distance = scrollHeight - startY - windowHeight + 150; // +150 để cuộn qua phần cuối một chút
-        const duration = 20000; // 12 giây - càng lớn càng chậm (có thể điều chỉnh)
+        const duration = 30000; // 12 giây - càng lớn càng chậm (có thể điều chỉnh)
         let startTime = null;
 
         function animation(currentTime) {
