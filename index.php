@@ -463,14 +463,14 @@
                         <h3 class="red-text">Nhà trai</h3>
                         <p>Ông: Đỗ Văn Kin</p>
                         <p>Bà: Lê Thị Mỹ</p>
-                        <p><em>Xã An Phú, Tỉnh Quảng Ngãi</em></p>
+                        <p><em>Xã An Phú, Quảng Ngãi</em></p>
                     </div>
                     <div class="divider">囍</div>
                     <div>
                         <h3 class="red-text">Nhà gái</h3>
                         <p>Ông: Lê Tân Núi</p>
                         <p>Bà: Võ Thị Thanh Thủy</p>
-                        <p><em>Sa Huỳnh, Tỉnh Quảng Ngãi</em></p>
+                        <p><em>Sa Huỳnh, Quảng Ngãi</em></p>
                     </div>
                 </div>
                 <div class="invite-text mt-3">
