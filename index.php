@@ -794,207 +794,224 @@
         </div>
     </div>
     <script>
-    // === SCRIPT XỬ LÝ TÊN KHÁCH MỜI TỪ URL ===
-    (function() {
-        // Lấy các element cần thiết
-        const guestInvitation = document.getElementById('guestInvitation');
-        const guestNameSpan = document.getElementById('guestName');
+// === SCRIPT XỬ LÝ TÊN KHÁCH MỜI TỪ URL ===
+(function() {
+    const guestInvitation = document.getElementById('guestInvitation');
+    const guestNameSpan = document.getElementById('guestName');
 
-        // Hàm lấy tên khách từ URL
-        function getGuestFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let guestName = urlParams.get('to');
+    function getGuestFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let guestName = urlParams.get('to');
 
-            if (guestName && guestName.trim() !== '') {
-                // Thay dấu + thành khoảng trắng
-                guestName = guestName.replace(/\+/g, ' ');
+        if (guestName && guestName.trim() !== '') {
+            guestName = guestName.replace(/\+/g, ' ');
+            try {
+                guestName = decodeURIComponent(guestName);
+            } catch (e) {
+                console.warn('Lỗi decode tên khách:', e);
+            }
+            guestName = guestName.trim();
 
-                // Giải mã URL (ví dụ: %20 thành khoảng trắng)
-                try {
-                    guestName = decodeURIComponent(guestName);
-                } catch (e) {
-                    console.warn('Lỗi decode tên khách:', e);
-                }
-
-                // Xóa khoảng trắng thừa
-                guestName = guestName.trim();
-
-                // Hiển thị tên khách
-                if (guestNameSpan) {
-                    guestNameSpan.innerText = guestName;
-                }
-
-                // Hiển thị khung kính mời
-                if (guestInvitation) {
-                    guestInvitation.style.display = 'table';
-                }
-            } else {
-                // Nếu không có tên khách, ẩn khung kính mời
-                if (guestInvitation) {
-                    guestInvitation.style.display = 'none';
-                }
+            if (guestNameSpan) {
+                guestNameSpan.innerText = guestName;
+            }
+            if (guestInvitation) {
+                guestInvitation.style.display = 'table';
+            }
+        } else {
+            if (guestInvitation) {
+                guestInvitation.style.display = 'none';
             }
         }
+    }
 
-        // Chạy khi trang đã sẵn sàng
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', getGuestFromUrl);
-        } else {
-            getGuestFromUrl();
-        }
-    })();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', getGuestFromUrl);
+    } else {
+        getGuestFromUrl();
+    }
+})();
 
-    // === CÁC SCRIPT CHÍNH ===
-    const envelope = document.getElementById('envelope');
-    const mobileWrapper = document.querySelector('.mobile-wrapper');
-    const bgMusic = document.getElementById('bgMusic');
-    const musicBtn = document.getElementById('musicBtn');
-    const musicIcon = musicBtn.querySelector('i');
+// === CÁC SCRIPT CHÍNH ===
+const envelope = document.getElementById('envelope');
+const mobileWrapper = document.querySelector('.mobile-wrapper');
+const bgMusic = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+const musicIcon = musicBtn.querySelector('i');
 
-    let isMusicPlaying = false;
-    let heartInterval;
+let isMusicPlaying = false;
+let heartInterval;
 
-    function openInvitation() {
-        envelope.classList.add('is-open');
+// Các biến phục vụ tính năng tự động cuộn trang
+let scrollAnimationId = null; 
+let isAutoScrolling = false; 
 
+function openInvitation() {
+    envelope.classList.add('is-open');
+
+    setTimeout(() => {
+        mobileWrapper.classList.add('scrollable');
+        envelope.style.visibility = 'hidden';
+        initScrollAnimation();
+        heartInterval = setInterval(createHeart, 400);
+
+        // Cuộn chậm từ từ để đọc nội dung sau 1 giây mở thiệp
         setTimeout(() => {
-            mobileWrapper.classList.add('scrollable');
-            envelope.style.visibility = 'hidden';
-            initScrollAnimation();
-            heartInterval = setInterval(createHeart, 400);
-
-            // Cuộn chậm từ từ để đọc nội dung sau 1 giây
-            setTimeout(() => {
-                smoothScrollToBottom();
-            }, 1000);
-
+            smoothScrollToBottom();
         }, 1000);
 
-        playMusic();
-    }
+    }, 1000);
 
-    // Hàm cuộn chậm từ đầu xuống đáy để đọc nội dung
-    function smoothScrollToBottom() {
-        const scrollHeight = document.body.scrollHeight;
-        const windowHeight = window.innerHeight;
-        const startY = window.scrollY;
-        const distance = scrollHeight - startY - windowHeight + 150; // +150 để cuộn qua phần cuối một chút
-        const duration = 30000; // 12 giây - càng lớn càng chậm (có thể điều chỉnh)
-        let startTime = null;
+    playMusic();
+}
 
-        function animation(currentTime) {
-            if (startTime === null) startTime = currentTime;
-            const timeElapsed = currentTime - startTime;
-            const progress = Math.min(timeElapsed / duration, 1);
+// ==========================================
+// HÀM TỰ ĐỘNG CUỘN TRANG
+// ==========================================
+function smoothScrollToBottom() {
+    isAutoScrolling = true;
+    const scrollHeight = document.body.scrollHeight;
+    const windowHeight = window.innerHeight;
+    const startY = window.scrollY;
+    const distance = scrollHeight - startY - windowHeight + 150; 
+    const duration = 15000; // Cuộn trong 15 giây
+    let startTime = null;
 
-            // Easing function: ease-in-out để cuộn mượt hơn
-            // Công thức ease-in-out: t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
-            const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    function animation(currentTime) {
+        // Nếu người dùng đã bấm dừng thì ngắt animation ngay lập tức
+        if (!isAutoScrolling) return;
 
-            window.scrollTo(0, startY + distance * ease(progress));
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
 
-            if (timeElapsed < duration) {
-                requestAnimationFrame(animation);
-            }
-        }
+        const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 
-        requestAnimationFrame(animation);
-    }
+        window.scrollTo(0, startY + distance * ease(progress));
 
-    // Hàm toggle nhạc
-    function toggleMusic() {
-        if (isMusicPlaying) {
-            bgMusic.pause();
-            musicBtn.classList.remove('spinning');
-            musicIcon.classList.remove('fa-music');
-            musicIcon.classList.add('fa-volume-mute');
+        if (timeElapsed < duration) {
+            scrollAnimationId = requestAnimationFrame(animation);
         } else {
-            bgMusic.play();
-            musicBtn.classList.add('spinning');
-            musicIcon.classList.remove('fa-volume-mute');
-            musicIcon.classList.add('fa-music');
+            isAutoScrolling = false; // Khi cuộn đến đáy thì tự tắt trạng thái
         }
-        isMusicPlaying = !isMusicPlaying;
     }
 
-    // Hàm phát nhạc
-    function playMusic() {
-        bgMusic.play().then(() => {
-            isMusicPlaying = true;
-            musicBtn.classList.add('spinning');
-        }).catch((error) => {
-            console.log("Trình duyệt chặn autoplay");
+    scrollAnimationId = requestAnimationFrame(animation);
+}
+
+// Hàm ngắt tính năng tự động cuộn
+function stopAutoScroll() {
+    if (isAutoScrolling) {
+        isAutoScrolling = false;
+        if (scrollAnimationId) {
+            cancelAnimationFrame(scrollAnimationId);
+            scrollAnimationId = null;
+        }
+    }
+}
+
+// Lắng nghe người dùng: Bấm chuột, vuốt màn hình đt, hoặc lăn chuột sẽ DỪNG cuộn
+window.addEventListener('wheel', stopAutoScroll, { passive: true });
+window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+window.addEventListener('mousedown', stopAutoScroll);
+
+
+// ==========================================
+// HÀM ÂM THANH
+// ==========================================
+function toggleMusic() {
+    if (isMusicPlaying) {
+        bgMusic.pause();
+        musicBtn.classList.remove('spinning');
+        musicIcon.classList.remove('fa-music');
+        musicIcon.classList.add('fa-volume-mute');
+    } else {
+        bgMusic.play();
+        musicBtn.classList.add('spinning');
+        musicIcon.classList.remove('fa-volume-mute');
+        musicIcon.classList.add('fa-music');
+    }
+    isMusicPlaying = !isMusicPlaying;
+}
+
+function playMusic() {
+    bgMusic.play().then(() => {
+        isMusicPlaying = true;
+        musicBtn.classList.add('spinning');
+        musicIcon.classList.remove('fa-volume-mute');
+        musicIcon.classList.add('fa-music');
+    }).catch((error) => {
+        console.log("Trình duyệt chặn autoplay âm thanh.");
+    });
+}
+
+
+// ==========================================
+// HÀM HIỆU ỨNG LƯỚT & TIM RƠI
+// ==========================================
+function initScrollAnimation() {
+    const scrollElements = document.querySelectorAll('.animate-on-scroll');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
         });
-    }
+    }, {
+        threshold: 0.15
+    });
 
-    // Hàm khởi tạo animation khi cuộn
-    function initScrollAnimation() {
-        const scrollElements = document.querySelectorAll('.animate-on-scroll');
+    scrollElements.forEach(el => observer.observe(el));
+}
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '❤';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = Math.random() * 4 + 4 + 's';
+    heart.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
+    document.getElementById('heart-container').appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 8000);
+}
+
+
+// ==========================================
+// XỬ LÝ SỰ KIỆN KHI WEB LOAD
+// ==========================================
+window.addEventListener('load', function() {
+    document.body.style.opacity = '1';
+
+    // Tự động phát nhạc khi có tương tác bất kỳ (Click, Touch, Scroll)
+    ['click', 'touchstart', 'scroll'].forEach(evt => {
+        document.addEventListener(evt, function autoPlay() {
+            if(!isMusicPlaying) playMusic();
+            ['click', 'touchstart', 'scroll'].forEach(e => {
+                document.removeEventListener(e, autoPlay);
             });
         }, {
-            threshold: 0.15
-        });
-
-        scrollElements.forEach(el => observer.observe(el));
-    }
-
-    // Hàm tạo trái tim rơi
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = '❤';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = Math.random() * 4 + 4 + 's';
-        heart.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
-        document.getElementById('heart-container').appendChild(heart);
-
-        setTimeout(() => {
-            heart.remove();
-        }, 8000);
-    }
-
-    // Xử lý sự kiện khi trang load
-    window.addEventListener('load', function() {
-        document.body.style.opacity = '1';
-
-        // Thêm sự kiện cho nút nhạc
-        musicBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleMusic();
-        });
-
-        // Tự động phát nhạc khi có tương tác
-        ['click', 'touchstart', 'scroll'].forEach(evt => {
-            document.addEventListener(evt, function autoPlay() {
-                playMusic();
-                ['click', 'touchstart', 'scroll'].forEach(e => {
-                    document.removeEventListener(e, autoPlay);
-                });
-            }, {
-                once: true
-            });
+            once: true
         });
     });
+});
 
-    // Dừng tạo tim khi tab không được focus (tiết kiệm tài nguyên)
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            if (heartInterval) {
-                clearInterval(heartInterval);
-                heartInterval = null;
-            }
-        } else {
-            if (!heartInterval && mobileWrapper.classList.contains('scrollable')) {
-                heartInterval = setInterval(createHeart, 400);
-            }
+// Dừng tạo tim khi người dùng chuyển sang tab khác (tiết kiệm CPU/RAM)
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        if (heartInterval) {
+            clearInterval(heartInterval);
+            heartInterval = null;
         }
-    });
+    } else {
+        if (!heartInterval && mobileWrapper.classList.contains('scrollable')) {
+            heartInterval = setInterval(createHeart, 400);
+        }
+    }
+});
     </script>
 </body>
 
