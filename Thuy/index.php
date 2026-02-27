@@ -739,7 +739,7 @@
                     </div>
                 </div>
                 <div class="invite-text mt-3">
-                    <p>Trân Trọng Báo Tin Lễ Thành Hôn Của</p>
+                    <p>Trân Trọng Báo Tin Lễ Vu Quy Của</p>
                     <h2 class="couple-name-small">Lê Võ Thanh Thúy</h2>
                     <p>&</p>
                     <h2 class="couple-name-small">Đỗ Hoàng Rin</h2>
