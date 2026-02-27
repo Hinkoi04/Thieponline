@@ -697,7 +697,7 @@
             <div class="env-top">
                 <div class="env-text">
                     <p>THƯ MỜI CƯỚI</p>
-                    <h2>Hoàng Rin & Thanh Thúy</h2>
+                    <h2>Thanh Thúy & Hoàng Rin</h2>
                 </div>
             </div>
             <div class="env-bottom"></div>
@@ -708,7 +708,7 @@
         <div class="main-content">
             <section class="section-hero animate-on-scroll">
                 <p class="sub-title">THƯ MỜI CƯỚI</p>
-                <h1 class="couple-name">Hoàng Rin & Thanh Thúy</h1>
+                <h1 class="couple-name">Thanh Thúy & Hoàng Rin</h1>
                 <div class="time-box">
                     <p>Thứ 4 - 10:30</p>
                     <p class="big-date">18 . 03 . 2026</p>
@@ -724,24 +724,25 @@
             <section class="section-parents text-center animate-on-scroll">
                 <div class="parents-grid">
                     <div>
-                        <h3 class="red-text">Nhà trai</h3>
-                        <p>Ông: Đỗ Văn Kin</p>
-                        <p>Bà: Lê Thị Mỹ</p>
-                        <p><em>Xã An Phú, Tỉnh Quảng Ngãi</em></p>
-                    </div>
-                    <div class="divider">囍</div>
-                    <div>
                         <h3 class="red-text">Nhà gái</h3>
                         <p>Ông: Lê Tân Núi</p>
                         <p>Bà: Võ Thị Thanh Thủy</p>
                         <p><em>Sa Huỳnh, Tỉnh Quảng Ngãi</em></p>
                     </div>
+                    <div class="divider">囍</div>
+                    <div>
+                        <h3 class="red-text">Nhà trai</h3>
+                        <p>Ông: Đỗ Văn Kin</p>
+                        <p>Bà: Lê Thị Mỹ</p>
+                        <p><em>Xã An Phú, Tỉnh Quảng Ngãi</em></p>
+                        
+                    </div>
                 </div>
                 <div class="invite-text mt-3">
                     <p>Trân Trọng Báo Tin Lễ Thành Hôn Của</p>
-                    <h2 class="couple-name-small">Đỗ Hoàng Rin</h2>
-                    <p>&</p>
                     <h2 class="couple-name-small">Lê Võ Thanh Thúy</h2>
+                    <p>&</p>
+                    <h2 class="couple-name-small">Đỗ Hoàng Rin</h2>
                 </div>
                 <img src="images/2.jpg" alt="Ảnh phụ" class="content-img">
             </section>
@@ -762,6 +763,14 @@
                     <p>Quán Gió, Phường Sa Huỳnh, Tỉnh Quảng Ngãi</p>
                     <a href="https://maps.google.com/?q=15.114808343987669, 108.89738915220063" target="_blank"
                         class="btn-map">Xem Chỉ Đường</a>
+                    <iframe
+                        src="https://www.google.com/maps?q=15.114808343987669, 108.89738915220063"
+                        width="80%"
+                        height="200px"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy">
+                    </iframe>
                 </div>
                 <div class="calendar-view mt-3">
                     <h3 class="red-text">THÁNG 03 - 2026</h3>
