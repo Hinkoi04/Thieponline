@@ -782,9 +782,10 @@
                 <h2 class="section-title text-center">Album Hình Cưới</h2>
                 <div class="gallery-grid">
                     <img src="images/nu.jpg" alt="Ảnh 1">
-                    <img src="images/abum1.jpg" alt="Ảnh 2">
+                    <img src="images/nam.jpg" alt="Ảnh 2">
                     <img src="images/2.jpg" alt="Ảnh 3">
                     <img src="images/anh5.jpg" alt="Ảnh 4">
+                    <img src="images/anh8.jpg" alt="Ảnh 5" class="full-width">
                 </div>
             </section>
             <section class="section-thankyou text-center animate-on-scroll">
