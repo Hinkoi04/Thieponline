@@ -764,7 +764,7 @@
                     <a href="https://maps.google.com/?q=15.114808343987669, 108.89738915220063" target="_blank"
                         class="btn-map">Xem Chỉ Đường</a>
                     <iframe
-                        src="https://www.google.com/maps?q=15.114808343987669, 108.89738915220063"
+                        src="https://www.google.com/maps?q=15.114808343987669, 108.89738915220063&z=15&output=embed"
                         width="80%"
                         height="200px"
                         style="border:0;"
