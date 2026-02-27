@@ -883,7 +883,7 @@ function smoothScrollToBottom() {
     const windowHeight = window.innerHeight;
     const startY = window.scrollY;
     const distance = scrollHeight - startY - windowHeight + 150; 
-    const duration = 15000; // Cuộn trong 15 giây
+    const duration = 30000;
     let startTime = null;
 
     function animation(currentTime) {
