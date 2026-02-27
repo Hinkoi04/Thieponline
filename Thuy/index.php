@@ -725,7 +725,7 @@
                 <div class="parents-grid">
                     <div>
                         <h3 class="red-text">Nhà gái</h3>
-                        <p>Ông: Lê Tân Núi</p>
+                        <p>Ông: Lê Tấn Núi</p>
                         <p>Bà: Võ Thị Thanh Thủy</p>
                         <p><em>Sa Huỳnh, Tỉnh Quảng Ngãi</em></p>
                     </div>
