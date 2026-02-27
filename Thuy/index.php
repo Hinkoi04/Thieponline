@@ -789,11 +789,11 @@
             <section class="section-gallery animate-on-scroll">
                 <h2 class="section-title text-center">Album Hình Cưới</h2>
                 <div class="gallery-grid">
-                    <img src="images/2.jpg" alt="Ảnh 1">
-                    <img src="images/anh3.jpg" alt="Ảnh 2">
-                    <img src="images/abum1.jpg" alt="Ảnh 3" class="full-width">
-                    <img src="images/anh3.jpg" alt="Ảnh 4">
-                    <img src="images/2.jpg" alt="Ảnh 5">
+                    <img src="images/anh5.jpg" alt="Ảnh 1">
+                    <img src="images/anh11.jpg" alt="Ảnh 2">
+                    <img src="images/anh8.jpg" alt="Ảnh 5" class="full-width">
+                    <img src="images/anh12.jpg" alt="Ảnh 3">
+                    <img src="images/anh13.jpg" alt="Ảnh 4">
                 </div>
             </section>
             <section class="section-thankyou text-center animate-on-scroll">

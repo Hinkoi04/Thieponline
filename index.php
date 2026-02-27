@@ -743,7 +743,7 @@
                     <p>&</p>
                     <h2 class="couple-name-small">Lê Võ Thanh Thúy</h2>
                 </div>
-                <img src="images/phu.jpg" alt="Ảnh phụ" class="content-img">
+                <img src="images/anh6.jpg" alt="Ảnh phụ" class="content-img">
             </section>
             <section class="section-event text-center animate-on-scroll">
                 <h2 class="section-title">Lễ Thành Hôn</h2>
@@ -789,11 +789,11 @@
             <section class="section-gallery animate-on-scroll">
                 <h2 class="section-title text-center">Album Hình Cưới</h2>
                 <div class="gallery-grid">
-                    <img src="images/nu.jpg" alt="Ảnh 1">
-                    <img src="images/nam.jpg" alt="Ảnh 2">
+                    <img src="images/anh5.jpg" alt="Ảnh 1">
+                    <img src="images/anh11.jpg" alt="Ảnh 2">
                     <img src="images/anh8.jpg" alt="Ảnh 5" class="full-width">
-                    <img src="images/2.jpg" alt="Ảnh 3">
-                    <img src="images/anh5.jpg" alt="Ảnh 4">
+                    <img src="images/anh12.jpg" alt="Ảnh 3">
+                    <img src="images/anh13.jpg" alt="Ảnh 4">
                 </div>
             </section>
             <section class="section-thankyou text-center animate-on-scroll">
