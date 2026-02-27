@@ -747,7 +747,7 @@
                 <img src="images/2.jpg" alt="Ảnh phụ" class="content-img">
             </section>
             <section class="section-event text-center animate-on-scroll">
-                <h2 class="section-title">Lễ Thành Hôn</h2>
+                <h2 class="section-title">Lễ Vu Quy</h2>
                 <div class="date-box">
                     <p>Vào Lúc<br><strong>10 giờ 30</strong></p>
                     <div class="calendar-icon">
@@ -761,10 +761,10 @@
                     <p>BUỔI TIỆC ĐƯỢC TỔ CHỨC TẠI</p>
                     <h3 class="red-text">TƯ GIA NHÀ GÁI</h3>
                     <p>Quán Gió, Phường Sa Huỳnh, Tỉnh Quảng Ngãi</p>
-                    <a href="https://maps.google.com/?q=15.114808343987669, 108.89738915220063" target="_blank"
+                    <a href="https://maps.google.com/?q=14.65878323500742, 109.06516017116404" target="_blank"
                         class="btn-map">Xem Chỉ Đường</a>
                     <iframe
-                        src="https://www.google.com/maps?q=15.114808343987669, 108.89738915220063&z=15&output=embed"
+                        src="https://www.google.com/maps?q=14.65878323500742, 109.06516017116404&z=15&output=embed"
                         width="80%"
                         height="200px"
                         style="border:0;"

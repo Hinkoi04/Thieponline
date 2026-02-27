@@ -746,7 +746,7 @@
                 <img src="images/phu.jpg" alt="Ảnh phụ" class="content-img">
             </section>
             <section class="section-event text-center animate-on-scroll">
-                <h2 class="section-title">Lễ Vu Quy</h2>
+                <h2 class="section-title">Lễ Thành Hôn</h2>
                 <div class="date-box">
                     <p>Vào Lúc<br><strong>11 giờ 00</strong></p>
                     <div class="calendar-icon">
