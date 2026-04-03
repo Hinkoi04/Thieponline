@@ -3,7 +3,7 @@ session_start();
 require 'db.php';
 
 // Mật khẩu vào Admin
-$admin_password = "123456"; 
+$admin_password = "anngoc_graduation"; 
 
 if (isset($_GET['logout'])) {
     session_destroy();
@@ -62,10 +62,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_info'])) {
     $quote = $_POST['quote'];
     $lat = $_POST['lat']; 
     $lng = $_POST['lng']; 
+    
+    // Các text mới
+    $intro_text = $_POST['intro_text'];
+    $album_text_1 = $_POST['album_text_1'];
+    $album_text_2 = $_POST['album_text_2'];
+    $rsvp_text = $_POST['rsvp_text'];
 
-    $sql = "UPDATE page_info SET grad_name=?, event_date=?, event_time=?, location_name=?, address=?, quote=?, lat=?, lng=? WHERE id=1";
+    $sql = "UPDATE page_info SET grad_name=?, event_date=?, event_time=?, location_name=?, address=?, quote=?, lat=?, lng=?, intro_text=?, album_text_1=?, album_text_2=?, rsvp_text=? WHERE id=1";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$name, $date, $time, $location, $address, $quote, $lat, $lng]);
+    $stmt->execute([$name, $date, $time, $location, $address, $quote, $lat, $lng, $intro_text, $album_text_1, $album_text_2, $rsvp_text]);
     $msg = "Cập nhật thông tin thành công!";
 }
 
@@ -73,12 +79,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['upload_images'])) {
     $target_dir = "uploads/";
     if (!is_dir($target_dir)) { mkdir($target_dir, 0777, true); }
 
-    // Mảng chứa tên các field input file
     $image_fields = ['hero_image', 'avatar_image', 'photo_1', 'photo_2', 'photo_3', 'album_1', 'album_2'];
     
     foreach($image_fields as $field) {
         if (!empty($_FILES[$field]["name"])) {
-            // Thêm timestamp để tên file không bị trùng
             $file_name = time() . '_' . basename($_FILES[$field]["name"]);
             $file_path = $target_dir . $file_name;
             
@@ -120,17 +124,25 @@ $current_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
         .btn-logout { background: #dc3545; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-weight: bold;}
         .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
         input, textarea, button { width: 100%; padding: 10px; margin-bottom: 15px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;}
-        button { background: #007bff; color: white; border: none; cursor: pointer; font-weight: bold;}
+        button { background: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; font-size: 1.1rem; padding: 12px;}
         button:hover { background: #0056b3; }
         .table-responsive { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px;}
         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
         th { background-color: #f8f9fa; }
         .alert { padding: 10px; background: #d4edda; color: #155724; border-radius: 4px; margin-bottom: 20px;}
-        #mapPicker { height: 350px; width: 100%; margin-bottom: 15px; border-radius: 4px; border: 1px solid #ccc; z-index: 1;}
-        .map-hint { font-size: 0.9rem; color: #d9534f; margin-bottom: 5px; font-weight: bold;}
+        
+        /* Hiển thị Preview ảnh */
         .img-group { border: 1px dashed #ccc; padding: 15px; border-radius: 5px; margin-bottom: 15px; background: #fafafa;}
         .img-group h3 { margin-top: 0; font-size: 1.1rem; color: #333;}
+        .file-upload-row { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .file-preview { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; border: 2px solid #ddd; background: #fff; flex-shrink: 0;}
+        .file-input-wrap { flex-grow: 1; }
+        .file-input-wrap label { display: block; font-size: 0.9rem; font-weight: bold; margin-bottom: 5px; color: #444;}
+        .file-input-wrap input { margin-bottom: 0; padding: 8px;}
+        
+        #mapPicker { height: 350px; width: 100%; margin-bottom: 15px; border-radius: 4px; border: 1px solid #ccc; z-index: 1;}
+        .map-hint { font-size: 0.9rem; color: #d9534f; margin-bottom: 5px; font-weight: bold;}
     </style>
 </head>
 <body>
@@ -143,34 +155,54 @@ $current_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
 <?php if($msg) echo "<div class='alert'><b>$msg</b></div>"; ?>
 
 <div class="card">
-    <h2>1. Quản lý Hình Ảnh</h2>
+    <h2>1. Đổi Hình Ảnh (Có xem trước)</h2>
     <form method="POST" enctype="multipart/form-data">
         
         <div class="img-group">
-            <h3>🔹 Ảnh Chính (Bìa & Đại diện)</h3>
-            <label>Ảnh bìa (Hero - Nền toàn màn hình lúc mới vào):</label>
-            <input type="file" name="hero_image" accept="image/*">
+            <h3>🔹 Ảnh Chính</h3>
+            <div class="file-upload-row">
+                <img src="<?= htmlspecialchars($info['hero_image'] ?? '') ?>" class="file-preview">
+                <div class="file-input-wrap">
+                    <label>Ảnh bìa (Background lúc mới vào):</label>
+                    <input type="file" name="hero_image" accept="image/*">
+                </div>
+            </div>
             
-            <label>Ảnh đại diện (Hiển thị đầu phần giới thiệu):</label>
-            <input type="file" name="avatar_image" accept="image/*">
+            <div class="file-upload-row">
+                <img src="<?= htmlspecialchars($info['avatar_image'] ?? '') ?>" class="file-preview">
+                <div class="file-input-wrap">
+                    <label>Ảnh đại diện (Khối giới thiệu bản thân):</label>
+                    <input type="file" name="avatar_image" accept="image/*">
+                </div>
+            </div>
         </div>
 
         <div class="img-group">
-            <h3>🔹 Bộ 3 ảnh ngang nối tiếp</h3>
-            <label>Ảnh 1 (Trái):</label>
-            <input type="file" name="photo_1" accept="image/*">
-            <label>Ảnh 2 (Giữa):</label>
-            <input type="file" name="photo_2" accept="image/*">
-            <label>Ảnh 3 (Phải):</label>
-            <input type="file" name="photo_3" accept="image/*">
+            <h3>🔹 Bộ 3 ảnh nối tiếp</h3>
+            <div class="file-upload-row">
+                <img src="<?= htmlspecialchars($info['photo_1'] ?? '') ?>" class="file-preview">
+                <div class="file-input-wrap"><label>Ảnh 1 (Bên trái):</label><input type="file" name="photo_1" accept="image/*"></div>
+            </div>
+            <div class="file-upload-row">
+                <img src="<?= htmlspecialchars($info['photo_2'] ?? '') ?>" class="file-preview">
+                <div class="file-input-wrap"><label>Ảnh 2 (Ở giữa):</label><input type="file" name="photo_2" accept="image/*"></div>
+            </div>
+            <div class="file-upload-row">
+                <img src="<?= htmlspecialchars($info['photo_3'] ?? '') ?>" class="file-preview">
+                <div class="file-input-wrap"><label>Ảnh 3 (Bên phải):</label><input type="file" name="photo_3" accept="image/*"></div>
+            </div>
         </div>
 
         <div class="img-group">
-            <h3>🔹 Album Tốt nghiệp (Lưới xen kẽ chữ)</h3>
-            <label>Ảnh Album 1 (Phía trên):</label>
-            <input type="file" name="album_1" accept="image/*">
-            <label>Ảnh Album 2 (Phía dưới):</label>
-            <input type="file" name="album_2" accept="image/*">
+            <h3>🔹 Album Lưới (Cuối trang)</h3>
+            <div class="file-upload-row">
+                <img src="<?= htmlspecialchars($info['album_1'] ?? '') ?>" class="file-preview">
+                <div class="file-input-wrap"><label>Ảnh Album 1 (Bên trên):</label><input type="file" name="album_1" accept="image/*"></div>
+            </div>
+            <div class="file-upload-row">
+                <img src="<?= htmlspecialchars($info['album_2'] ?? '') ?>" class="file-preview">
+                <div class="file-input-wrap"><label>Ảnh Album 2 (Bên dưới):</label><input type="file" name="album_2" accept="image/*"></div>
+            </div>
         </div>
         
         <button type="submit" name="upload_images">Tải Các Ảnh Lên</button>
@@ -178,34 +210,43 @@ $current_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
 </div>
 
 <div class="card">
-    <h2>2. Thông Tin Chung & Vị Trí Map</h2>
+    <h2>2. Thông Tin Chung & Soạn Văn Bản</h2>
     <form method="POST">
-        <label>Họ và Tên:</label>
+        <label>Họ và Tên (Hiển thị đầy đủ):</label>
         <input type="text" name="grad_name" value="<?= htmlspecialchars($info['grad_name'] ?? '') ?>" required>
+        
+        <label>Câu nói tâm đắc / Câu Quote (Phía trên tên):</label>
+        <textarea name="quote" rows="2"><?= htmlspecialchars($info['quote'] ?? '') ?></textarea>
+
+        <label>Đoạn tự sự dưới bộ 3 ảnh:</label>
+        <textarea name="intro_text" rows="3"><?= htmlspecialchars($info['intro_text'] ?? '') ?></textarea>
+
+        <label>Văn bản Album 1 (Ô chữ nằm giữa hình lưới):</label>
+        <textarea name="album_text_1" rows="2"><?= htmlspecialchars($info['album_text_1'] ?? '') ?></textarea>
+
+        <label>Văn bản Album 2 (Ô chữ nằm giữa hình lưới):</label>
+        <textarea name="album_text_2" rows="2"><?= htmlspecialchars($info['album_text_2'] ?? '') ?></textarea>
+        
+        <label>Lời kêu gọi viết sổ lưu bút (RSVP):</label>
+        <textarea name="rsvp_text" rows="2"><?= htmlspecialchars($info['rsvp_text'] ?? '') ?></textarea>
+
+        <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
         
         <label>Ngày tổ chức:</label>
         <input type="date" name="event_date" value="<?= $info['event_date'] ?? '' ?>" required>
-        
         <label>Giờ bắt đầu:</label>
         <input type="time" name="event_time" value="<?= $info['event_time'] ?? '' ?>" required>
-        
         <label>Tên địa điểm (Hội trường / Nhà hàng):</label>
         <input type="text" name="location_name" value="<?= htmlspecialchars($info['location_name'] ?? '') ?>" required>
-        
         <label>Địa chỉ văn bản:</label>
         <input type="text" name="address" value="<?= htmlspecialchars($info['address'] ?? '') ?>" required>
 
-        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-        <div class="map-hint">📍 Kéo thả Ghim Đỏ trên bản đồ dưới đây để chọn vị trí chính xác (Dùng để chỉ đường):</div>
-        
+        <div class="map-hint">📍 Kéo thả Ghim Đỏ trên bản đồ dưới đây để chọn vị trí lấy tọa độ:</div>
         <div id="mapPicker"></div>
         <input type="hidden" name="lat" id="lat" value="<?= $current_lat ?>">
         <input type="hidden" name="lng" id="lng" value="<?= $current_lng ?>">
 
-        <label>Câu nói tâm đắc:</label>
-        <textarea name="quote" rows="3"><?= htmlspecialchars($info['quote'] ?? '') ?></textarea>
-        
-        <button type="submit" name="update_info">Lưu Thông Tin</button>
+        <button type="submit" name="update_info" style="background: #28a745;">Lưu Tất Cả Văn Bản</button>
     </form>
 </div>
 

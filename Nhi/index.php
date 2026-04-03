@@ -41,14 +41,14 @@ $map_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lễ Tốt Nghiệp - <?= htmlspecialchars($info['grad_name'] ?? 'Tên của bạn') ?></title>
+    <title>Lễ Tốt Nghiệp - <?= htmlspecialchars($info['grad_name'] ?? '') ?></title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-<style>
+    <style>
         :root {
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
@@ -60,68 +60,45 @@ $map_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
             --bg-card: #ffffff;
         }
 
-        /* ẨN THANH CUỘN MƯỢT MÀ */
         ::-webkit-scrollbar { display: none; }
         html, body { -ms-overflow-style: none; scrollbar-width: none; background: #111; margin: 0; padding: 0;}
-        
-        /* KHI MÀN HÌNH INTRO CHƯA MỞ, KHÓA CUỘN TRANG */
         body.locked { overflow: hidden; }
 
         body { font-family: var(--font-serif); color: var(--text-main); display: flex; justify-content: center; -webkit-font-smoothing: antialiased; }
         .wrapper { max-width: 450px; width: 100%; background: var(--bg-card); position: relative; box-shadow: 0 0 30px rgba(0,0,0,0.5); overflow-x: hidden; min-height: 100vh;}
         
-        /* =======================================================
-           MÀN HÌNH INTRO (MŨ CỬ NHÂN)
-           ======================================================= */
+        /* HIỆU ỨNG INTRO - TÁCH 2 CÁNH CỬA */
         #intro-overlay {
-            position: fixed; inset: 0; background: #e9ecef; z-index: 99999;
-            display: flex; flex-direction: column; cursor: pointer;
-            transition: transform 0.8s cubic-bezier(0.5, 0, 0.2, 1);
+            position: fixed; inset: 0; z-index: 99999; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; overflow: hidden;
         }
-        .cap-bg {
-            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 150vw; height: 35vh; background: #111;
-            clip-path: polygon(0 0, 100% 0, 100% 65%, 50% 100%, 0 65%);
-            display: flex; justify-content: center; align-items: center; z-index: 2;
-            transition: transform 0.3s ease;
+        .intro-door {
+            position: absolute; top: 0; bottom: 0; width: 50%; background: #111;
+            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1); z-index: 1;
         }
-        .cap-text {
-            color: #fff; font-family: var(--font-sans); font-size: 2.2rem; font-weight: 700; 
-            letter-spacing: 5px; margin-top: -8vh; text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        .intro-door-left { left: 0; border-right: 1px solid rgba(168,123,81,0.5); transform-origin: left; }
+        .intro-door-right { right: 0; border-left: 1px solid rgba(168,123,81,0.5); transform-origin: right; }
+        
+        .intro-content {
+            position: relative; z-index: 2; text-align: center; color: #fff;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
         }
-        .tassel-container {
-            position: absolute; top: 35vh; left: 50%; transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center; z-index: 1;
-            transition: transform 0.3s ease;
-        }
-        .tassel-string { width: 4px; height: 130px; background: #d4af37; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
-        .tassel-knot { width: 14px; height: 14px; background: #b8860b; border-radius: 50%; border: 2px solid #ffd700; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
-        .tassel-fringe { width: 18px; height: 80px; background: repeating-linear-gradient(90deg, #d4af37, #d4af37 2px, #b8860b 2px, #b8860b 4px); border-radius: 0 0 5px 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
+        .intro-icon { font-size: 3rem; margin-bottom: 10px; color: var(--accent); }
+        .intro-subtitle { font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 5px; margin-bottom: 15px; color: #ccc;}
+        .intro-name { font-family: var(--font-script); font-size: 3.5rem; text-shadow: 0 2px 5px rgba(0,0,0,0.5); line-height: 1; margin: 0;}
+        .click-hint { font-family: var(--font-sans); font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-top: 50px; animation: pulseHint 1.5s infinite; }
+        @keyframes pulseHint { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(5px); } }
 
-        .intro-details {
-            position: absolute; top: 60vh; width: 100%; padding: 0 35px; box-sizing: border-box;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .intro-school { font-family: var(--font-sans); font-weight: 700; font-size: 1rem; color: #555; text-transform: uppercase; max-width: 50%; line-height: 1.4; text-shadow: 1px 1px 0 #fff;}
-        .intro-date { font-family: var(--font-sans); font-weight: 700; font-size: 3rem; color: var(--accent); line-height: 1; text-align: right; text-shadow: 1px 1px 0 #fff;}
-        .intro-date span { display: block; font-size: 2rem; color: #555; }
+        /* Trạng thái khi mở thiệp */
+        #intro-overlay.open .intro-door-left { transform: translateX(-100%); }
+        #intro-overlay.open .intro-door-right { transform: translateX(100%); }
+        #intro-overlay.open .intro-content { opacity: 0; transform: scale(1.2); }
 
-        .click-hint {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            font-family: var(--font-sans); font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 2px;
-            animation: pulseHint 1.5s infinite;
-        }
-        @keyframes pulseHint { 0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); } 50% { opacity: 1; transform: translateX(-50%) translateY(5px); } }
+        /* NỘI DUNG CHÍNH (Sẽ mờ dần hiện lên khi rèm kéo ra) */
+        #main-content { opacity: 0; transition: opacity 1.5s ease-in-out; }
+        #main-content.visible { opacity: 1; }
 
-        /* Animation khi ấn vào mũ */
-        #intro-overlay.pull-active .cap-bg { transform: translate(-50%, 30px); }
-        #intro-overlay.pull-active .tassel-container { transform: translate(-50%, 30px); }
-        #intro-overlay.slide-down-active { transform: translateY(100vh); }
-
-
-        /* =======================================================
-           GIAO DIỆN THIỆP CHÍNH
-           ======================================================= */
+        /* ================== GIAO DIỆN CHÍNH ================== */
         .hero { 
             height: 100vh; position: relative;
             background-image: url('<?= htmlspecialchars($info['hero_image'] ?? 'uploads/hero_default.jpg') ?>');
@@ -132,33 +109,14 @@ $map_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
         .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; color: #fff; padding: 0 15px; width: 100%; box-sizing: border-box; top: 10%;}
         
-        /* CHỮ TÊN ÉP TRÊN 1 DÒNG VÀ CO GIÃN TỰ ĐỘNG */
         .hero h1 { 
             font-family: var(--font-script); 
             font-size: clamp(2rem, 11vw, 3.8rem);
-            font-weight: 400; 
-            margin: 0; 
-            text-shadow: 2px 4px 8px rgba(0,0,0,0.6); 
-            line-height: 1.2; 
-            white-space: nowrap; 
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-weight: 400; margin: 0; text-shadow: 2px 4px 8px rgba(0,0,0,0.6); 
+            line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .hero .subtitle { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 500; letter-spacing: 4px; margin: 15px 0 10px; opacity: 0.9; text-transform: uppercase;}
         .hero .date { font-family: var(--font-sans); font-size: 1.1rem; letter-spacing: 2px; font-weight: 400; margin-bottom: 30px;}
-
-        .invite-box {
-            margin-top: 20px;
-            padding: 15px 30px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            backdrop-filter: blur(4px);
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-        .invite-label { font-family: var(--font-sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; margin: 0 0 5px 0; color: #ddd; }
-        .invite-name { font-family: var(--font-script); font-size: clamp(2rem, 8vw, 3rem); margin: 0; color: var(--accent); text-shadow: 1px 1px 2px rgba(0,0,0,0.5); line-height: 1; }
 
         .section { padding: 50px 25px; text-align: center; }
         .quote-box { font-size: 1.2rem; font-style: italic; color: var(--text-light); line-height: 1.7; position: relative; padding: 20px;}
@@ -166,7 +124,11 @@ $map_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
         .quote-box::before { top: 0; } .quote-box::after { bottom: 0; }
 
         .title-sm { font-family: var(--font-sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-light); margin-bottom: 5px; }
+        
+        /* Tên đầy đủ co giãn tự động */
+        .title-script-full { font-family: var(--font-script); font-size: clamp(2.5rem, 8vw, 3.5rem); color: var(--text-main); margin: -10px 0 15px; font-weight: 400; line-height: 1.2;}
         .title-script { font-family: var(--font-script); font-size: 3.5rem; color: var(--text-main); margin: -10px 0 15px; font-weight: 400;}
+        
         .text-desc { font-family: var(--font-sans); font-size: 0.85rem; line-height: 1.8; color: #555; text-align: justify; font-weight: 300;}
 
         .photo-row { display: flex; gap: 4px; margin: 10px 0 40px; }
@@ -213,45 +175,30 @@ $map_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
         .map-container { border-radius: 8px; overflow: hidden; margin-top: 15px; border: 1px solid #eee;}
     </style>
 </head>
-<body class="locked">
 
 <?php if($_SERVER["REQUEST_METHOD"] != "POST"): ?>
-<div id="intro-overlay">
-    <div class="cap-bg">
-        <div class="cap-text">GRADUATION</div>
-    </div>
-    <div class="tassel-container">
-        <div class="tassel-string"></div>
-        <div class="tassel-knot"></div>
-        <div class="tassel-fringe"></div>
-    </div>
-    
-    <div class="intro-details">
-        <div class="intro-school"><?= htmlspecialchars($info['location_name'] ?? 'ĐẠI HỌC CỦA BẠN') ?></div>
-        <div class="intro-date">
-            <?= date('d/m', $event_timestamp) ?>
-            <span><?= date('Y', $event_timestamp) ?></span>
+<body class="locked">
+    <div id="intro-overlay">
+        <div class="intro-door intro-door-left"></div>
+        <div class="intro-door intro-door-right"></div>
+        <div class="intro-content">
+            <div class="intro-icon">🎓</div>
+            <div class="intro-subtitle">LỄ TỐT NGHIỆP</div>
+            <div class="intro-name"><?= htmlspecialchars($info['grad_name'] ?? '') ?></div>
+            <div class="click-hint">Chạm để mở thiệp</div>
         </div>
     </div>
-    
-    <div class="click-hint">Chạm để mở thiệp</div>
-</div>
+<?php else: ?>
+<body>
 <?php endif; ?>
 
-<div class="wrapper" id="main-content" style="<?= ($_SERVER["REQUEST_METHOD"] == "POST") ? 'display:block;' : 'display:none;' ?>">
+<div class="wrapper <?= ($_SERVER["REQUEST_METHOD"] == "POST") ? 'visible' : '' ?>" id="main-content">
 
     <div class="hero">
         <div class="hero-content" data-aos="fade-in" data-aos-duration="2000">
-            <h1><?= htmlspecialchars($info['grad_name'] ?? 'Tên Của Bạn') ?></h1>
+            <h1><?= htmlspecialchars($info['grad_name'] ?? '') ?></h1>
             <div class="subtitle">Lễ Tốt Nghiệp</div>
             <div class="date"><?= date('d.m.Y', $event_timestamp) ?></div>
-
-            <?php if($guest_name_invite): ?>
-                <div class="invite-box" data-aos="zoom-in" data-aos-delay="500" data-aos-duration="1500">
-                    <p class="invite-label">Kính mời</p>
-                    <p class="invite-name"><?= $guest_name_invite ?></p>
-                </div>
-            <?php endif; ?>
         </div>
     </div>
 
@@ -261,8 +208,7 @@ $map_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
 
     <div class="section" style="padding-top: 0;" data-aos="fade-up">
         <div class="title-sm">Tân cử nhân</div>
-        <?php $name_parts = explode(' ', trim($info['grad_name'])); $first_name = end($name_parts); ?>
-        <div class="title-script"><?= htmlspecialchars($first_name) ?></div>
+        <div class="title-script-full"><?= htmlspecialchars($info['grad_name'] ?? '') ?></div>
         
         <div class="photo-row">
             <img src="<?= htmlspecialchars($info['photo_1'] ?? 'uploads/avatar_default.jpg') ?>">
@@ -271,13 +217,23 @@ $map_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
         </div>
 
         <div class="text-desc">
-            Tốt nghiệp là dấu mốc kết thúc một hành trình và mở ra một chặng đường mới. Tôi biết phía trước sẽ không dễ dàng, nhưng tôi tin vào bản thân, vào những gì mình đã học được. Cảm ơn thanh xuân vì đã rực rỡ đến thế! 🎓✨
+            <?= nl2br(htmlspecialchars($info['intro_text'] ?? 'Tốt nghiệp là dấu mốc kết thúc một hành trình và mở ra một chặng đường mới...')) ?>
         </div>
     </div>
 
     <div class="section calendar-wrap" data-aos="fade-up">
-        <div class="title-script" style="font-size: 3rem;">Thân mời</div>
-        <div class="title-sm" style="color: #222; font-weight: 600;">CÔ, CHÚ, ANH, CHỊ ĐẾN DỰ LỄ TỐT NGHIỆP</div>
+        
+        <?php if($guest_name_invite): ?>
+            <div class="title-sm" style="color: #222; font-weight: 600;">THÂN MỜI</div>
+            <div style="font-family: var(--font-script); font-size: 3.5rem; color: var(--accent); line-height: 1.2; margin: 15px 0;">
+                <?= $guest_name_invite ?>
+            </div>
+            <div class="title-sm" style="color: #222; font-weight: 600;">ĐẾN DỰ LỄ TỐT NGHIỆP CỦA MÌNH</div>
+        <?php else: ?>
+            <div class="title-script" style="font-size: 3rem;">Thân mời</div>
+            <div class="title-sm" style="color: #222; font-weight: 600;">CÔ, CHÚ, ANH, CHỊ ĐẾN DỰ LỄ TỐT NGHIỆP</div>
+        <?php endif; ?>
+
         <div class="title-script" style="font-size: 3.5rem; margin: 30px 0 10px;">Tháng <?= $e_month ?></div>
 
         <table class="cal-table">
@@ -351,14 +307,16 @@ $map_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
     </div>
     <div class="album-grid" data-aos="fade-up">
         <div class="album-item"><img src="<?= htmlspecialchars($info['album_1'] ?? 'uploads/avatar_default.jpg') ?>"></div>
-        <div class="album-text">Cánh cửa đại học khép lại, mở ra vô vàn cơ hội và thách thức mới.</div>
-        <div class="album-text">Có những khoảnh khắc trôi qua rồi mới biết thế nào là vô giá. Trân trọng!</div>
+        <div class="album-text"><?= htmlspecialchars($info['album_text_1'] ?? 'Cánh cửa đại học khép lại, mở ra vô vàn cơ hội mới.') ?></div>
+        <div class="album-text"><?= htmlspecialchars($info['album_text_2'] ?? 'Có những khoảnh khắc trôi qua rồi mới biết thế nào là vô giá.') ?></div>
         <div class="album-item"><img src="<?= htmlspecialchars($info['album_2'] ?? 'uploads/hero_default.jpg') ?>"></div>
     </div>
 
     <div class="rsvp-wrap" id="rsvp">
         <div class="title-script" style="font-size: 3.5rem; text-align: center;">Sổ lưu bút</div>
-        <p class="text-desc" style="text-align: center; margin-bottom: 25px;">Sự hiện diện của bạn là niềm vinh hạnh cho buổi lễ tốt nghiệp của mình.</p>
+        <p class="text-desc" style="text-align: center; margin-bottom: 25px;">
+            <?= htmlspecialchars($info['rsvp_text'] ?? 'Sự hiện diện của bạn là niềm vinh hạnh cho buổi lễ tốt nghiệp của mình.') ?>
+        </p>
         
         <?php if($success_msg): ?>
             <div style="color: #28a745; font-family: var(--font-sans); font-size: 0.85rem; text-align: center; margin-bottom: 15px; border: 1px solid #28a745; padding: 10px; border-radius: 4px;"><?= $success_msg ?></div>
@@ -366,11 +324,10 @@ $map_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
 
         <form method="POST" action="#rsvp" data-aos="fade-up">
             <input type="text" name="guest_name" class="form-control" placeholder="Tên của bạn" value="<?= $guest_name_invite ?>" required>
-            <textarea name="message" class="form-control" placeholder="Gửi lời nhắn đến <?= htmlspecialchars($first_name) ?>..." required></textarea>
+            <textarea name="message" class="form-control" placeholder="Gửi lời chúc mừng đến <?= htmlspecialchars(explode(' ', trim($info['grad_name']))[count(explode(' ', trim($info['grad_name']))) - 1]) ?>..." required></textarea>
             <select name="attendance" class="form-control" required>
                 <option value="Sẽ đến">Mình chắc chắn sẽ đến</option>
                 <option value="Không đến">Xin lỗi mình bận rồi!</option>
-                <option value="Suy nghĩ">Mình cần suy nghĩ thêm</option>
             </select>
             <button type="submit" name="submit_rsvp" class="btn" style="width: 100%; background: var(--text-main); color: #fff; border:none; padding: 15px;">Gửi Lời Nhắn</button>
         </form>
@@ -399,32 +356,28 @@ $map_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
         const mainContent = document.getElementById('main-content');
         
         introOverlay.addEventListener('click', function() {
-            // Bước 1: Ấn vào giật mũ xuống 1 chút
-            introOverlay.classList.add('pull-active');
-            document.querySelector('.click-hint').style.display = 'none';
+            // Bước 1: Kích hoạt hiệu ứng tách cửa chậm (1.5s)
+            introOverlay.classList.add('open');
             
-            // Bước 2: Kéo tuột màn hình xuống để lộ thiệp
+            // Bước 2: Hiển thị dần nội dung chính từ mờ ảo sang rõ nét (opacity 0 -> 1)
             setTimeout(() => {
-                introOverlay.classList.add('slide-down-active');
+                mainContent.classList.add('visible');
+            }, 300); // Đợi cửa hé ra một chút rồi mới bắt đầu hiện nội dung
+            
+            // Bước 3: Hoàn tất ẩn rèm và bật hiệu ứng cuộn
+            setTimeout(() => {
+                introOverlay.style.display = 'none';
+                document.body.classList.remove('locked');
                 
-                // Bước 3: Hiện nội dung chính và Mở khóa cuộn trang
-                setTimeout(() => {
-                    introOverlay.style.display = 'none';
-                    mainContent.style.display = 'block';
-                    document.body.classList.remove('locked');
-                    
-                    // Khởi tạo hiệu ứng xuất hiện sau khi mở thiệp
-                    AOS.init({ once: true, offset: 60, duration: 800, easing: 'ease-out-cubic' });
-                }, 800);
-            }, 300);
+                // THIẾT LẬP LẶP LẠI HIỆU ỨNG: once: false
+                AOS.init({ once: false, offset: 60, duration: 1000, easing: 'ease-out-cubic' });
+            }, 1500); 
         });
     <?php else: ?>
-        // Nếu vừa điền Sổ lưu bút thì bỏ qua Intro và mở khóa luôn
         document.body.classList.remove('locked');
-        AOS.init({ once: true, offset: 60, duration: 800, easing: 'ease-out-cubic' });
+        AOS.init({ once: false, offset: 60, duration: 1000, easing: 'ease-out-cubic' }); // once: false
     <?php endif; ?>
 
-    // Xử lý đếm ngược
     const eventDateStr = "<?= date('Y-m-d', $event_timestamp) ?>T<?= ($info['event_time'] ?? '00:00') ?>:00";
     const countDownDate = new Date(eventDateStr).getTime();
 
