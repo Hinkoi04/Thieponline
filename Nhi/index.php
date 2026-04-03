@@ -370,6 +370,7 @@ $map_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
             <select name="attendance" class="form-control" required>
                 <option value="Sẽ đến">Mình chắc chắn sẽ đến</option>
                 <option value="Không đến">Xin lỗi mình bận rồi!</option>
+                <option value="Suy nghĩ">Mình cần suy nghĩ thêm</option>
             </select>
             <button type="submit" name="submit_rsvp" class="btn" style="width: 100%; background: var(--text-main); color: #fff; border:none; padding: 15px;">Gửi Lời Nhắn</button>
         </form>
