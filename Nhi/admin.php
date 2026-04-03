@@ -2,8 +2,7 @@
 session_start();
 require 'db.php';
 
-// Mật khẩu vào Admin
-$admin_password = "anngoc_graduation"; 
+$admin_password = "22122004"; 
 
 if (isset($_GET['logout'])) {
     session_destroy();
