@@ -344,7 +344,7 @@ $heroImage = htmlspecialchars($info['hero_image'] ?? 'uploads/hero_default.jpg')
     let autoScrollReq, isAutoScrolling = false, scrollPos = 0;
     function autoScroll() {
         if (!isAutoScrolling) return;
-        scrollPos += 0.8;
+        scrollPos += 1.5;
         window.scrollTo(0, scrollPos);
         if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 10) isAutoScrolling = false;
         else autoScrollReq = requestAnimationFrame(autoScroll);
