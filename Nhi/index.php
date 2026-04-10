@@ -180,7 +180,6 @@ $heroImage = htmlspecialchars($info['hero_image'] ?? 'uploads/hero_default.jpg')
         <div class="intro-bottom">
             <div class="intro-bottom-content">
                 <div class="intro-school">
-                    <span class="school-label">TRƯỜNG ĐẠI HỌC</span><br>
                     <span class="school-name"><?= htmlspecialchars($info['location_name'] ?? 'NGUYỄN TẤT THÀNH') ?></span>
                 </div>
                 <div class="intro-date-box">
