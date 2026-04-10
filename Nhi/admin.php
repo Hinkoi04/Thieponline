@@ -2,7 +2,8 @@
 session_start();
 require 'db.php';
 
-$admin_password = "22122004"; 
+// Mật khẩu vào Admin
+$admin_password = "123456"; 
 
 if (isset($_GET['logout'])) {
     session_destroy();
@@ -15,6 +16,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         $_SESSION['logged_in'] = true;
     } else {
         $login_error = "Mật khẩu không đúng!";
+    }
+}
+
+// ================= XỬ LÝ XÓA DỮ LIỆU TỪ GET =================
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    // Xóa Lịch trình
+    if (isset($_GET['del_timeline'])) {
+        $id = (int)$_GET['del_timeline'];
+        $pdo->prepare("DELETE FROM timeline WHERE id=?")->execute([$id]);
+        header("Location: admin.php?msg=deleted");
+        exit;
+    }
+    // Xóa RSVP (Sổ lưu bút)
+    if (isset($_GET['del_rsvp'])) {
+        $id = (int)$_GET['del_rsvp'];
+        $pdo->prepare("DELETE FROM rsvp_messages WHERE id=?")->execute([$id]);
+        header("Location: admin.php?msg=deleted");
+        exit;
     }
 }
 
@@ -49,8 +68,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit;
 }
 
-// ================= CODE XỬ LÝ DỮ LIỆU ADMIN =================
+// ================= CODE XỬ LÝ DỮ LIỆU POST ADMIN =================
 $msg = '';
+if (isset($_GET['msg']) && $_GET['msg'] == 'deleted') {
+    $msg = "Đã xóa dữ liệu thành công!";
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_info'])) {
     $name = $_POST['grad_name'];
@@ -62,7 +84,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_info'])) {
     $lat = $_POST['lat']; 
     $lng = $_POST['lng']; 
     
-    // Các text mới
     $intro_text = $_POST['intro_text'];
     $album_text_1 = $_POST['album_text_1'];
     $album_text_2 = $_POST['album_text_2'];
@@ -93,16 +114,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['upload_images'])) {
     $msg = "Cập nhật hình ảnh thành công!";
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_timeline'])) {
+// Xử lý Thêm / Sửa Lịch trình
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['save_timeline'])) {
     $time_str = $_POST['time_str'];
     $desc = $_POST['description'];
     $order = (int)$_POST['order_num'];
     
-    $pdo->prepare("INSERT INTO timeline (time_str, description, order_num) VALUES (?, ?, ?)")->execute([$time_str, $desc, $order]);
-    $msg = "Đã thêm sự kiện vào lịch trình!";
+    if (!empty($_POST['tl_id'])) {
+        // Nếu có ID thì là Cập nhật (Sửa)
+        $pdo->prepare("UPDATE timeline SET time_str=?, description=?, order_num=? WHERE id=?")->execute([$time_str, $desc, $order, $_POST['tl_id']]);
+        $msg = "Đã cập nhật Lịch trình!";
+    } else {
+        // Không có ID thì Thêm mới
+        $pdo->prepare("INSERT INTO timeline (time_str, description, order_num) VALUES (?, ?, ?)")->execute([$time_str, $desc, $order]);
+        $msg = "Đã thêm sự kiện vào lịch trình!";
+    }
+}
+
+// Lấy data để Edit Timeline
+$edit_tl = null;
+if (isset($_GET['edit_timeline'])) {
+    $stmt_tl = $pdo->prepare("SELECT * FROM timeline WHERE id=?");
+    $stmt_tl->execute([(int)$_GET['edit_timeline']]);
+    $edit_tl = $stmt_tl->fetch(PDO::FETCH_ASSOC);
 }
 
 $info = $pdo->query("SELECT * FROM page_info LIMIT 1")->fetch(PDO::FETCH_ASSOC);
+$timelines_admin = $pdo->query("SELECT * FROM timeline ORDER BY order_num ASC")->fetchAll(PDO::FETCH_ASSOC);
 $rsvps = $pdo->query("SELECT * FROM rsvp_messages ORDER BY created_at DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 $current_lat = !empty($info['lat']) ? $info['lat'] : '21.028511';
@@ -131,7 +169,13 @@ $current_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
         th { background-color: #f8f9fa; }
         .alert { padding: 10px; background: #d4edda; color: #155724; border-radius: 4px; margin-bottom: 20px;}
         
-        /* Hiển thị Preview ảnh */
+        /* Chỉnh CSS các nút bấm nhỏ */
+        .btn-sm { padding: 6px 12px; font-size: 0.85rem; margin-right: 5px; text-decoration: none; border-radius: 3px; color: white; display: inline-block; text-align: center;}
+        .btn-edit { background-color: #ffc107; color: #000; font-weight: bold;}
+        .btn-del { background-color: #dc3545; font-weight: bold;}
+        .btn-edit:hover { background-color: #e0a800; }
+        .btn-del:hover { background-color: #c82333; }
+
         .img-group { border: 1px dashed #ccc; padding: 15px; border-radius: 5px; margin-bottom: 15px; background: #fafafa;}
         .img-group h3 { margin-top: 0; font-size: 1.1rem; color: #333;}
         .file-upload-row { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
@@ -156,52 +200,30 @@ $current_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
 <div class="card">
     <h2>1. Đổi Hình Ảnh (Có xem trước)</h2>
     <form method="POST" enctype="multipart/form-data">
-        
         <div class="img-group">
             <h3>🔹 Ảnh Chính</h3>
             <div class="file-upload-row">
                 <img src="<?= htmlspecialchars($info['hero_image'] ?? '') ?>" class="file-preview">
-                <div class="file-input-wrap">
-                    <label>Ảnh bìa (Background lúc mới vào):</label>
-                    <input type="file" name="hero_image" accept="image/*">
-                </div>
+                <div class="file-input-wrap"><label>Ảnh bìa (Background lúc mới vào):</label><input type="file" name="hero_image" accept="image/*"></div>
             </div>
             
             <div class="file-upload-row">
                 <img src="<?= htmlspecialchars($info['avatar_image'] ?? '') ?>" class="file-preview">
-                <div class="file-input-wrap">
-                    <label>Ảnh đại diện (Khối giới thiệu bản thân):</label>
-                    <input type="file" name="avatar_image" accept="image/*">
-                </div>
+                <div class="file-input-wrap"><label>Ảnh đại diện (Khối giới thiệu bản thân):</label><input type="file" name="avatar_image" accept="image/*"></div>
             </div>
         </div>
 
         <div class="img-group">
             <h3>🔹 Bộ 3 ảnh nối tiếp</h3>
-            <div class="file-upload-row">
-                <img src="<?= htmlspecialchars($info['photo_1'] ?? '') ?>" class="file-preview">
-                <div class="file-input-wrap"><label>Ảnh 1 (Bên trái):</label><input type="file" name="photo_1" accept="image/*"></div>
-            </div>
-            <div class="file-upload-row">
-                <img src="<?= htmlspecialchars($info['photo_2'] ?? '') ?>" class="file-preview">
-                <div class="file-input-wrap"><label>Ảnh 2 (Ở giữa):</label><input type="file" name="photo_2" accept="image/*"></div>
-            </div>
-            <div class="file-upload-row">
-                <img src="<?= htmlspecialchars($info['photo_3'] ?? '') ?>" class="file-preview">
-                <div class="file-input-wrap"><label>Ảnh 3 (Bên phải):</label><input type="file" name="photo_3" accept="image/*"></div>
-            </div>
+            <div class="file-upload-row"><img src="<?= htmlspecialchars($info['photo_1'] ?? '') ?>" class="file-preview"><div class="file-input-wrap"><label>Ảnh 1 (Bên trái):</label><input type="file" name="photo_1" accept="image/*"></div></div>
+            <div class="file-upload-row"><img src="<?= htmlspecialchars($info['photo_2'] ?? '') ?>" class="file-preview"><div class="file-input-wrap"><label>Ảnh 2 (Ở giữa):</label><input type="file" name="photo_2" accept="image/*"></div></div>
+            <div class="file-upload-row"><img src="<?= htmlspecialchars($info['photo_3'] ?? '') ?>" class="file-preview"><div class="file-input-wrap"><label>Ảnh 3 (Bên phải):</label><input type="file" name="photo_3" accept="image/*"></div></div>
         </div>
 
         <div class="img-group">
             <h3>🔹 Album Lưới (Cuối trang)</h3>
-            <div class="file-upload-row">
-                <img src="<?= htmlspecialchars($info['album_1'] ?? '') ?>" class="file-preview">
-                <div class="file-input-wrap"><label>Ảnh Album 1 (Bên trên):</label><input type="file" name="album_1" accept="image/*"></div>
-            </div>
-            <div class="file-upload-row">
-                <img src="<?= htmlspecialchars($info['album_2'] ?? '') ?>" class="file-preview">
-                <div class="file-input-wrap"><label>Ảnh Album 2 (Bên dưới):</label><input type="file" name="album_2" accept="image/*"></div>
-            </div>
+            <div class="file-upload-row"><img src="<?= htmlspecialchars($info['album_1'] ?? '') ?>" class="file-preview"><div class="file-input-wrap"><label>Ảnh Album 1 (Bên trên):</label><input type="file" name="album_1" accept="image/*"></div></div>
+            <div class="file-upload-row"><img src="<?= htmlspecialchars($info['album_2'] ?? '') ?>" class="file-preview"><div class="file-input-wrap"><label>Ảnh Album 2 (Bên dưới):</label><input type="file" name="album_2" accept="image/*"></div></div>
         </div>
         
         <button type="submit" name="upload_images">Tải Các Ảnh Lên</button>
@@ -250,16 +272,52 @@ $current_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
 </div>
 
 <div class="card">
-    <h2>3. Lịch Trình (Timeline)</h2>
-    <form method="POST">
-        <label>Giờ (VD: 07:30):</label>
-        <input type="text" name="time_str" required>
-        <label>Nội dung sự kiện:</label>
-        <input type="text" name="description" required>
-        <label>Thứ tự hiển thị:</label>
-        <input type="number" name="order_num" value="1" required>
-        <button type="submit" name="add_timeline">Thêm Lịch Trình</button>
-    </form>
+    <h2>3. Quản lý Lịch Trình (Timeline)</h2>
+    
+    <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #eee;">
+        <h3 style="margin-top: 0;"><?= $edit_tl ? '✏️ Cập nhật Sự kiện' : '➕ Thêm Sự kiện Mới' ?></h3>
+        <form method="POST">
+            <input type="hidden" name="tl_id" value="<?= $edit_tl['id'] ?? '' ?>">
+            <label>Giờ (VD: 07:30):</label>
+            <input type="text" name="time_str" value="<?= htmlspecialchars($edit_tl['time_str'] ?? '') ?>" required>
+            <label>Nội dung sự kiện:</label>
+            <input type="text" name="description" value="<?= htmlspecialchars($edit_tl['description'] ?? '') ?>" required>
+            <label>Thứ tự hiển thị (Số nhỏ xếp trước):</label>
+            <input type="number" name="order_num" value="<?= $edit_tl['order_num'] ?? '1' ?>" required>
+            
+            <button type="submit" name="save_timeline" style="background: <?= $edit_tl ? '#ffc107' : '#007bff' ?>; color: <?= $edit_tl ? '#000' : '#fff' ?>;">
+                <?= $edit_tl ? 'Lưu Cập Nhật' : 'Thêm Vào Lịch Trình' ?>
+            </button>
+            <?php if($edit_tl): ?>
+                <a href="admin.php" style="display: block; text-align: center; color: #666; margin-top: 10px;">Hủy chỉnh sửa</a>
+            <?php endif; ?>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <tr>
+                <th>Giờ</th>
+                <th>Sự kiện</th>
+                <th>Thứ tự</th>
+                <th>Hành động</th>
+            </tr>
+            <?php foreach ($timelines_admin as $tl): ?>
+            <tr>
+                <td><strong><?= htmlspecialchars($tl['time_str']) ?></strong></td>
+                <td><?= htmlspecialchars($tl['description']) ?></td>
+                <td><?= $tl['order_num'] ?></td>
+                <td>
+                    <a href="admin.php?edit_timeline=<?= $tl['id'] ?>" class="btn-sm btn-edit">Sửa</a>
+                    <a href="admin.php?del_timeline=<?= $tl['id'] ?>" class="btn-sm btn-del" onclick="return confirm('Bạn có chắc muốn xóa lịch trình này?');">Xóa</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+            <?php if(empty($timelines_admin)): ?>
+            <tr><td colspan="4" style="text-align:center; color:#999;">Chưa có lịch trình nào.</td></tr>
+            <?php endif; ?>
+        </table>
+    </div>
 </div>
 
 <div class="card">
@@ -271,6 +329,7 @@ $current_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
                 <th>Lời nhắn</th>
                 <th>Xác nhận</th>
                 <th>Ngày gửi</th>
+                <th>Hành động</th>
             </tr>
             <?php foreach ($rsvps as $rsvp): ?>
             <tr>
@@ -284,8 +343,14 @@ $current_lng = !empty($info['lng']) ? $info['lng'] : '105.804817';
                     <?php endif; ?>
                 </td>
                 <td><?= date('d/m/Y H:i', strtotime($rsvp['created_at'])) ?></td>
+                <td>
+                    <a href="admin.php?del_rsvp=<?= $rsvp['id'] ?>" class="btn-sm btn-del" onclick="return confirm('Bạn có chắc muốn xóa lời nhắn của khách này?');">Xóa</a>
+                </td>
             </tr>
             <?php endforeach; ?>
+            <?php if(empty($rsvps)): ?>
+            <tr><td colspan="5" style="text-align:center; color:#999;">Chưa có phản hồi nào.</td></tr>
+            <?php endif; ?>
         </table>
     </div>
 </div>
