@@ -7,23 +7,14 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* === NHÚNG FONT MALIBU RING === */
-        @font-face {
-            font-family: 'Malibu Ring';
-            src: url('fonts/MalibuRing.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap; 
-        }
-
         :root {
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
-            --font-script: 'Malibu Ring', cursive; 
+            --font-script: 'Pinyon Script', cursive; 
             --text-main: #222;
             --text-light: #666;
             --accent: #a87b51; 
@@ -81,13 +72,26 @@
         .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; color: #fff; padding: 0 15px; width: 100%; box-sizing: border-box; top: 10%;}
         
-        .hero h1 { font-family: var(--font-script); font-size: clamp(3.5rem, 15vw, 5rem); font-weight: normal; margin: 0; text-shadow: 2px 4px 8px rgba(0,0,0,0.6); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px 0;}
+        /* CHỈNH FONT RESPONSIVE: ÉP TRÊN 1 HÀNG KHÔNG BỊ TRÀN */
+        .hero h1 { 
+            font-family: var(--font-script); 
+            font-size: clamp(2.2rem, 9vw, 3.2rem); /* Giới hạn max 3.2rem để ko to trên PC */
+            font-weight: normal; margin: 0; padding: 10px 0;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.6); line-height: 1.2; 
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;
+        }
         .hero .subtitle { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 500; letter-spacing: 4px; margin: 15px 0 10px; opacity: 0.9; text-transform: uppercase;}
         .hero .date { font-family: var(--font-sans); font-size: 1.1rem; letter-spacing: 2px; font-weight: 400; margin-bottom: 30px;}
 
-        .invite-box { margin-top: 20px; padding: 15px 30px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; backdrop-filter: blur(4px); display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .invite-box { margin-top: 20px; padding: 15px 30px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; backdrop-filter: blur(4px); display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.3); max-width: 90%;}
         .invite-label { font-family: var(--font-sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; margin: 0 0 5px 0; color: #ddd; }
-        .invite-name { font-family: var(--font-script); font-size: clamp(2.5rem, 10vw, 4rem); margin: 0; color: var(--accent); text-shadow: 1px 1px 2px rgba(0,0,0,0.5); line-height: 1; padding: 5px 0;}
+        .invite-name { 
+            font-family: var(--font-script); 
+            font-size: clamp(1.8rem, 8vw, 2.8rem); 
+            margin: 0; padding: 5px 0; color: var(--accent); 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); line-height: 1; 
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;
+        }
 
         .section { padding: 50px 25px; text-align: center; }
         .quote-box { font-size: 1.2rem; font-style: italic; color: var(--text-light); line-height: 1.7; position: relative; padding: 20px;}
@@ -95,8 +99,20 @@
         .quote-box::before { top: 0; } .quote-box::after { bottom: 0; }
 
         .title-sm { font-family: var(--font-sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-light); margin-bottom: 5px; }
-        .title-script-full { font-family: var(--font-script); font-size: clamp(3rem, 12vw, 4.5rem); color: var(--text-main); margin: 0 0 15px; font-weight: normal; line-height: 1.2; padding: 5px 0;}
-        .title-script { font-family: var(--font-script); font-size: 4rem; color: var(--text-main); margin: 0 0 15px; font-weight: normal; padding: 5px 0;}
+        
+        .title-script-full { 
+            font-family: var(--font-script); 
+            font-size: clamp(2.2rem, 9vw, 3.2rem); 
+            color: var(--text-main); margin: 0 0 15px; padding: 5px 0;
+            font-weight: normal; line-height: 1.2; 
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;
+        }
+        .title-script { 
+            font-family: var(--font-script); 
+            font-size: clamp(2.5rem, 10vw, 3.5rem); 
+            color: var(--text-main); margin: 0 0 15px; padding: 5px 0; font-weight: normal; 
+        }
+
         .text-desc { font-family: var(--font-sans); font-size: 0.85rem; line-height: 1.8; color: #555; text-align: justify; font-weight: 300;}
 
         .photo-row { display: flex; gap: 4px; margin: 10px 0 40px; }
@@ -139,7 +155,8 @@
         .cd-item { text-align: center; min-width: 50px;}
         .cd-num { font-size: 2rem; font-weight: 300; color: #000; line-height: 1;}
         .cd-label { font-size: 0.65rem; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;}
-        .thank-you { font-family: var(--font-script); font-size: 4.5rem; color: var(--text-main); line-height: 1; margin: 40px 0 20px;}
+        
+        .thank-you { font-family: var(--font-script); font-size: clamp(2.8rem, 10vw, 4rem); color: var(--text-main); line-height: 1; margin: 40px 0 20px;}
         
         .map-container { border-radius: 8px; overflow: hidden; margin-top: 15px; border: 1px solid #eee;}
 
@@ -223,7 +240,7 @@
         
         <div id="dynamicInviteHeader" style="display: none;">
             <div class="title-sm" style="color: #222; font-weight: 600;">THÂN MỜI</div>
-            <div style="font-family: var(--font-script); font-size: 4rem; color: var(--accent); line-height: 1.2; margin: 10px 0; padding: 10px 0;" id="guestNameText">
+            <div style="font-family: var(--font-script); font-size: clamp(2.5rem, 10vw, 3.5rem); color: var(--accent); line-height: 1.2; margin: 10px 0; padding: 10px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;" id="guestNameText">
                 </div>
             <div class="title-sm" style="color: #222; font-weight: 600;">ĐẾN DỰ LỄ TỐT NGHIỆP CỦA MÌNH</div>
         </div>
@@ -345,7 +362,7 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    // ================= XỬ LÝ URL LẤY TÊN KHÁCH (Thay thế cho PHP) =================
+    // Lấy tên khách từ URL
     const urlParams = new URLSearchParams(window.location.search);
     const guestName = urlParams.get('to');
     
@@ -360,14 +377,14 @@
         document.getElementById('rsvpNameInput').value = guestName;
     }
 
-    // ================= LOGIC AUTO SCROLL MƯỢT =================
+    // Cuộn tự động mượt mà
     let autoScrollReq;
     let isAutoScrolling = false;
     let scrollPos = 0;
 
     function autoScroll() {
         if (!isAutoScrolling) return;
-        scrollPos += 0.8; 
+        scrollPos += 1.5; 
         window.scrollTo(0, scrollPos);
         
         if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 10) {
@@ -389,8 +406,7 @@
     window.addEventListener('wheel', stopAutoScroll, {passive: true});
     window.addEventListener('mousedown', stopAutoScroll);
 
-
-    // ================= LOGIC MỞ THIỆP & NÚT LÊN ĐẦU =================
+    // Mở Intro tách 2 phần Mũ và Nền xám
     const introOverlay = document.getElementById('intro-overlay');
     const mainContent = document.getElementById('main-content');
     const clickHint = document.querySelector('.click-hint');
@@ -412,7 +428,7 @@
         }, 2000); 
     });
 
-    // Xử lý hiện/ẩn Nút lên đầu trang (30%)
+    // Nút cuộn lên đầu
     const scrollTopBtn = document.getElementById("scrollTopBtn");
     window.addEventListener('scroll', function() {
         const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -429,7 +445,7 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ================= ĐẾM NGƯỢC TỚI 22/04/2026 07:30 =================
+    // Đếm ngược
     const countDownDate = new Date("2026-04-22T07:30:00").getTime();
 
     const x = setInterval(function() {
