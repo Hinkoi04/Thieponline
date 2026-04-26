@@ -1,469 +1,889 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lễ Tốt Nghiệp - Trần Thị Tố Nhi</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Lễ Tốt Nghiệp - Trần Thị Tố Nhi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Pinyon+Script&family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+::-webkit-scrollbar{display:none}
+html{-ms-overflow-style:none;scrollbar-width:none;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
 
-    <style>
-        :root {
-            --font-serif: 'Cormorant Garamond', serif;
-            --font-sans: 'Montserrat', sans-serif;
-            --font-script: 'Pinyon Script', cursive; 
-            --text-main: #222;
-            --text-light: #666;
-            --accent: #a87b51; 
-            --bg-body: #ececec;
-            --bg-card: #ffffff;
-        }
+:root{
+  --gold:#c9a96e;
+  --gold-light:#e8d5a3;
+  --gold-dark:#8a6535;
+  --cream:#f9f6f0;
+  --dark:#1a1410;
+  --charcoal:#2c2416;
+  --text:#3d3020;
+  --text-light:#7a6a50;
+  --serif:'Cormorant Garamond',serif;
+  --sans:'Montserrat',sans-serif;
+  --script:'Pinyon Script',cursive;
+}
 
-        /* ẨN THANH CUỘN & TỐI ƯU CUỘN MƯỢT TRÊN MOBILE */
-        ::-webkit-scrollbar { display: none; }
-        html { 
-            -ms-overflow-style: none; scrollbar-width: none; 
-            scroll-behavior: smooth; 
-            -webkit-overflow-scrolling: touch; 
-        }
-        body { background: #111; margin: 0; padding: 0; font-family: var(--font-serif); color: var(--text-main); display: flex; justify-content: center; -webkit-font-smoothing: antialiased; }
-        body.locked { overflow: hidden; }
+body{
+  background:#111;
+  font-family:var(--serif);
+  display:flex;
+  justify-content:center;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body.locked{overflow:hidden}
 
-        /* TỐI ƯU HIỆU NĂNG RENDER */
-        .wrapper { max-width: 450px; width: 100%; background: var(--bg-card); position: relative; box-shadow: 0 0 30px rgba(0,0,0,0.5); overflow-x: hidden; min-height: 100vh; will-change: transform;}
-        img { max-width: 100%; height: auto; }
+.wrapper{
+  max-width:430px;
+  width:100%;
+  background:var(--cream);
+  position:relative;
+  overflow-x:hidden;
+  min-height:100vh;
+}
 
-        /* =======================================================
-           MÀN HÌNH INTRO (MŨ TÁCH)
-           ======================================================= */
-        #intro-overlay { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 450px; height: 100vh; z-index: 99999; cursor: pointer; overflow: hidden; display: flex; justify-content: center; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
-        .intro-bottom { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; background: #dcdcdc; transition: transform 2s cubic-bezier(0.68, -0.05, 0.27, 1); z-index: 2; will-change: transform; }
-        .intro-bottom-content { position: absolute; top: 55%; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: flex-start; padding: 0 25px; box-sizing: border-box; }
-        .intro-school { font-family: var(--font-sans); font-weight: 800; color: #fff; text-transform: uppercase; width: 50%; line-height: 1.2; text-align: left; text-shadow: 2px 2px 8px rgba(0,0,0,0.6); letter-spacing: 1px; }
-        .intro-school .school-label { font-size: 0.9rem; }
-        .intro-school .school-name { font-size: 0.85rem; display: block; }
-        .intro-date-box { text-align: right; color: #fff; font-family: var(--font-sans); font-weight: 800; text-shadow: 2px 2px 8px rgba(0,0,0,0.6); }
-        .intro-date-day { font-size: 3rem; line-height: 1; letter-spacing: 2px;}
-        .intro-date-year { font-size: 2.2rem; line-height: 1; margin-top: 5px; color: #fff;}
-        
-        .intro-top { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; background: #111; clip-path: polygon(0 0, 100% 0, 100% 45%, 50% 50%, 0 45%); transition: transform 2s cubic-bezier(0.68, -0.05, 0.27, 1); z-index: 3; will-change: transform; }
-        .cap-text { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); color: #fff; font-family: var(--font-sans); font-size: 2rem; font-weight: 800; letter-spacing: 5px; text-shadow: 0 4px 10px rgba(0,0,0,0.8); width: 100%; text-align: center; }
-        
-        .tassel-wrapper { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -2px); display: flex; flex-direction: column; align-items: center; z-index: 4; transition: transform 2s cubic-bezier(0.68, -0.05, 0.27, 1); will-change: transform; }
-        .tassel-line { width: 4px; height: 110px; background: #d4af37; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
-        .tassel-knot { width: 14px; height: 14px; background: #b8860b; border-radius: 50%; border: 2px solid #ffd700; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);}
-        .tassel-fringe { width: 20px; height: 70px; background: repeating-linear-gradient(90deg, #d4af37, #d4af37 2px, #b8860b 2px, #b8860b 4px); border-radius: 0 0 5px 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);}
-        
-        .click-hint { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 5; font-family: var(--font-sans); font-size: 0.7rem; color: #fff; text-shadow: 1px 1px 3px #000; text-transform: uppercase; letter-spacing: 2px; animation: pulseHint 1.5s infinite; }
-        @keyframes pulseHint { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+/* ========= PARTICLE CANVAS ========= */
+#particles-canvas{
+  position:fixed;
+  top:0;left:50%;
+  transform:translateX(-50%);
+  width:430px;
+  height:100vh;
+  pointer-events:none;
+  z-index:0;
+  opacity:0;
+  transition:opacity 1s ease;
+}
+#particles-canvas.active{opacity:1}
 
-        #intro-overlay.open .intro-top { transform: translateY(-100%); }
-        #intro-overlay.open .tassel-wrapper { transform: translate(-50%, -100vh); } 
-        #intro-overlay.open .intro-bottom { transform: translateY(100%); }
+/* ========= INTRO OVERLAY ========= */
+#intro-overlay{
+  position:fixed;
+  top:0;left:50%;
+  transform:translateX(-50%);
+  width:100%;max-width:430px;
+  height:100vh;
+  z-index:99999;
+  cursor:pointer;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+}
 
-        /* ================== GIAO DIỆN CHÍNH THIỆP MỜI ================== */
-        #main-content { opacity: 0; transition: opacity 2s ease-in-out; }
-        #main-content.visible { opacity: 1; }
+.intro-half{
+  position:absolute;
+  left:0;width:100%;
+  /* Đã chỉnh hiệu ứng mở êm và mượt hơn */
+  transition:transform 1.4s ease-in-out;
+  will-change:transform;
+}
+.intro-top{
+  top:0;height:52%;
+  background:linear-gradient(160deg,#1a1208 0%,#2e1f08 60%,#1a1208 100%);
+  clip-path:polygon(0 0,100% 0,100% 88%,50% 100%,0 88%);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;
+  padding-bottom: 25px; /* Đẩy chữ lên để không bị cắt bởi góc nhọn */
+}
+.intro-bottom{
+  bottom:0;top:auto;height:52%;
+  background:linear-gradient(200deg,#c9a96e 0%,#e8d5a3 40%,#c9a96e 100%);
+  clip-path:polygon(0 12%,50% 0,100% 12%,100% 100%,0 100%);
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 28px 45px; /* Tăng padding dưới để an toàn trên mọi màn hình */
+}
 
-        .hero { height: 100vh; position: relative; background-image: url('uploads/hero_default.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; } 
-        .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%); z-index: 1; }
-        .hero-content { position: relative; z-index: 2; color: #fff; padding: 0 15px; width: 100%; box-sizing: border-box; top: 10%;}
-        
-        /* CHỈNH FONT RESPONSIVE: ÉP TRÊN 1 HÀNG KHÔNG BỊ TRÀN */
-        .hero h1 { 
-            font-family: var(--font-script); 
-            font-size: clamp(2.2rem, 9vw, 3.2rem); /* Giới hạn max 3.2rem để ko to trên PC */
-            font-weight: normal; margin: 0; padding: 10px 0;
-            text-shadow: 2px 4px 8px rgba(0,0,0,0.6); line-height: 1.2; 
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;
-        }
-        .hero .subtitle { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 500; letter-spacing: 4px; margin: 15px 0 10px; opacity: 0.9; text-transform: uppercase;}
-        .hero .date { font-family: var(--font-sans); font-size: 1.1rem; letter-spacing: 2px; font-weight: 400; margin-bottom: 30px;}
+#intro-overlay.open .intro-top{transform:translateY(-100%)}
+#intro-overlay.open .intro-bottom{transform:translateY(100%)}
+#intro-overlay.open .tassel-wrap{transform:translate(-50%,-130vh)}
 
-        .invite-box { margin-top: 20px; padding: 15px 30px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; backdrop-filter: blur(4px); display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.3); max-width: 90%;}
-        .invite-label { font-family: var(--font-sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; margin: 0 0 5px 0; color: #ddd; }
-        .invite-name { 
-            font-family: var(--font-script); 
-            font-size: clamp(1.8rem, 8vw, 2.8rem); 
-            margin: 0; padding: 5px 0; color: var(--accent); 
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); line-height: 1; 
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;
-        }
+/* SCHOOL INFO */
+.intro-school-info{color:#c9a96e;font-family:var(--sans);text-align:left;}
+.intro-school-info .label{font-size:.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.8; white-space:nowrap;}
+.intro-school-info .name{font-size:0.85rem;font-weight:800;line-height:1.3;margin-top:4px; white-space:nowrap;} /* Ép 1 dòng */
+.intro-date-info{color:#1a1208;font-family:var(--sans);text-align:right;}
+.intro-date-info .day{font-size:2.8rem;font-weight:900;line-height:1;letter-spacing:1px; white-space:nowrap;}
+.intro-date-info .year{font-size:1.6rem;font-weight:300;opacity:.8; white-space:nowrap;}
 
-        .section { padding: 50px 25px; text-align: center; }
-        .quote-box { font-size: 1.2rem; font-style: italic; color: var(--text-light); line-height: 1.7; position: relative; padding: 20px;}
-        .quote-box::before, .quote-box::after { content: ''; position: absolute; width: 30px; height: 1px; background: #ddd; left: 50%; transform: translateX(-50%); }
-        .quote-box::before { top: 0; } .quote-box::after { bottom: 0; }
+/* GRADUATION CAP */
+.cap-wrap{position:relative;display:flex;flex-direction:column;align-items:center;margin-bottom:10px}
+.cap-board{
+  width:110px;height:12px;
+  background:linear-gradient(90deg,#8a6535,#e8d5a3,#8a6535);
+  border-radius:2px;
+  position:relative;
+}
+.cap-board::after{
+  content:'';position:absolute;
+  top:-30px;left:50%;transform:translateX(-50%);
+  width:0;height:0;
+  border-left:55px solid transparent;
+  border-right:55px solid transparent;
+  border-bottom:30px solid #e8d5a3;
+}
+.cap-top{
+  position:absolute;top:-38px;left:50%;transform:translateX(-50%);
+  width:16px;height:16px;
+  background:#c9a96e;
+  border-radius:50%;
+  box-shadow:0 0 15px rgba(201,169,110,.8);
+}
 
-        .title-sm { font-family: var(--font-sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-light); margin-bottom: 5px; }
-        
-        .title-script-full { 
-            font-family: var(--font-script); 
-            font-size: clamp(2.2rem, 9vw, 3.2rem); 
-            color: var(--text-main); margin: 0 0 15px; padding: 5px 0;
-            font-weight: normal; line-height: 1.2; 
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;
-        }
-        .title-script { 
-            font-family: var(--font-script); 
-            font-size: clamp(2.5rem, 10vw, 3.5rem); 
-            color: var(--text-main); margin: 0 0 15px; padding: 5px 0; font-weight: normal; 
-        }
+.cap-title{
+  font-family:var(--sans);
+  font-size:clamp(1rem,4vw,1.5rem);
+  font-weight:900;
+  letter-spacing:5px; /* Giảm spacing nhẹ để an toàn */
+  color:#fff;
+  text-shadow:0 0 30px rgba(201,169,110,.6);
+  margin-bottom:6px;
+  text-transform:uppercase;
+  white-space:nowrap; /* Ép 1 dòng */
+}
+.cap-sub{
+  font-family:var(--script);
+  font-size:1.8rem;
+  color:var(--gold-light);
+  opacity:.9;
+}
 
-        .text-desc { font-family: var(--font-sans); font-size: 0.85rem; line-height: 1.8; color: #555; text-align: justify; font-weight: 300;}
+/* TASSEL */
+.tassel-wrap{
+  position:absolute;
+  top:48%;left:50%;
+  transform:translate(-50%,0);
+  display:flex;flex-direction:column;align-items:center;
+  z-index:5;
+  transition:transform 1.4s ease-in-out;
+  will-change:transform;
+  animation:tasselSwing 2s ease-in-out infinite;
+}
+@keyframes tasselSwing{
+  0%,100%{transform:translate(-50%,0) rotate(-3deg)}
+  50%{transform:translate(-50%,0) rotate(3deg)}
+}
+#intro-overlay.open .tassel-wrap{animation:none}
 
-        .photo-row { display: flex; gap: 4px; margin: 10px 0 40px; }
-        .photo-row img { flex: 1; width: 33.33%; aspect-ratio: 3/4; object-fit: cover; border-radius: 2px;}
+.tassel-string{width:3px;height:90px;background:linear-gradient(180deg,#d4af37,#8a6535);border-radius:2px}
+.tassel-knot{width:12px;height:12px;background:radial-gradient(circle,#ffd700,#b8860b);border-radius:50%;border:1.5px solid #ffd700;box-shadow:0 0 10px rgba(255,215,0,.5)}
+.tassel-fringe{
+  width:18px;height:55px;
+  background:repeating-linear-gradient(90deg,#d4af37,#d4af37 2px,#b8860b 2px,#b8860b 4px);
+  border-radius:0 0 4px 4px;
+}
 
-        .calendar-wrap { padding: 30px 15px; }
-        .cal-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); font-size: 0.8rem; font-weight: 400; color: #444; margin-bottom: 25px;}
-        .cal-table th { padding: 12px 0; color: #000; font-weight: 600; font-size: 0.75rem; letter-spacing: 1px;}
-        .cal-table td { padding: 10px 0; text-align: center; }
-        .cal-table td.empty { color: #ccc; }
-        .day-active { display: inline-flex; justify-content: center; align-items: center; width: 28px; height: 28px; background: var(--accent); color: #fff; border-radius: 50%; box-shadow: 0 4px 10px rgba(168,123,81,0.4); font-weight: 600;}
+.click-hint{
+  position:absolute;bottom:25px;left:50%;transform:translateX(-50%);
+  z-index:6;font-family:var(--sans);font-size:.65rem;color:#fff;
+  text-transform:uppercase;letter-spacing:3px;
+  animation:pulseHint 2s ease-in-out infinite; /* Mượt hơn */
+  white-space:nowrap;
+}
+@keyframes pulseHint{0%,100%{opacity:.4}50%{opacity:1}}
 
-        .date-block { display: flex; justify-content: center; align-items: center; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 25px 0; margin: 30px 0; gap: 30px;}
-        .d-item { text-align: center; font-family: var(--font-sans); }
-        .d-item span { display: block; font-size: 0.7rem; color: #999; letter-spacing: 2px; margin-bottom: 8px;}
-        .d-item strong { font-size: 1.4rem; font-weight: 400; color: #333;}
-        .d-item.main strong { font-size: 3.2rem; font-weight: 500; color: var(--accent); line-height: 1;}
+/* SHIMMER ON INTRO */
+.intro-shimmer{
+  position:absolute;
+  top:-50%;left:-100%;width:60%;height:200%;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.12) 50%,transparent 60%);
+  animation:shimmerMove 3s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes shimmerMove{0%{left:-100%}100%{left:150%}}
 
-        .btn { display: inline-block; padding: 12px 25px; border: 1px solid var(--text-main); color: var(--text-main); text-decoration: none; font-family: var(--font-sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; background: transparent; cursor: pointer; border-radius: 4px; margin-top: 15px;}
-        .btn:hover { background: var(--text-main); color: #fff; }
+/* ========= MAIN CONTENT ========= */
+#main-content{opacity:0;transition:opacity 1.5s ease}
+#main-content.visible{opacity:1}
 
-        .timeline { text-align: left; padding-left: 20px; border-left: 1px solid #ccc; margin-top: 30px; margin-left: 10px;}
-        .t-item { position: relative; padding-bottom: 30px; padding-left: 20px;}
-        .t-item:last-child { padding-bottom: 0; border-left: 1px solid #fff; margin-left: -1px;}
-        .t-item::before { content: ''; position: absolute; left: -5px; top: 2px; width: 9px; height: 9px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 3px #fff;}
-        .t-time { font-family: var(--font-sans); font-weight: 600; font-size: 0.9rem; margin-bottom: 5px; color: #000;}
-        .t-desc { font-family: var(--font-serif); font-size: 1.1rem; color: #555;}
+/* HERO */
+.hero{
+  height:100vh;
+  position:relative;
+  background-image:url('uploads/hero_default.jpg');
+  background-size:cover;
+  background-position:center;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(10,5,0,.85) 100%);
+  z-index:1;
+}
 
-        .album-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 15px;}
-        .album-item { position: relative; aspect-ratio: 1/1; overflow: hidden; }
-        .album-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;}
-        .album-item:hover img { transform: scale(1.05); }
-        .album-text { background: #f8f8f8; display: flex; align-items: center; justify-content: center; padding: 20px; text-align: center; font-family: var(--font-sans); font-size: 0.75rem; line-height: 1.6; color: #666;}
+/* FLOATING BOKEH */
+.bokeh-wrap{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bokeh{
+  position:absolute;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(201,169,110,.35) 0%,transparent 70%);
+  animation:bokehFloat linear infinite;
+  filter:blur(4px);
+}
+@keyframes bokehFloat{
+  0%{transform:translateY(100vh) scale(0.8);opacity:0}
+  10%{opacity:1}
+  90%{opacity:.8}
+  100%{transform:translateY(-20vh) scale(1.2);opacity:0}
+}
 
-        .rsvp-wrap { background: #fbfbfb; padding: 50px 25px; border-top: 1px solid #eee;}
-        .form-control { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ddd; background: #fff; font-family: var(--font-sans); font-size: 0.85rem; box-sizing: border-box; outline: none; border-radius: 4px;}
-        textarea.form-control { resize: vertical; min-height: 80px;}
+.hero-content{position:relative;z-index:2;color:#fff;padding:0 20px;width:100%;top:8%}
+.hero-badge{
+  font-family:var(--sans);font-size:.6rem;letter-spacing:5px;
+  text-transform:uppercase;color:var(--gold-light);
+  margin-bottom:20px;opacity:.9;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.hero-badge::before,.hero-badge::after{
+  content:'';width:40px;height:.5px;background:var(--gold);display:block;
+}
+.hero h1{
+  font-family:var(--script);
+  font-size:clamp(2.5rem,8vw,3.5rem); /* Đã giảm size để không tràn màn hình */
+  font-weight:normal;
+  line-height:1.2;
+  text-shadow:0 2px 30px rgba(0,0,0,.5);
+  margin:10px 0;
+  animation:heroNameReveal 1.5s ease forwards;
+  opacity:0;
+  animation-delay:.3s;
+  white-space: nowrap; /* Khóa dòng */
+}
+@keyframes heroNameReveal{
+  0%{opacity:0;transform:translateY(20px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+.hero-date{
+  font-family:var(--sans);font-size:.8rem;
+  letter-spacing:4px;font-weight:300;
+  margin:15px 0 25px;opacity:.85;
+  color:var(--gold-light);
+}
+.hero-line{
+  width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:15px auto;
+}
 
-        .countdown { display: flex; justify-content: center; gap: 10px; font-family: var(--font-sans); margin: 30px 0;}
-        .cd-item { text-align: center; min-width: 50px;}
-        .cd-num { font-size: 2rem; font-weight: 300; color: #000; line-height: 1;}
-        .cd-label { font-size: 0.65rem; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;}
-        
-        .thank-you { font-family: var(--font-script); font-size: clamp(2.8rem, 10vw, 4rem); color: var(--text-main); line-height: 1; margin: 40px 0 20px;}
-        
-        .map-container { border-radius: 8px; overflow: hidden; margin-top: 15px; border: 1px solid #eee;}
+.invite-box{
+  margin-top:25px;
+  padding:18px 32px;
+  background:rgba(0,0,0,.45);
+  border:1px solid rgba(201,169,110,.3);
+  border-radius:16px;
+  backdrop-filter:blur(8px);
+  display:inline-block;
+  max-width:90%;
+  animation:fadeInUp .8s ease forwards;
+  animation-delay:.8s;
+  opacity:0;
+  box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 0 30px rgba(201,169,110,.05);
+}
+.invite-label{font-family:var(--sans);font-size:.65rem;text-transform:uppercase;letter-spacing:4px;color:#bbb;margin-bottom:8px}
+.invite-name{
+  font-family:var(--script);
+  font-size:clamp(2rem,7vw,2.8rem);
+  color:var(--gold);
+  line-height:1.1;
+  text-shadow:0 0 20px rgba(201,169,110,.4);
+  white-space: nowrap;
+}
 
-        /* NÚT CUỘN LÊN ĐẦU TRANG */
-        #scrollTopBtn {
-            position: fixed; bottom: 30px; right: 20px; z-index: 9999;
-            width: 45px; height: 45px; border-radius: 50%;
-            background: rgba(168, 123, 81, 0.85); color: #fff; border: 2px solid #fff;
-            font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.3s ease;
-            opacity: 0; visibility: hidden; transform: translateY(20px);
-        }
-        #scrollTopBtn.show { opacity: 1; visibility: visible; transform: translateY(0); }
-        #scrollTopBtn:hover { background: #111; transform: scale(1.1); }
-    </style>
+@keyframes fadeInUp{
+  0%{opacity:0;transform:translateY(15px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+/* DECORATIVE DIVIDER */
+.divider{
+  display:flex;align-items:center;gap:12px;
+  padding:0 30px;margin:10px 0;
+}
+.divider-line{flex:1;height:.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.divider-icon{color:var(--gold);font-size:14px;opacity:.7}
+
+/* SECTION BASE */
+.section{padding:55px 28px;text-align:center;position:relative;z-index:1}
+
+/* QUOTE */
+.quote-box{
+  font-size:clamp(1rem,6vw,1.4rem);font-style:italic;
+  color:var(--text-light);line-height:1.9;
+  position:relative;padding:clamp(20px,5vw,40px) clamp(15px,8vw,35px);
+  max-width:90%;margin:0 auto;
+}
+.quote-mark{
+  font-family:var(--script);font-size:5rem;
+  color:var(--gold);opacity:.2;
+  position:absolute;line-height:1;
+}
+.quote-mark.open{top:-10px;left:0}
+.quote-mark.close{bottom:-30px;right:0;transform:rotate(180deg)}
+
+/* TYPOGRAPHY */
+.title-sm{
+  font-family:var(--sans);font-size:.65rem;
+  text-transform:uppercase;letter-spacing:4px;
+  color:var(--gold);margin-bottom:8px;
+}
+.title-script{
+  font-family:var(--script);
+  font-size:clamp(2.5rem,10vw,3.5rem);
+  color:var(--text);line-height:1.2;margin:5px 0 20px;
+  font-weight:normal;
+}
+.title-script-lg{
+  font-family:var(--script);
+  font-size:clamp(2.5rem,8vw,3.5rem); /* Đã giảm size */
+  color:var(--text);line-height:1.2;margin:5px 0 20px;
+  font-weight:normal;
+  white-space: nowrap; /* Khóa dòng */
+}
+
+/* PHOTO ROW */
+.photo-row{display:flex;gap:5px;margin:25px 0 35px}
+.photo-row img{flex:1;width:33.33%;aspect-ratio:3/4;object-fit:cover;border-radius:3px;transition:transform .4s ease}
+.photo-row img:hover{transform:scale(1.02)}
+
+.text-desc{
+  font-family:var(--sans);font-size:.82rem;
+  line-height:1.9;color:var(--text-light);
+  text-align:justify;font-weight:300;
+}
+
+/* GOLD BAND SECTION */
+.gold-band{
+  background:linear-gradient(135deg,var(--dark) 0%,var(--charcoal) 50%,var(--dark) 100%);
+  padding:50px 28px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.gold-band::before,.gold-band::after{
+  content:'';position:absolute;
+  left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.gold-band::before{top:0}
+.gold-band::after{bottom:0}
+
+/* CALENDAR */
+.cal-wrap{background:var(--cream);padding:50px 25px;text-align:center}
+.cal-table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:.78rem;font-weight:400;color:#555;margin-bottom:25px}
+.cal-table th{padding:12px 0;color:#999;font-weight:600;font-size:.65rem;letter-spacing:2px;text-transform:uppercase}
+.cal-table td{padding:10px 0;text-align:center;color:#888}
+.cal-table td.empty{color:#ccc}
+.day-active{
+  display:inline-flex;justify-content:center;align-items:center;
+  width:32px;height:32px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;border-radius:50%;
+  box-shadow:0 4px 15px rgba(201,169,110,.5);
+  font-weight:600;font-size:.85rem;
+  animation:pulseDot 2s ease-in-out infinite;
+}
+@keyframes pulseDot{
+  0%,100%{box-shadow:0 4px 15px rgba(201,169,110,.5)}
+  50%{box-shadow:0 4px 25px rgba(201,169,110,.8),0 0 0 6px rgba(201,169,110,.15)}
+}
+
+/* DATE BLOCK */
+.date-block{
+  display:flex;justify-content:center;align-items:center;
+  padding:30px 0;margin:30px 0;gap:30px;
+  border-top:.5px solid rgba(201,169,110,.3);
+  border-bottom:.5px solid rgba(201,169,110,.3);
+  position:relative;
+}
+.d-item{text-align:center;font-family:var(--sans)}
+.d-item span{display:block;font-size:.6rem;color:#aaa;letter-spacing:3px;margin-bottom:10px;text-transform:uppercase}
+.d-item strong{font-size:1.5rem;font-weight:300;color:var(--text)}
+.d-item.main strong{font-size:3.5rem;font-weight:200;color:var(--gold);line-height:1}
+.date-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;opacity:.5}
+
+/* LOCATION */
+.location-card{
+  background:#fff;
+  border:.5px solid rgba(201,169,110,.2);
+  border-radius:16px;
+  padding:22px;
+  text-align:left;
+  box-shadow:0 8px 30px rgba(0,0,0,.06);
+  margin:20px 0;
+}
+.loc-name{font-family:var(--sans);font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:5px}
+.loc-addr{font-family:var(--sans);font-size:.75rem;color:var(--text-light);margin-bottom:15px}
+.map-container{border-radius:10px;overflow:hidden;border:.5px solid rgba(201,169,110,.2)}
+
+/* BTN */
+.btn{
+  display:inline-block;padding:13px 28px;
+  border:.5px solid var(--gold);
+  color:var(--gold);
+  text-decoration:none;
+  font-family:var(--sans);font-size:.65rem;
+  text-transform:uppercase;letter-spacing:2px;
+  transition:all .3s ease;
+  background:transparent;
+  cursor:pointer;border-radius:50px;
+  margin-top:18px;
+  position:relative;overflow:hidden;
+}
+.btn::before{
+  content:'';position:absolute;
+  top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(201,169,110,.15),transparent);
+  transition:left .5s ease;
+}
+.btn:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn:hover::before{left:100%}
+
+/* TIMELINE */
+.timeline{
+  text-align:left;padding-left:20px;
+  border-left:1px solid rgba(201,169,110,.3);
+  margin-top:30px;margin-left:15px;
+}
+.t-item{position:relative;padding-bottom:35px;padding-left:25px}
+.t-item:last-child{padding-bottom:0}
+.t-item::before{
+  content:'';position:absolute;left:-6px;top:3px;
+  width:11px;height:11px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  border-radius:50%;
+  box-shadow:0 0 0 3px var(--cream),0 0 10px rgba(201,169,110,.4);
+}
+.t-time{font-family:var(--sans);font-weight:600;font-size:.9rem;margin-bottom:6px;color:var(--gold)}
+.t-desc{font-family:var(--serif);font-size:1.1rem;color:var(--text-light)}
+
+/* ALBUM GRID */
+.album-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 18px 20px}
+.album-item{position:relative;aspect-ratio:1;overflow:hidden;border-radius:8px}
+.album-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.album-item:hover img{transform:scale(1.07)}
+.album-item::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(201,169,110,.1),transparent);
+  pointer-events:none;
+}
+.album-text{
+  background:#fff;display:flex;align-items:center;
+  justify-content:center;padding:22px 18px;
+  text-align:center;font-family:var(--sans);
+  font-size:.75rem;line-height:1.7;color:var(--text-light);
+  border-radius:8px;border:.5px solid rgba(201,169,110,.15);
+}
+
+/* RSVP */
+/* Đã thêm text-align center để cân giữa toàn bộ nội dung khối RSVP */
+.rsvp-wrap{background:#fff;padding:55px 28px;border-top:.5px solid rgba(201,169,110,.2); text-align: center;}
+.form-control{
+  width:100%;padding:15px 18px;margin-bottom:14px;
+  border:.5px solid rgba(201,169,110,.3);background:#faf8f5;
+  font-family:var(--sans);font-size:.82rem;
+  box-sizing:border-box;outline:none;border-radius:10px;
+  transition:border-color .3s,box-shadow .3s;color:var(--text);
+}
+.form-control:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,169,110,.1)}
+textarea.form-control{resize:vertical;min-height:90px}
+.btn-submit{
+  width:100%;padding:16px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:#fff;border:none;
+  font-family:var(--sans);font-size:.75rem;
+  letter-spacing:2px;text-transform:uppercase;
+  border-radius:50px;cursor:pointer;
+  transition:all .3s;
+  box-shadow:0 6px 20px rgba(201,169,110,.3);
+}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(201,169,110,.4)}
+.btn-submit:active{transform:translateY(0)}
+
+/* COUNTDOWN */
+.countdown{display:flex;justify-content:center;gap:8px;font-family:var(--sans);margin:30px 0;align-items:center}
+.cd-item{text-align:center;min-width:55px}
+.cd-num{
+  font-size:2.2rem;font-weight:200;color:var(--text);
+  line-height:1;
+  background:linear-gradient(135deg,var(--gold-dark),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.cd-label{font-size:.6rem;color:#aaa;text-transform:uppercase;letter-spacing:2px;margin-top:6px}
+.cd-sep{font-size:1.8rem;color:var(--gold);opacity:.4;font-weight:200;align-self:flex-start;padding-top:5px}
+
+/* THANK YOU */
+.thank-section{
+  padding:60px 28px;text-align:center;
+  background:linear-gradient(180deg,var(--cream),#fff);
+}
+.thank-you{
+  font-family:var(--script);
+  font-size:clamp(2.8rem,10vw,3rem);
+  color:var(--text);line-height:1;
+  margin:40px 0 20px;
+}
+.footer-name{
+  font-family:var(--script);
+  font-size:clamp(2rem,7vw,2.8rem);
+  color:var(--gold);
+}
+.footer-line{width:80px;height:.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:20px auto}
+
+/* SCROLL TOP BTN */
+#scrollTopBtn{
+  position:fixed;bottom:28px;right:18px;z-index:9999;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(201,169,110,.9);
+  color:#fff;border:1.5px solid rgba(255,255,255,.5);
+  font-size:1.1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.25);
+  transition:all .4s ease;
+  opacity:0;visibility:hidden;transform:translateY(20px) scale(.8);
+}
+#scrollTopBtn.show{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+#scrollTopBtn:hover{background:var(--charcoal);transform:scale(1.1)}
+
+/* REVEAL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .8s ease,transform .8s ease}
+.reveal-left.in{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(.9);transition:opacity .8s ease,transform .8s ease}
+.reveal-scale.in{opacity:1;transform:scale(1)}
+
+/* STAGGER */
+.stagger .t-item{opacity:0;transform:translateX(-20px);transition:opacity .6s ease,transform .6s ease}
+.stagger .t-item.in{opacity:1;transform:translateX(0)}
+</style>
 </head>
-
 <body class="locked">
-    <div id="intro-overlay">
-        <div class="intro-bottom">
-            <div class="intro-bottom-content">
-                <div class="intro-school">
-                    <span class="school-label">TRƯỜNG ĐẠI HỌC</span><br>
-                    <span class="school-name">NGUYỄN TẤT THÀNH</span>
-                </div>
-                <div class="intro-date-box">
-                    <div class="intro-date-day">22/04</div>
-                    <div class="intro-date-year">2026</div>
-                </div>
-            </div>
-        </div>
 
-        <div class="intro-top">
-            <div class="cap-text">GRADUATION</div>
-        </div>
+<canvas id="particles-canvas"></canvas>
 
-        <div class="tassel-wrapper">
-            <div class="tassel-line"></div>
-            <div class="tassel-knot"></div>
-            <div class="tassel-fringe"></div>
-        </div>
-
-        <div class="click-hint">Chạm để mở thiệp</div>
+<div id="intro-overlay" class="intro-half">
+  <div class="intro-top intro-half">
+    <div class="intro-shimmer"></div>
+    <div class="cap-wrap" style="margin-bottom:20px">
+      <div class="cap-top"></div>
+      <div class="cap-board"></div>
     </div>
+    <div class="cap-title">Graduation</div>
+    <div class="cap-sub">2026</div>
+  </div>
+  <div class="intro-bottom intro-half">
+    <div class="intro-school-info">
+      <div class="label">Trường Đại học</div>
+      <div class="name">Nguyễn Tất Thành</div>
+    </div>
+    <div class="intro-date-info">
+      <div class="day">22/04</div>
+      <div class="year">2026</div>
+    </div>
+  </div>
+  <div class="tassel-wrap">
+    <div class="tassel-string"></div>
+    <div class="tassel-knot"></div>
+    <div class="tassel-fringe"></div>
+  </div>
+  <div class="click-hint">✦ Chạm để mở thiệp ✦</div>
+</div>
 
 <div class="wrapper" id="main-content">
 
-    <div class="hero">
-        <div class="hero-content" data-aos="fade-in" data-aos-duration="2000">
-            <h1>Trần Thị Tố Nhi</h1>
-            <div class="subtitle">Lễ Tốt Nghiệp</div>
-            <div class="date">22.04.2026</div>
+  <div class="hero">
+    <div class="bokeh-wrap" id="bokehWrap"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Lễ Tốt Nghiệp</div>
+      <h1>Trần Thị Tố Nhi</h1>
+      <div class="hero-line"></div>
+      <div class="hero-date">22 · 04 · 2026</div>
+      <div class="invite-box" id="inviteBox" style="display:none">
+        <p class="invite-label">Kính mời</p>
+        <p class="invite-name" id="guestNameDisplay"></p>
+      </div>
+    </div>
+  </div>
 
-            <div class="invite-box" id="inviteBox" style="display: none;" data-aos="zoom-in" data-aos-delay="500" data-aos-duration="1500">
-                <p class="invite-label">Kính mời</p>
-                <p class="invite-name" id="guestNameDisplay"></p>
-            </div>
-        </div>
+  <div class="section reveal">
+    <div class="quote-box">
+      <span class="quote-mark open">"</span>
+      Mong những lời chúc phúc của bạn ngày chia tay là chiếc ô che nắng, che mưa cho tôi vượt mọi chông gai đời người.
+      <span class="quote-mark close">"</span>
+    </div>
+  </div>
+
+  <div class="divider reveal"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+
+  <div class="section reveal" style="padding-top:30px">
+    <div class="title-sm">Tân Cử Nhân</div>
+    <div class="title-script-lg">Trần Thị Tố Nhi</div>
+    <div class="photo-row">
+      <img src="uploads/avatar_default.jpg" loading="lazy" alt="Ảnh 1">
+      <img src="uploads/hero_default.jpg" loading="lazy" alt="Ảnh 2">
+      <img src="uploads/avatar_default.jpg" loading="lazy" alt="Ảnh 3">
+    </div>
+    <p class="text-desc">Tốt nghiệp là dấu mốc kết thúc một hành trình và mở ra một chặng đường mới. Tôi biết phía trước sẽ không dễ dàng, nhưng tôi tin vào bản thân, vào những gì mình đã học được. Cảm ơn thanh xuân vì đã rực rỡ đến thế! 🎓✨</p>
+  </div>
+
+  <div class="divider reveal"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+
+  <div class="gold-band">
+    <div class="reveal" id="dynamicInviteHeader" style="display:none">
+      <div class="title-sm" style="color:var(--gold-light)">Thân mời</div>
+      <div style="font-family:var(--script);font-size:clamp(2.2rem,8vw,3.2rem);color:var(--gold-light);line-height:1.2;margin:10px 0;white-space:nowrap;" id="guestNameText"></div>
+      <div class="title-sm" style="color:var(--gold-light)">Đến dự lễ tốt nghiệp</div>
+    </div>
+    <div class="reveal" id="defaultInviteHeader">
+      <div class="title-sm" style="color:var(--gold-light)">Thân mời</div>
+      <div class="title-script" style="color:var(--gold-light)">Bạn bè & Gia đình</div>
+      <div class="title-sm" style="color:var(--gold-light)">Đến dự lễ tốt nghiệp</div>
+    </div>
+  </div>
+
+  <div class="cal-wrap">
+    <div class="reveal">
+      <div class="title-sm">Thời Gian</div>
+      <div class="title-script">Tháng 04 · 2026</div>
+    </div>
+    <table class="cal-table reveal">
+      <tr><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th></tr>
+      <tr><td class="empty">30</td><td class="empty">31</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+      <tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+      <tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+      <tr><td>20</td><td>21</td><td><span class="day-active">22</span></td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+      <tr><td>27</td><td>28</td><td>29</td><td>30</td><td class="empty">1</td><td class="empty">2</td><td class="empty">3</td></tr>
+    </table>
+
+    <div class="date-block reveal-scale">
+      <div class="d-item"><span>Tháng</span><strong>04</strong></div>
+      <div class="date-dot"></div>
+      <div class="d-item main"><span>Thứ Tư</span><strong>22</strong></div>
+      <div class="date-dot"></div>
+      <div class="d-item"><span>Năm</span><strong>2026</strong></div>
     </div>
 
-    <div class="section" data-aos="fade-up">
-        <div class="quote-box">"Mong những lời chúc phúc của bạn ngày chia tay là chiếc ô che nắng, che mưa cho tôi vượt mọi chông gai đời người."</div>
+    <div class="title-sm" style="color:var(--charcoal);font-weight:700;margin:10px 0">Lễ Tốt Nghiệp Lúc 07:30 Sáng</div>
+
+    <div class="location-card reveal">
+      <div class="loc-name">Trường Đại học Nguyễn Tất Thành</div>
+      <div class="loc-addr">📍 300A Nguyễn Tất Thành, Quận 4, TP.HCM</div>
+      <div class="map-container">
+        <iframe width="100%" height="180" frameborder="0" scrolling="no" loading="lazy"
+          src="https://maps.google.com/maps?q=10.762622,106.660172&hl=vi&z=15&output=embed"></iframe>
+      </div>
+    </div>
+    <a href="https://www.google.com/maps/dir/?api=1&destination=10.762622,106.660172" target="_blank" class="btn">✦ Chỉ Đường</a>
+  </div>
+
+  <div class="section" style="background:#fff">
+    <div class="reveal">
+      <div class="title-sm">Chương Trình</div>
+      <div class="title-script">Sự Kiện</div>
+    </div>
+    <div class="timeline stagger" id="timeline">
+      <div class="t-item"><div class="t-time">07:30</div><div class="t-desc">Đón khách & Ổn định chỗ ngồi</div></div>
+      <div class="t-item"><div class="t-time">08:00</div><div class="t-desc">Bắt đầu Lễ Trao Bằng Tốt Nghiệp</div></div>
+      <div class="t-item"><div class="t-time">10:30</div><div class="t-desc">Chụp ảnh lưu niệm & Chung vui</div></div>
+    </div>
+  </div>
+
+  <div class="section reveal" style="padding-bottom:20px">
+    <div class="title-sm">Kỷ Niệm</div>
+    <div class="title-script">Album Tốt Nghiệp</div>
+  </div>
+  <div class="album-grid reveal">
+    <div class="album-item"><img src="uploads/avatar_default.jpg" loading="lazy" alt="Album 1"></div>
+    <div class="album-text">Cánh cửa đại học khép lại, mở ra vô vàn cơ hội mới.</div>
+    <div class="album-text">Có những khoảnh khắc trôi qua rồi mới biết thế nào là vô giá.</div>
+    <div class="album-item"><img src="uploads/hero_default.jpg" loading="lazy" alt="Album 2"></div>
+  </div>
+
+  <div class="rsvp-wrap" id="rsvp">
+    <div class="reveal">
+      <div class="title-sm">Gửi Lời Yêu Thương</div>
+      <div class="title-script">Sổ Lưu Bút</div>
+      <p class="text-desc" style="text-align:center;margin-bottom:28px">Sự hiện diện của bạn là niềm vinh hạnh cho buổi lễ tốt nghiệp của mình.</p>
+    </div>
+    <div class="reveal">
+      <input type="text" id="rsvpNameInput" class="form-control" placeholder="Tên của bạn">
+      <textarea class="form-control" placeholder="Gửi lời chúc mừng đến Nhi..."></textarea>
+      <select class="form-control">
+        <option value="den">✓ Mình chắc chắn sẽ đến</option>
+        <option value="khong">✗ Xin lỗi mình bận rồi!</option>
+      </select>
+      <button class="btn-submit" onclick="alert('Cảm ơn bạn đã gửi lời chúc! 🎓')">Gửi Lời Nhắn ✦</button>
+    </div>
+  </div>
+
+  <div class="thank-section">
+    <div class="reveal">
+      <div class="title-sm">Đếm Ngược</div>
+      <div class="title-script">Thời Gian</div>
+    </div>
+    <div class="countdown reveal-scale" id="countdown">
+      <div class="cd-item"><div class="cd-num" id="days">00</div><div class="cd-label">Ngày</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><div class="cd-num" id="hours">00</div><div class="cd-label">Giờ</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><div class="cd-num" id="minutes">00</div><div class="cd-label">Phút</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-item"><div class="cd-num" id="seconds">00</div><div class="cd-label">Giây</div></div>
     </div>
 
-    <div class="section" style="padding-top: 0;" data-aos="fade-up">
-        <div class="title-sm">Tân cử nhân</div>
-        <div class="title-script-full">Trần Thị Tố Nhi</div>
-        
-        <div class="photo-row">
-            <img src="uploads/avatar_default.jpg" loading="lazy" alt="Ảnh trái">
-            <img src="uploads/hero_default.jpg" loading="lazy" alt="Ảnh giữa">
-            <img src="uploads/avatar_default.jpg" loading="lazy" alt="Ảnh phải">
-        </div>
-
-        <div class="text-desc">
-            Tốt nghiệp là dấu mốc kết thúc một hành trình và mở ra một chặng đường mới. Tôi biết phía trước sẽ không dễ dàng, nhưng tôi tin vào bản thân, vào những gì mình đã học được. Cảm ơn thanh xuân vì đã rực rỡ đến thế! 🎓✨
-        </div>
-    </div>
-
-    <div class="section calendar-wrap" data-aos="fade-up">
-        
-        <div id="dynamicInviteHeader" style="display: none;">
-            <div class="title-sm" style="color: #222; font-weight: 600;">THÂN MỜI</div>
-            <div style="font-family: var(--font-script); font-size: clamp(2.5rem, 10vw, 3.5rem); color: var(--accent); line-height: 1.2; margin: 10px 0; padding: 10px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;" id="guestNameText">
-                </div>
-            <div class="title-sm" style="color: #222; font-weight: 600;">ĐẾN DỰ LỄ TỐT NGHIỆP CỦA MÌNH</div>
-        </div>
-
-        <div id="defaultInviteHeader">
-            <div class="title-script">Thân mời</div>
-            <div class="title-sm" style="color: #222; font-weight: 600;">CÔ, CHÚ, ANH, CHỊ ĐẾN DỰ LỄ TỐT NGHIỆP</div>
-        </div>
-
-        <div class="title-script" style="margin: 30px 0 10px;">Tháng 04</div>
-
-        <table class="cal-table">
-            <tr><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th></tr>
-            <tr>
-                <td class="empty">30</td><td class="empty">31</td>
-                <td><span>1</span></td><td><span>2</span></td><td><span>3</span></td><td><span>4</span></td><td><span>5</span></td>
-            </tr>
-            <tr>
-                <td><span>6</span></td><td><span>7</span></td><td><span>8</span></td><td><span>9</span></td><td><span>10</span></td><td><span>11</span></td><td><span>12</span></td>
-            </tr>
-            <tr>
-                <td><span>13</span></td><td><span>14</span></td><td><span>15</span></td><td><span>16</span></td><td><span>17</span></td><td><span>18</span></td><td><span>19</span></td>
-            </tr>
-            <tr>
-                <td><span>20</span></td><td><span>21</span></td>
-                <td><span class="day-active">22</span></td> <td><span>23</span></td><td><span>24</span></td><td><span>25</span></td><td><span>26</span></td>
-            </tr>
-            <tr>
-                <td><span>27</span></td><td><span>28</span></td><td><span>29</span></td><td><span>30</span></td>
-                <td class="empty">1</td><td class="empty">2</td><td class="empty">3</td>
-            </tr>
-        </table>
-
-        <div class="title-sm" style="color:#000; letter-spacing: 1px;">LỄ TỐT NGHIỆP ĐƯỢC TỔ CHỨC<br>VÀO LÚC 07:30 PHÚT</div>
-
-        <div class="date-block">
-            <div class="d-item"><span>THÁNG</span><strong>04</strong></div>
-            <div class="d-item main"><span>THỨ TƯ</span><strong>22</strong></div>
-            <div class="d-item"><span>NĂM</span><strong>2026</strong></div>
-        </div>
-
-        <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; margin: 0 0 5px; text-transform: uppercase;">Trường Đại học Nguyễn Tất Thành</h3>
-        <p style="font-family: var(--font-sans); font-size: 0.8rem; color: #666; margin-bottom: 5px;">📍 Địa chỉ khuôn viên trường</p>
-        
-        <div class="map-container">
-            <iframe 
-                width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" loading="lazy"
-                src="https://maps.google.com/maps?q=10.762622,106.660172&hl=vi&z=15&output=embed">
-            </iframe>
-        </div>
-
-        <a href="https://www.google.com/maps/dir/?api=1&destination=10.762622,106.660172" target="_blank" class="btn">Chỉ đường Map</a>
-    </div>
-
-    <div class="section" data-aos="fade-up">
-        <div class="title-sm">Sự kiện</div>
-        <div style="font-family: var(--font-sans); font-size: 1.2rem; font-weight: 500; letter-spacing: 4px; text-transform: uppercase;">Quan trọng</div>
-        
-        <div class="timeline">
-            <div class="t-item" data-aos="fade-up" data-aos-offset="50">
-                <div class="t-time">07:30</div>
-                <div class="t-desc">Đón khách & Ổn định chỗ ngồi</div>
-            </div>
-            <div class="t-item" data-aos="fade-up" data-aos-offset="50">
-                <div class="t-time">08:00</div>
-                <div class="t-desc">Bắt đầu Lễ Trao Bằng</div>
-            </div>
-            <div class="t-item" data-aos="fade-up" data-aos-offset="50">
-                <div class="t-time">10:30</div>
-                <div class="t-desc">Chụp ảnh lưu niệm & Chung vui</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section" style="padding-bottom: 20px;" data-aos="fade-up">
-        <div class="title-script" style="text-align: left; padding-left: 10px;">Album Tốt nghiệp</div>
-    </div>
-    <div class="album-grid" data-aos="fade-up">
-        <div class="album-item"><img src="uploads/avatar_default.jpg" loading="lazy" alt="Album 1"></div>
-        <div class="album-text">Cánh cửa đại học khép lại, mở ra vô vàn cơ hội mới.</div>
-        <div class="album-text">Có những khoảnh khắc trôi qua rồi mới biết thế nào là vô giá. Trân trọng!</div>
-        <div class="album-item"><img src="uploads/hero_default.jpg" loading="lazy" alt="Album 2"></div>
-    </div>
-
-    <div class="rsvp-wrap" id="rsvp">
-        <div class="title-script" style="text-align: center;">Sổ lưu bút</div>
-        <p class="text-desc" style="text-align: center; margin-bottom: 25px;">
-            Sự hiện diện của bạn là niềm vinh hạnh cho buổi lễ tốt nghiệp của mình.
-        </p>
-
-        <form onsubmit="alert('Xin chào! Form này hiện chỉ để hiển thị giao diện vì trang web đang chạy ở chế độ tĩnh (không dùng database).'); return false;" data-aos="fade-up">
-            <input type="text" id="rsvpNameInput" class="form-control" placeholder="Tên của bạn" required>
-            <textarea class="form-control" placeholder="Gửi lời chúc mừng đến Nhi..." required></textarea>
-            <select class="form-control" required>
-                <option value="Sẽ đến">Mình chắc chắn sẽ đến</option>
-                <option value="Không đến">Xin lỗi mình bận rồi!</option>
-            </select>
-            <button type="submit" class="btn" style="width: 100%; background: var(--text-main); color: #fff; border:none; padding: 15px;">Gửi Lời Nhắn</button>
-        </form>
-    </div>
-
-    <div class="section" style="padding-top: 50px;">
-        <div class="title-sm" style="color: #222;">Cảm ơn bạn rất nhiều vì đã gửi lời chúc mừng!</div>
-        <div class="title-script" style="margin-top: 20px;">Thời gian</div>
-        
-        <div class="countdown" id="countdown" data-aos="zoom-in">
-            <div class="cd-item"><div class="cd-num" id="days">00</div><div class="cd-label">Ngày</div></div><div class="cd-num" style="color:#ccc;">:</div>
-            <div class="cd-item"><div class="cd-num" id="hours">00</div><div class="cd-label">Giờ</div></div><div class="cd-num" style="color:#ccc;">:</div>
-            <div class="cd-item"><div class="cd-num" id="minutes">00</div><div class="cd-label">Phút</div></div><div class="cd-num" style="color:#ccc;">:</div>
-            <div class="cd-item"><div class="cd-num" id="seconds">00</div><div class="cd-label">Giây</div></div>
-        </div>
-
-        <div class="thank-you" data-aos="fade-up">Trân trọng cảm ơn</div>
-    </div>
+    <div class="footer-line"></div>
+    <div class="thank-you reveal">Trân trọng cảm ơn</div>
+    <div class="footer-name reveal">Trần Thị Tố Nhi</div>
+    <div class="footer-line"></div>
+    <p style="font-family:var(--sans);font-size:.65rem;color:#bbb;letter-spacing:3px;margin-top:20px;text-transform:uppercase">22 · 04 · 2026</p>
+  </div>
 
 </div>
 
 <button id="scrollTopBtn" title="Lên đầu trang">↑</button>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    // Lấy tên khách từ URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const guestName = urlParams.get('to');
-    
-    if (guestName && guestName.trim() !== '') {
-        document.getElementById('inviteBox').style.display = 'inline-block';
-        document.getElementById('guestNameDisplay').innerText = guestName;
-        
-        document.getElementById('defaultInviteHeader').style.display = 'none';
-        document.getElementById('dynamicInviteHeader').style.display = 'block';
-        document.getElementById('guestNameText').innerText = guestName;
-        
-        document.getElementById('rsvpNameInput').value = guestName;
-    }
+(function(){
+  /* ---- URL PARAMS ---- */
+  const urlParams=new URLSearchParams(window.location.search);
+  const guestName=urlParams.get('to');
+  if(guestName&&guestName.trim()){
+    document.getElementById('inviteBox').style.display='inline-block';
+    document.getElementById('guestNameDisplay').innerText=guestName;
+    document.getElementById('defaultInviteHeader').style.display='none';
+    document.getElementById('dynamicInviteHeader').style.display='block';
+    document.getElementById('guestNameText').innerText=guestName;
+    document.getElementById('rsvpNameInput').value=guestName;
+  }
 
-    // Cuộn tự động mượt mà
-    let autoScrollReq;
-    let isAutoScrolling = false;
-    let scrollPos = 0;
+  /* ---- BOKEH ---- */
+  const bw=document.getElementById('bokehWrap');
+  for(let i=0;i<12;i++){
+    const b=document.createElement('div');
+    b.className='bokeh';
+    const sz=20+Math.random()*60;
+    b.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;bottom:-${sz}px;animation-duration:${6+Math.random()*8}s;animation-delay:${Math.random()*6}s;`;
+    bw.appendChild(b);
+  }
 
-    function autoScroll() {
-        if (!isAutoScrolling) return;
-        scrollPos += 1.5; 
-        window.scrollTo(0, scrollPos);
-        
-        if ((window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 10) {
-            isAutoScrolling = false;
-            return;
-        }
-        autoScrollReq = requestAnimationFrame(autoScroll);
-    }
-
-    function stopAutoScroll() {
-        if (isAutoScrolling) {
-            isAutoScrolling = false;
-            cancelAnimationFrame(autoScrollReq);
-        }
-    }
-
-    window.addEventListener('touchstart', stopAutoScroll, {passive: true});
-    window.addEventListener('touchmove', stopAutoScroll, {passive: true});
-    window.addEventListener('wheel', stopAutoScroll, {passive: true});
-    window.addEventListener('mousedown', stopAutoScroll);
-
-    // Mở Intro tách 2 phần Mũ và Nền xám
-    const introOverlay = document.getElementById('intro-overlay');
-    const mainContent = document.getElementById('main-content');
-    const clickHint = document.querySelector('.click-hint');
-    
-    introOverlay.addEventListener('click', function() {
-        introOverlay.classList.add('open');
-        clickHint.style.display = 'none'; 
-        
-        setTimeout(() => { mainContent.classList.add('visible'); }, 400); 
-        
-        setTimeout(() => {
-            introOverlay.style.display = 'none';
-            document.body.classList.remove('locked');
-            AOS.init({ once: false, offset: 50, duration: 800, easing: 'ease-out-cubic' });
-
-            scrollPos = window.scrollY;
-            isAutoScrolling = true;
-            autoScroll();
-        }, 2000); 
+  /* ---- PARTICLES ---- */
+  const canvas=document.getElementById('particles-canvas');
+  const ctx=canvas.getContext('2d');
+  canvas.width=430;canvas.height=window.innerHeight;
+  const particles=[];
+  for(let i=0;i<40;i++){
+    particles.push({
+      x:Math.random()*430,y:Math.random()*canvas.height,
+      r:Math.random()*2+.5,
+      vx:(Math.random()-.5)*.4,vy:-(Math.random()*.5+.2),
+      alpha:Math.random()*.6+.2,
+      color:`hsl(${38+Math.random()*10},70%,${60+Math.random()*20}%)`
     });
-
-    // Nút cuộn lên đầu
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-    window.addEventListener('scroll', function() {
-        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrolled = window.scrollY;
-        if (scrolled > (scrollableHeight * 0.3)) {
-            scrollTopBtn.classList.add("show");
-        } else {
-            scrollTopBtn.classList.remove("show");
-        }
+  }
+  let raf;
+  function animParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.color;
+      ctx.globalAlpha=p.alpha;
+      ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.y<-10){p.y=canvas.height+10;p.x=Math.random()*430;}
+      if(p.x<0||p.x>430){p.vx*=-1;}
     });
+    ctx.globalAlpha=1;
+    raf=requestAnimationFrame(animParticles);
+  }
 
-    scrollTopBtn.addEventListener('click', function() {
-        stopAutoScroll();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+  /* ---- INTRO ---- */
+  const intro=document.getElementById('intro-overlay');
+  const main=document.getElementById('main-content');
+  let opened=false;
+  intro.addEventListener('click',function(){
+    if(opened)return;opened=true;
+    intro.classList.add('open');
+    setTimeout(()=>{main.classList.add('visible');},400);
+    setTimeout(()=>{
+      intro.style.display='none';
+      document.body.classList.remove('locked');
+      canvas.classList.add('active');
+      animParticles();
+      initReveal();
+      initTimeline();
+      startScroll();
+    },1600);
+  });
 
-    // Đếm ngược
-    const countDownDate = new Date("2026-04-22T07:30:00").getTime();
+  /* ---- SMOOTH AUTO SCROLL ---- */
+  let scrollPos=0,scrolling=false,scrollRAF;
+  function startScroll(){
+    scrollPos=window.scrollY;
+    scrolling=true;
+    function step(){
+      if(!scrolling)return;
+      scrollPos+=1.2;
+      window.scrollTo(0,scrollPos);
+      if((window.innerHeight+scrollPos)>=document.documentElement.scrollHeight-5){scrolling=false;return;}
+      scrollRAF=requestAnimationFrame(step);
+    }
+    scrollRAF=requestAnimationFrame(step);
+  }
+  function stopScroll(){
+    if(scrolling){scrolling=false;cancelAnimationFrame(scrollRAF);}
+  }
+  ['touchstart','touchmove','wheel','mousedown'].forEach(e=>window.addEventListener(e,stopScroll,{passive:true}));
 
-    const x = setInterval(function() {
-        const now = new Date().getTime();
-        const distance = countDownDate - now;
+  /* ---- INTERSECTION OBSERVER ---- */
+  function initReveal(){
+    const revEls=document.querySelectorAll('.reveal,.reveal-left,.reveal-scale');
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');}});
+    },{threshold:.12});
+    revEls.forEach(el=>obs.observe(el));
+  }
 
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("countdown").innerHTML = "<div style='font-family: var(--font-sans); font-size:1.2rem; color:#a87b51; font-weight:500;'>Sự kiện đã diễn ra</div>";
-            return;
+  function initTimeline(){
+    const items=document.querySelectorAll('.stagger .t-item');
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const idx=Array.from(items).indexOf(e.target);
+          setTimeout(()=>e.target.classList.add('in'),idx*150);
         }
+      });
+    },{threshold:.1});
+    items.forEach(el=>obs.observe(el));
+  }
 
-        document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-        document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-        document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-        document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
-    }, 1000);
+  /* ---- SCROLL TOP BTN ---- */
+  const btn=document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll',()=>{
+    const total=document.documentElement.scrollHeight-window.innerHeight;
+    if(window.scrollY>total*.25)btn.classList.add('show');
+    else btn.classList.remove('show');
+  },{passive:true});
+  btn.addEventListener('click',()=>{stopScroll();window.scrollTo({top:0,behavior:'smooth'});});
+
+  /* ---- COUNTDOWN ---- */
+  const target=new Date('2026-04-22T07:30:00').getTime();
+  function updateCD(){
+    const now=Date.now(),d=target-now;
+    if(d<0){document.getElementById('countdown').innerHTML='<div style="font-family:var(--sans);font-size:1.1rem;color:var(--gold);font-weight:500;letter-spacing:2px">✦ Sự kiện đã diễn ra ✦</div>';return;}
+    const pad=n=>String(n).padStart(2,'0');
+    document.getElementById('days').innerText=pad(Math.floor(d/86400000));
+    document.getElementById('hours').innerText=pad(Math.floor(d%86400000/3600000));
+    document.getElementById('minutes').innerText=pad(Math.floor(d%3600000/60000));
+    document.getElementById('seconds').innerText=pad(Math.floor(d%60000/1000));
+  }
+  updateCD();setInterval(updateCD,1000);
+})();
 </script>
-
 </body>
 </html>
