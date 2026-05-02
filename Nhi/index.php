@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   <meta name="description" content="Kính mời bạn đến dự lễ tốt nghiệp cùng Nhi nhé!">
   <meta property="og:title" content="Lễ Tốt Nghiệp - Trần Thị Tố Nhi 🎓">
   <meta property="og:description" content="Kính mời bạn đến dự lễ tốt nghiệp cùng Nhi nhé!">
-  <meta property="og:image" content="uploads/image.jpg">
+  <meta property="og:image" content="uploads/image.png">
   <meta property="og:url" content="">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
