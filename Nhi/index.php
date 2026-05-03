@@ -135,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   .bokeh{ position:absolute; border-radius:50%; background:radial-gradient(circle,rgba(201,169,110,.35) 0%,transparent 70%); animation:bokehFloat linear infinite; filter:blur(4px); }
   @keyframes bokehFloat{ 0%{transform:translateY(100vh) scale(0.8);opacity:0} 10%{opacity:1} 90%{opacity:.8} 100%{transform:translateY(-20vh) scale(1.2);opacity:0} }
 
-  .hero-content{position:relative;z-index:2;color:#fff;padding:0 20px;width:100%;top:5%; will-change: transform;}
+  .hero-content{position:relative;z-index:2;color:#fff;padding:0 20px;width:100%;top:30%; will-change: transform;}
   .hero-badge{ font-family:var(--sans);font-size:.6rem;letter-spacing:5px; text-transform:uppercase;color:var(--gold-light); margin-bottom:20px;opacity:.9; display:flex;align-items:center;justify-content:center;gap:12px; }
   .hero-badge::before,.hero-badge::after{ content:'';width:40px;height:.5px;background:var(--gold);display:block; }
 
@@ -289,7 +289,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
 <div class="wrapper" id="main-content">
 
   <div class="hero">
-    <div class="hero-bg-layer" id="hero-bg"><img src="uploads/background.jpg" alt="" style="Width:100%;"></div>
+    <div class="hero-bg-layer" id="hero-bg"><img src="uploads/main.jpg" alt="" style="Width:100%;"></div>
     <div class="bokeh-wrap" id="bokehWrap"></div>
     <div class="hero-content" id="hero-text-layer">
 
