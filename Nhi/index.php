@@ -478,7 +478,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   if(toast && toast.classList.contains('show')) {
       setTimeout(() => toast.classList.remove('show'), 4000);
       
-      // Bỏ qua intro nếu vừa submit form thành công
       const intro = document.getElementById('intro-overlay');
       if(intro) intro.style.display = 'none';
       document.body.classList.remove('locked');
@@ -622,7 +621,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     else { confCtx.clearRect(0, 0, confCanvas.width, confCanvas.height); confettis = []; }
   }
 
-  /* ---- INTRO OVERLAY & RIPPLE EFFECT ---- */
+  /* ---- SMOOTH AUTO SCROLL (ĐÃ FIX LỖI GIẬT/ĐỨNG) ---- */
+  let scrollAnimationId = null; 
+  let isAutoScrolling = false; 
+
+  function smoothScrollToBottom() {
+      isAutoScrolling = true;
+      
+      function animation() {
+          // Nếu người dùng đã bấm dừng thì ngắt animation
+          if (!isAutoScrolling) return;
+
+          // Cuộn đều đặn 1.5 pixel mỗi khung hình (Khoảng 90px/giây - Tốc độ đọc rất êm mắt)
+          // Bạn có thể tăng lên 2 hoặc 2.5 nếu muốn nó trôi nhanh hơn
+          window.scrollBy(0, 1.5);
+
+          const currentScroll = Math.ceil(window.scrollY);
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+
+          // Nếu chưa cuộn tới đáy (cách đáy 5px) thì tiếp tục cuộn
+          if (currentScroll < maxScroll - 5) {
+              scrollAnimationId = requestAnimationFrame(animation);
+          } else {
+              isAutoScrolling = false; 
+          }
+      }
+      
+      // Bắt đầu vòng lặp cuộn
+      scrollAnimationId = requestAnimationFrame(animation);
+  }
+
+  // Hàm ngắt tính năng tự động cuộn
+  function stopAutoScroll() {
+      if (isAutoScrolling) {
+          isAutoScrolling = false;
+          if (scrollAnimationId) {
+              cancelAnimationFrame(scrollAnimationId);
+              scrollAnimationId = null;
+          }
+      }
+  }
+
+  // Lắng nghe thao tác: Chỉ cần khách lướt tay, lăn chuột, hoặc chạm vào màn hình là lập tức dừng cuộn
+  ['wheel', 'touchmove', 'mousedown'].forEach(e => window.addEventListener(e, stopAutoScroll, { passive: true }));
+
+  /* ---- INTRO OVERLAY & MỞ THIỆP ---- */
   const intro=document.getElementById('intro-overlay');
   const main=document.getElementById('main-content');
   const heroName=document.getElementById('hero-name');
@@ -631,6 +674,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   if(intro) {
       intro.addEventListener('click',function(e){
         if(opened)return;opened=true;
+
+        if(!userInteractedMusic && bgMusic) {
+            bgMusic.play().then(()=>{ 
+                if(musicBtn) musicBtn.classList.add('playing'); 
+                isPlaying = true; 
+            }).catch(err=>console.log("Auto-play bị chặn"));
+        }
         
         if (navigator.vibrate) navigator.vibrate(50);
         
@@ -647,14 +697,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
         
         intro.classList.add('open');
 
-        // Tự động phát nhạc khi chạm mở thiệp
-        if(!userInteractedMusic && bgMusic) {
-            bgMusic.play().then(()=>{ 
-                if(musicBtn) musicBtn.classList.add('playing'); 
-                isPlaying = true; 
-            }).catch(err=>console.log("Auto-play bị chặn"));
-        }
-
         setTimeout(()=>{
           main.classList.add('visible');
           if(heroName) heroName.classList.add('typewriter'); 
@@ -666,24 +708,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
           canvas.classList.add('active');
           const invBox = document.getElementById('inviteBox');
           if(invBox) invBox.classList.add('anim'); 
-          animParticles(); initReveal(); initTimeline(); startScroll();
+          animParticles(); initReveal(); initTimeline(); 
+
+          // GỌI CHÍNH XÁC HÀM CỦA BẠN (TRỄ 1 GIÂY SAU KHI VÀO THIỆP)
+          setTimeout(smoothScrollToBottom, 1000); 
+
         },1600);
       });
   }
-
-  /* ---- SMOOTH AUTO SCROLL ---- */
-  let scrollPos=0, scrolling=false, scrollRAF;
-  function startScroll(){
-    scrollPos=window.scrollY; scrolling=true;
-    function step(){
-      if(!scrolling)return; scrollPos+=1.5; window.scrollTo(0,scrollPos);
-      if((window.innerHeight+scrollPos)>=document.documentElement.scrollHeight-5){scrolling=false;return;}
-      scrollRAF=requestAnimationFrame(step);
-    }
-    scrollRAF=requestAnimationFrame(step);
-  }
-  function stopScroll(){ if(scrolling){scrolling=false;cancelAnimationFrame(scrollRAF);} }
-  ['touchstart','touchmove','wheel','mousedown'].forEach(e=>window.addEventListener(e,stopScroll,{passive:true}));
 
   /* ---- INTERSECTION OBSERVER ---- */
   function initReveal(){
@@ -749,7 +781,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     if(window.scrollY>total*.25) { if(btn) btn.classList.add('show'); }
     else { if(btn) btn.classList.remove('show'); }
   },{passive:true});
-  if(btn) btn.addEventListener('click',()=>{stopScroll();window.scrollTo({top:0,behavior:'smooth'});});
+  if(btn) btn.addEventListener('click',()=>{
+      stopAutoScroll(); // Tắt tự cuộn nếu bấm nút quay lại
+      window.scrollTo({top:0,behavior:'smooth'});
+  });
 
 })();
 </script>
