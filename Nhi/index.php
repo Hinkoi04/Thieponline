@@ -392,7 +392,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   <div class="album-grid reveal">
     <div class="album-item"><img src="uploads/anh4.JPG" loading="lazy" alt="Album 1" class="zoomable"></div>
     <div class="album-item"><img src="uploads/anh5.JPG" loading="lazy" alt="Album 2" class="zoomable"></div>
-    <div class="album-item"><img src="uploads/anh6.JPG" loading="lazy" alt="Album 3" class="zoomable"></div>
+    <div class="album-item"><img src="uploads/anh6.jpg" loading="lazy" alt="Album 3" class="zoomable"></div>
     <div class="album-item"><img src="uploads/anh3.JPG" loading="lazy" alt="Album 4" class="zoomable"></div>
   </div>
 
