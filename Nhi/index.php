@@ -144,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   .hero-content{position:relative;z-index:2;color:#fff;padding:0 20px;width:100%;top:30%; will-change: transform;}
   @media (max-width: 768px) {
   .hero-content {
-    top: 27%; 
+    top: 20%; 
     padding: 0 15px; 
   }
 }
