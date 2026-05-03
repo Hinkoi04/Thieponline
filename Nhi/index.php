@@ -150,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
 
   .invite-box{ margin-top:25px; padding:18px 32px; background:rgba(0,0,0,.45); border:1px solid rgba(201,169,110,.3); border-radius:16px; backdrop-filter:blur(8px); display:inline-block; max-width:90%; opacity:0; box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 0 30px rgba(201,169,110,.05); position: relative; overflow: hidden; }
   .invite-box.anim { animation:fadeInUp .8s ease forwards; animation-delay: 2s; } 
-  .invite-box::after { content: ''; position: absolute; inset: -50%; background: linear-gradient(0deg, transparent 40%, rgba(201,169,110,0.5) 50%, transparent 60%); animation: spinBorder 4s linear infinite; z-index: -1; }
+  .invite-box::after { content: ''; position: absolute; background: linear-gradient(0deg, transparent 40%, rgba(201,169,110,0.5) 50%, transparent 60%); animation: spinBorder 4s linear infinite; z-index: -1; }
   @supports (background: conic-gradient(red, blue)) { .invite-box::after { background: conic-gradient(from 0deg, transparent 70%, rgba(201,169,110,0.8) 100%); } }
   .invite-box > * { position: relative; z-index: 2; }
   @keyframes spinBorder { 100% { transform: rotate(360deg); } }
@@ -169,7 +169,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   .quote-mark.open{top:-10px;left:0} .quote-mark.close{bottom:-30px;right:0;transform:rotate(180deg)}
 
   .title-sm{ font-family:var(--sans);font-size:.65rem; text-transform:uppercase;letter-spacing:4px; color:var(--gold);margin-bottom:8px; }
-  .title-script{ font-family:var(--script); font-size:clamp(2.5rem,10vw,3.5rem); color:var(--text);line-height:1.2;margin:5px 0 20px; font-weight:normal; }
+  .title-script{ font-family:var(--script); font-size:clamp(2.5rem,10vw,3rem); color:var(--text);line-height:1.2;margin:5px 0 20px; font-weight:normal; }
   .title-script-lg{ font-family:var(--script); font-size:clamp(2.5rem,8vw,3.5rem); color:var(--text);line-height:1.2;margin:5px 0 20px; font-weight:normal; white-space: nowrap; }
 
   .photo-row{display:flex;gap:5px;margin:25px 0 35px}
@@ -234,7 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   .cd-sep{font-size:1.8rem;color:var(--gold);opacity:.4;font-weight:200;align-self:flex-start;padding-top:5px}
 
   .thank-section{ padding:60px 28px;text-align:center; background:linear-gradient(180deg,var(--cream),#fff); }
-  .thank-you{ font-family:var(--script); font-size:clamp(2.8rem,10vw,4rem); color:var(--text);line-height:1; margin:40px 0 20px; }
+  .thank-you{ font-family:var(--script); font-size:clamp(2.8rem,10vw,3rem); color:var(--text);line-height:1; margin:40px 0 20px; }
   .footer-name{ font-family:var(--script); font-size:clamp(2rem,7vw,2.8rem); color:var(--gold); }
   .footer-line{width:80px;height:.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:20px auto}
 
@@ -294,13 +294,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
 <div class="wrapper" id="main-content">
 
   <div class="hero">
-    <div class="hero-bg-layer" id="hero-bg"><img src="uploads/image.png" alt="" style="height:100%"></div>
+    <div class="hero-bg-layer" id="hero-bg"><img src="uploads/background.jpg" alt="" style="Width:100%;"></div>
     <div class="bokeh-wrap" id="bokehWrap"></div>
     <div class="hero-content" id="hero-text-layer">
-      <div class="hero-badge">Lễ Tốt Nghiệp</div>
-      <h1 id="hero-name">Trần Thị Tố Nhi</h1>
-      <div class="hero-line"></div>
-      <div class="hero-date">22 · 04 · 2026</div>
+
       <div class="invite-box" id="inviteBox" style="display:none">
         <p class="invite-label">Kính mời</p>
         <p class="invite-name" id="guestNameDisplay"></p>
@@ -312,7 +309,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   <div class="section reveal">
     <div class="quote-box">
       <span class="quote-mark open">"</span>
-      Mong những lời chúc phúc của bạn ngày chia tay là chiếc ô che nắng, che mưa cho tôi vượt mọi chông gai đời người.
+      Đây là ngày mình muốn lưu lại những khoảng khắc đẹp đẽ của thời sinh viên.
+      Hy vọng những khoảnh khắc lưu lại cột mốc thời sinh viên này sẽ có sự tham gia của bạn.
       <span class="quote-mark close">"</span>
     </div>
   </div>
@@ -327,7 +325,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
       <img src="uploads/hero_default.jpg" loading="lazy" alt="Ảnh 2">
       <img src="uploads/avatar_default.jpg" loading="lazy" alt="Ảnh 3">
     </div>
-    <p class="text-desc">Tốt nghiệp là dấu mốc kết thúc một hành trình và mở ra một chặng đường mới. Tôi biết phía trước sẽ không dễ dàng, nhưng tôi tin vào bản thân, vào những gì mình đã học được. Cảm ơn thanh xuân vì đã rực rỡ đến thế! 🎓✨</p>
+    <p class="text-desc">Sau 3 năm nỗ lực không ngừng nghỉ, Tố Nhi đã sẵn sàng để chạm tay vào chiếc mũ cử nhân. Buổi lễ tốt nghiệp này sẽ kém phần trọn vẹn nếu thiếu đi sự hiện diện của những người đã luôn bên cạnh động viên và ủng hộ Nhi. Thân mời bạn/anh/chị/ gia đình đến tham dự buổi lễ để cùng Nhi lưu giữ những khung hình đẹp nhất của dấu mốc quan trọng này. 🎓✨</p>
   </div>
 
   <div class="divider reveal"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
@@ -371,13 +369,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
 
     <div class="location-card reveal">
       <div class="loc-name">Trường Đại học Nguyễn Tất Thành</div>
-      <div class="loc-addr">📍 300A Nguyễn Tất Thành, Quận 4, TP.HCM</div>
+      <div class="loc-addr">📍331A - 331B Đỗ Mười, An Phú Đông, TP HCM</div>
       <div class="map-container">
         <iframe width="100%" height="180" frameborder="0" scrolling="no" loading="lazy"
-          src="https://maps.google.com/maps?q=10.762622,106.660172&hl=vi&z=15&output=embed"></iframe>
+          src="https://maps.google.com/maps?q=10.859858712011244, 106.69462064035187&hl=vi&z=15&output=embed"></iframe>
       </div>
     </div>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=10.762622,106.660172" target="_blank" class="btn">✦ Chỉ Đường</a>
+    <a href="https://www.google.com/maps/dir/?api=1&destination=10.859858712011244, 106.69462064035187" target="_blank" class="btn">✦ Chỉ Đường</a>
   </div>
 
   <div class="section" style="background:#fff">
@@ -398,16 +396,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   </div>
   <div class="album-grid reveal">
     <div class="album-item"><img src="uploads/avatar_default.jpg" loading="lazy" alt="Album 1" class="zoomable"></div>
-    <div class="album-text">Cánh cửa đại học khép lại, mở ra vô vàn cơ hội mới.</div>
-    <div class="album-text">Có những khoảnh khắc trôi qua rồi mới biết thế nào là vô giá.</div>
     <div class="album-item"><img src="uploads/hero_default.jpg" loading="lazy" alt="Album 2" class="zoomable"></div>
+    <div class="album-item"><img src="uploads/avatar_default.jpg" loading="lazy" alt="Album 3" class="zoomable"></div>
+    <div class="album-item"><img src="uploads/avatar_default.jpg" loading="lazy" alt="Album 4" class="zoomable"></div>
   </div>
 
   <div class="rsvp-wrap" id="rsvp">
     <div class="reveal">
       <div class="title-sm">Gửi Lời Yêu Thương</div>
       <div class="title-script">Sổ Lưu Bút</div>
-      <p class="text-desc" style="text-align:center;margin-bottom:28px">Sự hiện diện của bạn là niềm vinh hạnh cho buổi lễ tốt nghiệp của mình.</p>
+      <p class="text-desc" style="text-align:center;margin-bottom:28px">Sự hiện diện của bạn/anh/chị/gia đình là niềm vinh hạnh cho buổi lễ tốt nghiệp của Tố Nhi.</p>
     </div>
     <div class="reveal">
       <form method="POST" action="?<?= isset($_SERVER['QUERY_STRING']) ? htmlspecialchars($_SERVER['QUERY_STRING']) : '' ?>#rsvp">
@@ -488,7 +486,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   }
 
   /* ---- COUNTDOWN DATE ---- */
-  const target=new Date('2026-04-22T07:30:00').getTime();
+  const target=new Date('2026-05-31T07:30:00').getTime();
   const introCdTxt=document.getElementById('intro-cd-text');
   
   function updateCD(){
