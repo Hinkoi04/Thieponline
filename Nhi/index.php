@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   #scroll-progress-bar { height: 100%; background: linear-gradient(90deg, var(--gold-light), var(--gold-dark)); width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s; }
 
   /* CSS CHO NÚT NHẠC */
-  #music-btn { position: fixed; bottom: 50px; left: 50%; transform: translateX(calc(min(430px, 100vw) / 2 - 58px)); z-index: 9999; width: 38px; height: 38px; background: rgba(255,255,255,0.85); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer; backdrop-filter: blur(5px); animation: spinDisc 4s linear infinite; animation-play-state: paused; }
+  #music-btn { position: fixed; bottom: 100px; left: 50%; transform: translateX(calc(min(430px, 100vw) / 2 - 58px)); z-index: 9999; width: 38px; height: 38px; background: rgba(255,255,255,0.85); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer; backdrop-filter: blur(5px); animation: spinDisc 4s linear infinite; animation-play-state: paused; }
   #music-btn.playing { animation-play-state: running; }
   #music-btn::before { content: '🎵'; font-size: 1.1rem; }
   @keyframes spinDisc { 100% { transform: translateX(calc(min(430px, 100vw) / 2 - 58px)) rotate(360deg); } }
