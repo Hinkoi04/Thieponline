@@ -621,33 +621,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     else { confCtx.clearRect(0, 0, confCanvas.width, confCanvas.height); confettis = []; }
   }
 
-  /* ---- SMOOTH AUTO SCROLL (ĐÃ FIX LỖI GIẬT/ĐỨNG) ---- */
+/* ---- SMOOTH AUTO SCROLL (TỐI ƯU 100% CHO MOBILE & PC) ---- */
   let scrollAnimationId = null; 
   let isAutoScrolling = false; 
+  let currentY = 0; // Biến lưu vị trí chính xác
 
   function smoothScrollToBottom() {
       isAutoScrolling = true;
-      
+      currentY = window.scrollY;
+
+      // QUAN TRỌNG: Tạm tắt CSS scroll mượt để trình duyệt điện thoại không bị lỗi khựng
+      document.documentElement.style.scrollBehavior = 'auto';
+
       function animation() {
-          // Nếu người dùng đã bấm dừng thì ngắt animation
           if (!isAutoScrolling) return;
 
-          // Cuộn đều đặn 1.5 pixel mỗi khung hình (Khoảng 90px/giây - Tốc độ đọc rất êm mắt)
-          // Bạn có thể tăng lên 2 hoặc 2.5 nếu muốn nó trôi nhanh hơn
-          window.scrollBy(0, 1.5);
+          // Cộng dồn vị trí thủ công (Sửa lỗi iPhone bỏ qua số lẻ)
+          currentY += 1.5; 
+          window.scrollTo(0, currentY);
 
-          const currentScroll = Math.ceil(window.scrollY);
           const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
-          // Nếu chưa cuộn tới đáy (cách đáy 5px) thì tiếp tục cuộn
-          if (currentScroll < maxScroll - 5) {
+          // Kiểm tra xem đã đến đáy chưa (cách đáy 5px)
+          if (window.scrollY < maxScroll - 5) {
               scrollAnimationId = requestAnimationFrame(animation);
           } else {
-              isAutoScrolling = false; 
+              stopAutoScroll(); 
           }
       }
       
-      // Bắt đầu vòng lặp cuộn
       scrollAnimationId = requestAnimationFrame(animation);
   }
 
@@ -659,10 +661,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
               cancelAnimationFrame(scrollAnimationId);
               scrollAnimationId = null;
           }
+          // Trả lại cài đặt CSS cuộn mượt cho các nút "Lên đầu trang", "Chỉ đường"
+          document.documentElement.style.scrollBehavior = 'smooth';
       }
   }
 
-  // Lắng nghe thao tác: Chỉ cần khách lướt tay, lăn chuột, hoặc chạm vào màn hình là lập tức dừng cuộn
+  // Lắng nghe thao tác: Chỉ dừng khi khách thực sự LƯỚT ngón tay (touchmove)
   ['wheel', 'touchmove', 'mousedown'].forEach(e => window.addEventListener(e, stopAutoScroll, { passive: true }));
 
   /* ---- INTRO OVERLAY & MỞ THIỆP ---- */
