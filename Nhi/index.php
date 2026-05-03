@@ -318,7 +318,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     <div class="photo-row">
       <img src="uploads/anh1.JPG" loading="lazy" alt="Ảnh 1">
       <img src="uploads/anh7.JPG" loading="lazy" alt="Ảnh 2">
-      <img src="uploads/anh2.JPG" loading="lazy" alt="Ảnh 3">
+      <img src="uploads/anh8.JPG" loading="lazy" alt="Ảnh 3">
     </div>
     <p class="text-desc">Sau 3 năm nỗ lực không ngừng nghỉ, Tố Nhi đã sẵn sàng để chạm tay vào chiếc mũ cử nhân. Buổi lễ tốt nghiệp này sẽ kém phần trọn vẹn nếu thiếu đi sự hiện diện của những người đã luôn bên cạnh động viên và ủng hộ Nhi. Thân mời bạn/anh/chị/ gia đình đến tham dự buổi lễ để cùng Nhi lưu giữ những khung hình đẹp nhất của dấu mốc quan trọng này. 🎓✨</p>
   </div>
