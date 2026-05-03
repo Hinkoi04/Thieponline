@@ -670,7 +670,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   function startScroll(){
     scrollPos=window.scrollY; scrolling=true;
     function step(){
-      if(!scrolling)return; scrollPos+=5; window.scrollTo(0,scrollPos);
+      if(!scrolling)return; scrollPos+=1.5; window.scrollTo(0,scrollPos);
       if((window.innerHeight+scrollPos)>=document.documentElement.scrollHeight-5){scrolling=false;return;}
       scrollRAF=requestAnimationFrame(step);
     }
