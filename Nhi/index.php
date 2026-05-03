@@ -38,8 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   <meta name="description" content="Kính mời bạn đến dự lễ tốt nghiệp cùng Nhi nhé!">
   <meta property="og:title" content="Lễ Tốt Nghiệp - Trần Thị Tố Nhi 🎓">
   <meta property="og:description" content="Kính mời bạn đến dự lễ tốt nghiệp cùng Nhi nhé!">
-  <meta property="og:image" content="uploads/image.png">
-  <meta property="og:url" content="">
+  <meta property="og:image" content="http://dovanhin04.id.vn/Nhi/uploads/image.png">
+  <meta property="og:url" content="http://dovanhin04.id.vn/Nhi/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Pinyon+Script&family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
