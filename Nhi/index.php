@@ -262,11 +262,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
 <div id="intro-overlay">
   <div class="intro-top intro-half">
     <canvas id="star-canvas"></canvas> 
-    <div class="intro-shimmer"><img src="uploads/image.png" alt="" style="opacity:10%; position:absolute; top:0; left:0; width:100%;height:500px"></div>
-    <div class="cap-wrap" style="margin-bottom:20px">
-      <div class="cap-top"></div>
-      <div class="cap-board"></div>
-    </div>
+    <div class="intro-shimmer"><img src="uploads/IMG_5187.JPG" alt="" style="opacity:10%; position:absolute; top:0; left:0; width:100%;height:500px"></div>
     <div class="cap-title">Graduation</div>
     <div class="cap-sub">2026</div>
   </div>
@@ -321,9 +317,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     <div class="title-sm">Tân Cử Nhân</div>
     <div class="title-script-lg">Trần Thị Tố Nhi</div>
     <div class="photo-row">
-      <img src="uploads/avatar_default.jpg" loading="lazy" alt="Ảnh 1">
-      <img src="uploads/hero_default.jpg" loading="lazy" alt="Ảnh 2">
-      <img src="uploads/avatar_default.jpg" loading="lazy" alt="Ảnh 3">
+      <img src="uploads/anh1.JPG" loading="lazy" alt="Ảnh 1">
+      <img src="uploads/anh7.JPG" loading="lazy" alt="Ảnh 2">
+      <img src="uploads/anh2.JPG" loading="lazy" alt="Ảnh 3">
     </div>
     <p class="text-desc">Sau 3 năm nỗ lực không ngừng nghỉ, Tố Nhi đã sẵn sàng để chạm tay vào chiếc mũ cử nhân. Buổi lễ tốt nghiệp này sẽ kém phần trọn vẹn nếu thiếu đi sự hiện diện của những người đã luôn bên cạnh động viên và ủng hộ Nhi. Thân mời bạn/anh/chị/ gia đình đến tham dự buổi lễ để cùng Nhi lưu giữ những khung hình đẹp nhất của dấu mốc quan trọng này. 🎓✨</p>
   </div>
@@ -395,10 +391,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     <div class="title-script">Album Tốt Nghiệp</div>
   </div>
   <div class="album-grid reveal">
-    <div class="album-item"><img src="uploads/avatar_default.jpg" loading="lazy" alt="Album 1" class="zoomable"></div>
-    <div class="album-item"><img src="uploads/hero_default.jpg" loading="lazy" alt="Album 2" class="zoomable"></div>
-    <div class="album-item"><img src="uploads/avatar_default.jpg" loading="lazy" alt="Album 3" class="zoomable"></div>
-    <div class="album-item"><img src="uploads/avatar_default.jpg" loading="lazy" alt="Album 4" class="zoomable"></div>
+    <div class="album-item"><img src="uploads/anh4.JPG" loading="lazy" alt="Album 1" class="zoomable"></div>
+    <div class="album-item"><img src="uploads/anh5.JPG" loading="lazy" alt="Album 2" class="zoomable"></div>
+    <div class="album-item"><img src="uploads/anh6.JPG" loading="lazy" alt="Album 3" class="zoomable"></div>
+    <div class="album-item"><img src="uploads/anh3.JPG" loading="lazy" alt="Album 4" class="zoomable"></div>
   </div>
 
   <div class="rsvp-wrap" id="rsvp">
