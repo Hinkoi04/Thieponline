@@ -58,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     --sans:'Montserrat',sans-serif;
     --script:'Pinyon Script',cursive;
   }
-
   body{ background:#111; font-family:var(--serif); display:flex; justify-content:center; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   body.locked{overflow:hidden}
 
