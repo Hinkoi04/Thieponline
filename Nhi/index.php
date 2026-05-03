@@ -67,6 +67,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   #scroll-progress { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(430px, 100vw); height: 4px; background: rgba(201,169,110,0.2); z-index: 99999; }
   #scroll-progress-bar { height: 100%; background: linear-gradient(90deg, var(--gold-light), var(--gold-dark)); width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s; }
 
+  /* CSS CHO NÚT NHẠC */
+  #music-btn { position: fixed; bottom: 50px; left: 50%; transform: translateX(calc(min(430px, 100vw) / 2 - 58px)); z-index: 9999; width: 38px; height: 38px; background: rgba(255,255,255,0.85); border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer; backdrop-filter: blur(5px); animation: spinDisc 4s linear infinite; animation-play-state: paused; }
+  #music-btn.playing { animation-play-state: running; }
+  #music-btn::before { content: '🎵'; font-size: 1.1rem; }
+  @keyframes spinDisc { 100% { transform: translateX(calc(min(430px, 100vw) / 2 - 58px)) rotate(360deg); } }
+
   #toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: rgba(26, 20, 16, 0.95); color: var(--gold-light); padding: 12px 25px; border-radius: 50px; font-family: var(--sans); font-size: 0.8rem; z-index: 999999; transition: bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); backdrop-filter: blur(10px); border: 1px solid var(--gold); white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
   #toast.show { bottom: 40px; }
 
@@ -254,6 +260,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
 <body class="locked">
 
 <div id="toast" class="<?= $toast_class ?>"><?= $toast_msg ?></div>
+
+<div id="music-btn" title="Bật/Tắt nhạc"></div>
+<audio id="bg-music" src="music/nhac.mp3" loop></audio>
 
 <canvas id="particles-canvas"></canvas>
 <canvas id="confetti-canvas"></canvas>
@@ -480,6 +489,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
       setTimeout(() => { if(typeof initReveal === 'function') initReveal(); }, 100);
   }
 
+  /* ---- TRÌNH PHÁT NHẠC ---- */
+  const musicBtn = document.getElementById('music-btn');
+  const bgMusic = document.getElementById('bg-music');
+  let isPlaying = false;
+  let userInteractedMusic = false;
+
+  if(musicBtn && bgMusic) {
+      musicBtn.addEventListener('click', () => {
+          userInteractedMusic = true;
+          if(isPlaying) { bgMusic.pause(); musicBtn.classList.remove('playing'); } 
+          else { bgMusic.play(); musicBtn.classList.add('playing'); }
+          isPlaying = !isPlaying;
+      });
+  }
+
   /* ---- COUNTDOWN DATE ---- */
   const target=new Date('2026-05-31T07:30:00').getTime();
   const introCdTxt=document.getElementById('intro-cd-text');
@@ -615,9 +639,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
         
         intro.classList.add('open');
 
+        // Tự động phát nhạc khi chạm mở thiệp
+        if(!userInteractedMusic && bgMusic) {
+            bgMusic.play().then(()=>{ 
+                if(musicBtn) musicBtn.classList.add('playing'); 
+                isPlaying = true; 
+            }).catch(err=>console.log("Auto-play bị chặn"));
+        }
+
         setTimeout(()=>{
           main.classList.add('visible');
-          heroName.classList.add('typewriter'); 
+          if(heroName) heroName.classList.add('typewriter'); 
         },400);
         
         setTimeout(()=>{
@@ -685,8 +717,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
         else { if(scrollArrow) scrollArrow.classList.remove('hidden'); }
 
         if(scrollTop < window.innerHeight) {
-          heroBg.style.transform = `translateY(${scrollTop * 0.3}px)`;
-          heroText.style.transform = `translateY(${scrollTop * 0.6}px)`;
+          if(heroBg) heroBg.style.transform = `translateY(${scrollTop * 0.3}px)`;
+          if(heroText) heroText.style.transform = `translateY(${scrollTop * 0.6}px)`;
         }
         ticking = false;
       });
@@ -700,16 +732,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   document.querySelectorAll('.zoomable').forEach(img => {
     img.addEventListener('click', () => { lbImg.src = img.src; lightbox.classList.add('active'); });
   });
-  lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+  if(lightbox) lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
 
   /* ---- SCROLL TOP BTN ---- */
   const btn=document.getElementById('scrollTopBtn');
   window.addEventListener('scroll',()=>{
     const total=document.documentElement.scrollHeight-window.innerHeight;
-    if(window.scrollY>total*.25)btn.classList.add('show');
-    else btn.classList.remove('show');
+    if(window.scrollY>total*.25) { if(btn) btn.classList.add('show'); }
+    else { if(btn) btn.classList.remove('show'); }
   },{passive:true});
-  btn.addEventListener('click',()=>{stopScroll();window.scrollTo({top:0,behavior:'smooth'});});
+  if(btn) btn.addEventListener('click',()=>{stopScroll();window.scrollTo({top:0,behavior:'smooth'});});
 
 })();
 </script>
