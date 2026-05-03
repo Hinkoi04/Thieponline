@@ -329,7 +329,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
       <img src="uploads/anh7.JPG" loading="lazy" alt="Ảnh 2">
       <img src="uploads/anh8.JPG" loading="lazy" alt="Ảnh 3">
     </div>
-    <p class="text-desc">Sau 3 năm nỗ lực không ngừng nghỉ, Tố Nhi đã sẵn sàng để chạm tay vào chiếc mũ cử nhân. Buổi lễ tốt nghiệp này sẽ kém phần trọn vẹn nếu thiếu đi sự hiện diện của những người đã luôn bên cạnh động viên và ủng hộ Nhi. Thân mời bạn/anh/chị/ gia đình đến tham dự buổi lễ để cùng Nhi lưu giữ những khung hình đẹp nhất của dấu mốc quan trọng này. 🎓✨</p>
+    <p class="text-desc">Sau 3 năm nỗ lực không ngừng nghỉ, Tố Nhi đã sẵn sàng để chạm tay vào chiếc mũ cử nhân. Buổi lễ tốt nghiệp này sẽ kém phần trọn vẹn nếu thiếu đi sự hiện diện của những người đã luôn bên cạnh động viên và ủng hộ Nhi. Thân mời bạn/ anh/ chị/ gia đình đến tham dự buổi lễ để cùng Nhi lưu giữ những khung hình đẹp nhất của dấu mốc quan trọng này. 🎓✨</p>
   </div>
 
   <div class="divider reveal"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
@@ -409,7 +409,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     <div class="reveal">
       <div class="title-sm">Gửi Lời Yêu Thương</div>
       <div class="title-script">Sổ Lưu Bút</div>
-      <p class="text-desc" style="text-align:center;margin-bottom:28px">Sự hiện diện của bạn/anh/chị/gia đình là niềm vinh hạnh cho buổi lễ tốt nghiệp của Tố Nhi.</p>
+      <p class="text-desc" style="text-align:center;margin-bottom:28px">Sự hiện diện của bạn/ anh/ chị/ gia đình là niềm vinh hạnh 
+        cho buổi lễ tốt nghiệp của Tố Nhi. Dẫu khoảng cách địa lý hay công việc có ngăn chúng ta gặp gỡ, 
+        nhưng niềm vui ngày tốt nghiệp sẽ thêm trọn vẹn hơn nếu như mình nhận thêm chúc từ bạn.❤️</p>
     </div>
     <div class="reveal">
       <form method="POST" action="?<?= isset($_SERVER['QUERY_STRING']) ? htmlspecialchars($_SERVER['QUERY_STRING']) : '' ?>#rsvp">
