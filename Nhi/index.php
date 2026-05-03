@@ -142,6 +142,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   @keyframes bokehFloat{ 0%{transform:translateY(100vh) scale(0.8);opacity:0} 10%{opacity:1} 90%{opacity:.8} 100%{transform:translateY(-20vh) scale(1.2);opacity:0} }
 
   .hero-content{position:relative;z-index:2;color:#fff;padding:0 20px;width:100%;top:30%; will-change: transform;}
+  @media (max-width: 768px) {
+  .hero-content {
+    top: 27%; 
+    padding: 0 15px; 
+  }
+}
   .hero-badge{ font-family:var(--sans);font-size:.6rem;letter-spacing:5px; text-transform:uppercase;color:var(--gold-light); margin-bottom:20px;opacity:.9; display:flex;align-items:center;justify-content:center;gap:12px; }
   .hero-badge::before,.hero-badge::after{ content:'';width:40px;height:.5px;background:var(--gold);display:block; }
 
