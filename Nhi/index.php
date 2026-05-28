@@ -179,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   .quote-mark{ font-family:var(--script);font-size:5rem; color:var(--gold);opacity:.2; position:absolute;line-height:1; }
   .quote-mark.open{top:-10px;left:0} .quote-mark.close{bottom:-30px;right:0;transform:rotate(180deg)}
 
-  .title-sm{ font-family:var(--sans);font-size:.65rem; text-transform:uppercase;letter-spacing:4px; color:var(--gold);margin-bottom:8px; }
+  .title-sm{ font-family:var(--sans);font-size:1rem; text-transform:uppercase;letter-spacing:4px; color:var(--gold-dark);margin-bottom:8px; }
   .title-script{ font-family:var(--script); font-size:clamp(2.5rem,10vw,3rem); color:var(--text);line-height:1.2;margin:5px 0 20px; font-weight:normal; }
   .title-script-lg{ font-family:var(--script); font-size:clamp(2.5rem,8vw,3.5rem); color:var(--text);line-height:1.2;margin:5px 0 20px; font-weight:normal; white-space: nowrap; }
 
@@ -356,25 +356,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   <div class="cal-wrap">
     <div class="reveal">
       <div class="title-sm">Thời Gian</div>
-      <div class="title-script">Tháng 04 · 2026</div>
+      <div class="title-script">Tháng 06 · 2026</div>
     </div>
     <table class="cal-table reveal">
       <tr><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th></tr>
-      <tr><td class="empty">30</td><td class="empty">31</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
-      <tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
-      <tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
-      <tr><td>20</td><td>21</td><td><span class="day-active">22</span></td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
-      <tr><td>27</td><td>28</td><td>29</td><td>30</td><td class="empty">1</td><td class="empty">2</td><td class="empty">3</td></tr>
+      <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+      <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+      <tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td><span class="day-active">20</span></td><td>21</td></tr>
+      <tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+      <tr><td>29</td><td>30</td><td class="empty">1</td><td class="empty">2</td><td class="empty">3</td><td class="empty">4</td><td class="empty">5</td></tr>
     </table>
 
     <div class="date-block reveal-scale">
-      <div class="d-item"><span>Tháng</span><strong>04</strong></div>
+      <div class="d-item"><span>Tháng</span><strong>06</strong></div>
       <div class="date-dot"></div>
-      <div class="d-item main"><span>Thứ Tư</span><strong>22</strong></div>
+      <div class="d-item main"><span>Thứ Bảy</span><strong>20</strong></div>
       <div class="date-dot"></div>
       <div class="d-item"><span>Năm</span><strong>2026</strong></div>
     </div>
-
     <div class="title-sm" style="color:var(--charcoal);font-weight:700;margin:10px 0">Lễ Tốt Nghiệp Lúc 07:30 Sáng</div>
 
     <div class="location-card reveal">
@@ -447,7 +446,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     <div class="thank-you reveal">Trân trọng cảm ơn</div>
     <div class="footer-name reveal">Trần Thị Tố Nhi</div>
     <div class="footer-line"></div>
-    <p style="font-family:var(--sans);font-size:.65rem;color:#bbb;letter-spacing:3px;margin-top:20px;text-transform:uppercase">22 · 04 · 2026</p>
+    <p style="font-family:var(--sans);font-size:1rem;color:#bbb;letter-spacing:3px;margin-top:20px;text-transform:uppercase">20 · 06 · 2026</p>
   </div>
 
 </div>
@@ -512,7 +511,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   }
 
   /* ---- COUNTDOWN DATE ---- */
-  const target=new Date('2026-05-31T07:30:00').getTime();
+  const target=new Date('2026-06-20T07:30:00').getTime();
   const introCdTxt=document.getElementById('intro-cd-text');
   
   function updateCD(){
