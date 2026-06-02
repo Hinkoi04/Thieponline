@@ -366,7 +366,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
       <tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
       <tr><td>29</td><td>30</td><td class="empty">1</td><td class="empty">2</td><td class="empty">3</td><td class="empty">4</td><td class="empty">5</td></tr>
     </table>
-
     <div class="date-block reveal-scale">
       <div class="d-item"><span>Tháng</span><strong>06</strong></div>
       <div class="date-dot"></div>
