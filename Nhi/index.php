@@ -286,7 +286,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
       <div class="name">Nguyễn Tất Thành</div>
     </div>
     <div class="intro-date-info">
-      <div class="day">22/04</div>
+      <div class="day">21/06</div>
       <div class="year">2026</div>
     </div>
   </div>
@@ -362,7 +362,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
       <tr><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th></tr>
       <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
       <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
-      <tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td><span class="day-active">20</span></td><td>21</td></tr>
+      <tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td><span class="day-active">21</span></td></tr>
       <tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
       <tr><td>29</td><td>30</td><td class="empty">1</td><td class="empty">2</td><td class="empty">3</td><td class="empty">4</td><td class="empty">5</td></tr>
     </table>
@@ -393,9 +393,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
       <div class="title-script">Sự Kiện</div>
     </div>
     <div class="timeline stagger" id="timeline">
-      <div class="t-item"><div class="t-time">07:30</div><div class="t-desc">Đón khách & Ổn định chỗ ngồi</div></div>
-      <div class="t-item"><div class="t-time">08:00</div><div class="t-desc">Bắt đầu Lễ Trao Bằng Tốt Nghiệp</div></div>
-      <div class="t-item"><div class="t-time">10:30</div><div class="t-desc">Chụp ảnh lưu niệm & Chung vui</div></div>
+      <div class="t-item"><div class="t-time">07:30</div><div class="t-desc">Bắt đầu Lễ Trao Bằng Tốt Nghiệp</div></div>
+      <div class="t-item"><div class="t-time">09:30</div><div class="t-desc">Đón khách, Chụp ảnh lưu niệm & Chung vui</div></div>
     </div>
   </div>
 
@@ -446,7 +445,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     <div class="thank-you reveal">Trân trọng cảm ơn</div>
     <div class="footer-name reveal">Trần Thị Tố Nhi</div>
     <div class="footer-line"></div>
-    <p style="font-family:var(--sans);font-size:1rem;color:#bbb;letter-spacing:3px;margin-top:20px;text-transform:uppercase">20 · 06 · 2026</p>
+    <p style="font-family:var(--sans);font-size:1rem;color:#bbb;letter-spacing:3px;margin-top:20px;text-transform:uppercase">21 · 06 · 2026</p>
   </div>
 
 </div>
@@ -511,7 +510,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   }
 
   /* ---- COUNTDOWN DATE ---- */
-  const target=new Date('2026-06-20T07:30:00').getTime();
+  const target=new Date('2026-06-21T07:30:00').getTime();
   const introCdTxt=document.getElementById('intro-cd-text');
   
   function updateCD(){
