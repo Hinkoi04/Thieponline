@@ -370,11 +370,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     <div class="date-block reveal-scale">
       <div class="d-item"><span>Tháng</span><strong>06</strong></div>
       <div class="date-dot"></div>
-      <div class="d-item main"><span>Thứ Bảy</span><strong>20</strong></div>
+      <div class="d-item main"><span>Chủ nhật</span><strong>21</strong></div>
       <div class="date-dot"></div>
       <div class="d-item"><span>Năm</span><strong>2026</strong></div>
     </div>
-    <div class="title-sm" style="color:var(--charcoal);font-weight:700;margin:10px 0">Lễ Tốt Nghiệp Lúc 07:30 Sáng</div>
 
     <div class="location-card reveal">
       <div class="loc-name">Trường Đại học Nguyễn Tất Thành</div>
