@@ -36,12 +36,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Thư mời Tốt Nghiệp - Trần Thị Tố Nhi</title>
   <meta name="description" content="Kính mời bạn đến dự lễ tốt nghiệp cùng Nhi nhé!">
+  
+  <meta property="og:type" content="website">
   <meta property="og:title" content="Lễ Tốt Nghiệp - Trần Thị Tố Nhi 🎓">
   <meta property="og:description" content="Kính mời bạn đến dự lễ tốt nghiệp cùng Nhi nhé!">
   <meta property="og:image" content="https://dovanhin04.id.vn/Nhi/uploads/image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://dovanhin04.id.vn/Nhi/">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lễ Tốt Nghiệp - Trần Thị Tố Nhi 🎓">
+  <meta name="twitter:description" content="Kính mời bạn đến dự lễ tốt nghiệp cùng Nhi nhé!">
+  <meta name="twitter:image" content="https://dovanhin04.id.vn/Nhi/uploads/image.png">
+
+  <link rel="preload" as="image" href="https://dovanhin04.id.vn/Nhi/uploads/image.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Pinyon+Script&family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -134,7 +144,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   #main-content.visible{opacity:1}
 
   .hero{ height:100vh; position:relative; display:flex;flex-direction:column; justify-content:center;align-items:center; text-align:center; overflow:hidden; }
-  .hero-bg-layer { position: absolute; inset: -20px; background-image:url('uploads/hero_default.jpg'); background-size:cover; background-position:center; z-index: 0; will-change: transform; }
+  /* Tối ưu Parallax: Sử dụng thuộc tính CSS background chuẩn, không lồng thẻ img thừa */
+  .hero-bg-layer { position: absolute; inset: -20px; background-image:url('uploads/anhmain.jpg'); background-size:cover; background-position:center; z-index: 0; will-change: transform; }
   .hero::before{ content:'';position:absolute;inset:0; background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(10,5,0,.85) 100%); z-index:1; }
 
   .bokeh-wrap{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
@@ -142,12 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
   @keyframes bokehFloat{ 0%{transform:translateY(100vh) scale(0.8);opacity:0} 10%{opacity:1} 90%{opacity:.8} 100%{transform:translateY(-20vh) scale(1.2);opacity:0} }
 
   .hero-content{position:relative;z-index:2;color:#fff;padding:0 20px;width:100%;top:30%; will-change: transform;}
-  @media (max-width: 768px) {
-  .hero-content {
-    top: 17%; 
-    padding: 0 15px; 
-  }
-}
+  @media (max-width: 768px) { .hero-content { top: 17%; padding: 0 15px; } }
   .hero-badge{ font-family:var(--sans);font-size:.6rem;letter-spacing:5px; text-transform:uppercase;color:var(--gold-light); margin-bottom:20px;opacity:.9; display:flex;align-items:center;justify-content:center;gap:12px; }
   .hero-badge::before,.hero-badge::after{ content:'';width:40px;height:.5px;background:var(--gold);display:block; }
 
@@ -276,7 +282,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
 <div id="intro-overlay">
   <div class="intro-top intro-half">
     <canvas id="star-canvas"></canvas> 
-    <div class="intro-shimmer"><img src="uploads/IMG_5187.JPG" alt="" style="opacity:10%; position:absolute; top:0; left:0; width:100%;height:500px"></div>
+    <div class="intro-shimmer"><img src="uploads/IMG_5187.JPG" alt="" style="opacity:10%; position:absolute; top:0; left:0; width:100%;height:500px" fetchpriority="high"></div>
     <div class="cap-title">Graduation</div>
     <div class="cap-sub">2026</div>
   </div>
@@ -291,7 +297,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     </div>
   </div>
   <div class="tassel-wrap">
-    <img src="uploads/daay.png" alt="" style="width:100px;height:340px;object-fit:contain; margin-top:0">
+    <img src="uploads/daay.png" alt="" style="width:100px;height:340px;object-fit:contain; margin-top:0" fetchpriority="high">
   </div>
   <div class="click-hint">
     ✦ Chạm để mở thiệp ✦
@@ -304,10 +310,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
 <div class="wrapper" id="main-content">
 
   <div class="hero">
-    <div class="hero-bg-layer" id="hero-bg"><img src="uploads/anhmain.jpg" alt="" style="Width:100%;"></div>
+    <div class="hero-bg-layer" id="hero-bg"></div>
     <div class="bokeh-wrap" id="bokehWrap"></div>
     <div class="hero-content" id="hero-text-layer">
-
       <div class="invite-box" id="inviteBox" style="display:none">
         <p class="invite-label">Kính mời</p>
         <p class="invite-name" id="guestNameDisplay"></p>
@@ -379,10 +384,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
       <div class="loc-addr">📍331A - 331B Đỗ Mười, An Phú Đông, TP HCM</div>
       <div class="map-container">
         <iframe width="100%" height="180" frameborder="0" scrolling="no" loading="lazy"
-          src="https://maps.google.com/maps?q=10.859858712011244, 106.69462064035187&hl=vi&z=15&output=embed"></iframe>
+          src="https://maps.google.com/maps?q=10.859811830943485, 106.69462607762992&hl=vi&z=15&output=embed"></iframe>
       </div>
     </div>
-    <a href="https://www.google.com/maps/dir/?api=1&destination=10.859858712011244, 106.69462064035187" target="_blank" class="btn">✦ Chỉ Đường</a>
+    <a href="https://maps.google.com/maps?q=10.859811830943485, 106.69462607762992" target="_blank" class="btn">✦ Chỉ Đường</a>
   </div>
 
   <div class="section" style="background:#fff">
@@ -617,39 +622,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     else { confCtx.clearRect(0, 0, confCanvas.width, confCanvas.height); confettis = []; }
   }
 
-/* ---- SMOOTH AUTO SCROLL (TỐI ƯU 100% CHO MOBILE & PC) ---- */
+/* ---- SMOOTH AUTO SCROLL ---- */
   let scrollAnimationId = null; 
   let isAutoScrolling = false; 
-  let currentY = 0; // Biến lưu vị trí chính xác
+  let currentY = 0;
 
   function smoothScrollToBottom() {
       isAutoScrolling = true;
       currentY = window.scrollY;
-
-      // QUAN TRỌNG: Tạm tắt CSS scroll mượt để trình duyệt điện thoại không bị lỗi khựng
       document.documentElement.style.scrollBehavior = 'auto';
 
       function animation() {
           if (!isAutoScrolling) return;
-
-          // Cộng dồn vị trí thủ công (Sửa lỗi iPhone bỏ qua số lẻ)
           currentY += 1.5; 
           window.scrollTo(0, currentY);
-
           const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-
-          // Kiểm tra xem đã đến đáy chưa (cách đáy 5px)
           if (window.scrollY < maxScroll - 5) {
               scrollAnimationId = requestAnimationFrame(animation);
           } else {
               stopAutoScroll(); 
           }
       }
-      
       scrollAnimationId = requestAnimationFrame(animation);
   }
 
-  // Hàm ngắt tính năng tự động cuộn
   function stopAutoScroll() {
       if (isAutoScrolling) {
           isAutoScrolling = false;
@@ -657,12 +653,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
               cancelAnimationFrame(scrollAnimationId);
               scrollAnimationId = null;
           }
-          // Trả lại cài đặt CSS cuộn mượt cho các nút "Lên đầu trang", "Chỉ đường"
           document.documentElement.style.scrollBehavior = 'smooth';
       }
   }
 
-  // Lắng nghe thao tác: Chỉ dừng khi khách thực sự LƯỚT ngón tay (touchmove)
   ['wheel', 'touchmove', 'mousedown'].forEach(e => window.addEventListener(e, stopAutoScroll, { passive: true }));
 
   /* ---- INTRO OVERLAY & MỞ THIỆP ---- */
@@ -694,7 +688,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
         intro.appendChild(ripple);
 
         fireConfetti(rect.width/2, rect.height/2);
-        
         intro.classList.add('open');
 
         setTimeout(()=>{
@@ -709,10 +702,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
           const invBox = document.getElementById('inviteBox');
           if(invBox) invBox.classList.add('anim'); 
           animParticles(); initReveal(); initTimeline(); 
-
-          // GỌI CHÍNH XÁC HÀM CỦA BẠN (TRỄ 1 GIÂY SAU KHI VÀO THIỆP)
           setTimeout(smoothScrollToBottom, 1000); 
-
         },1600);
       });
   }
@@ -782,7 +772,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     else { if(btn) btn.classList.remove('show'); }
   },{passive:true});
   if(btn) btn.addEventListener('click',()=>{
-      stopAutoScroll(); // Tắt tự cuộn nếu bấm nút quay lại
+      stopAutoScroll(); 
       window.scrollTo({top:0,behavior:'smooth'});
   });
 
