@@ -304,7 +304,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
 <div class="wrapper" id="main-content">
 
   <div class="hero">
-    <div class="hero-bg-layer" id="hero-bg"><img src="uploads/anhmain.png" alt="" style="Width:100%;"></div>
+    <div class="hero-bg-layer" id="hero-bg"><img src="uploads/anhmain.jpg" alt="" style="Width:100%;"></div>
     <div class="bokeh-wrap" id="bokehWrap"></div>
     <div class="hero-content" id="hero-text-layer">
 
