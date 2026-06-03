@@ -1,0 +1,3 @@
+RewriteCond %{HTTP_USER_AGENT} facebookexternalhit [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} Facebot [NC]
+RewriteRule .* - [L]
