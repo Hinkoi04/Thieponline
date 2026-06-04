@@ -383,8 +383,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
       </div>
     </div>
     <a href="https://www.google.com/maps/dir/?api=1&destination=10.859858712011244, 106.69462064035187" target="_blank" class="btn">✦ Chỉ Đường</a>
+  <div class="reveal">
+    <div class="title-script">Liên hệ</div>
+      <div class="title-sm">Nhi: 0334259765</div>
+      <div class="title-sm">Mi: 0397177038</div>
+    </div>
   </div>
-
+  
   <div class="section" style="background:#fff">
     <div class="reveal">
       <div class="title-sm">Chương Trình</div>
