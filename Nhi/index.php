@@ -397,7 +397,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_rsvp'])) {
     </div>
     <div class="timeline stagger" id="timeline">
       <div class="t-item"><div class="t-time">07:30</div><div class="t-desc">Bắt đầu Lễ Trao Bằng Tốt Nghiệp</div></div>
-      <div class="t-item"><div class="t-time">09:30</div><div class="t-desc">Đón khách, Chụp ảnh lưu niệm & Chung vui</div></div>
+      <div class="t-item"><div class="t-time">09:45 - 12:00</div><div class="t-desc">Đón khách, Chụp ảnh lưu niệm & Chung vui</div></div>
     </div>
   </div>
 
